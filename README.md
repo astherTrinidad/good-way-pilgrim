@@ -1,1 +1,1 @@
-# goodway-pilgrim
+# good-way-pilgrim
