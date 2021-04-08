@@ -1,5 +1,6 @@
 
 ###> symfony/framework-bundle ###
+
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -14,9 +15,4 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-<<<<<<< HEAD
 nbproject
-=======
-nbproject/
-.env
->>>>>>> a0359debc17361f888e74011f92a7df0fec2fa70
