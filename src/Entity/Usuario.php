@@ -5,11 +5,12 @@ namespace App\Entity;
 use App\Repository\UsuarioRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
  */
-class Usuario {
+class Usuario implements UserInterface {
 
     public function __construct() {
         $this->caminos = new \Doctrine\Common\Collections\ArrayCollection();
@@ -138,6 +139,33 @@ class Usuario {
     public function setLogros($logros) {
         $this->logros = $logros;
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt() {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials() {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getPassword(): ?string {
+        return $this->pass;
+    }
+
+    public function getRoles() {
+        
+    }
+
+    public function getUsername() {
+        return $this->nombre;
     }
 
 }
