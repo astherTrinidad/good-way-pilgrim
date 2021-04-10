@@ -1,6 +1,5 @@
 
 ###> symfony/framework-bundle ###
-
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -16,5 +15,3 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 nbproject
-
-
