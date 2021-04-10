@@ -11,10 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Usuario {
 
-    public function __construct() {
-        $this->caminos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->mochilas = new ArrayCollection();
-        $this->logros = new ArrayCollection();
+    public function __construct() {      
+        $this->userCamino = new ArrayCollection();
+        $this->backpack = new ArrayCollection(); 
     }
 
     /**
@@ -25,19 +24,14 @@ class Usuario {
     private $id;
 
     /**
-     * @ORM\Column(type="string",unique=true, length=9)
+     * @ORM\Column(type="string", length=50)
      */
-    private $dni;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $nombre;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $apellido;
+    private $surname;
 
     /**
      * @ORM\Column(type="string", length=30)
@@ -50,55 +44,38 @@ class Usuario {
     private $pass;
 
     /**
-     * Muchos usuarios tienen muchos caminos
-     * @ORM\ManyToMany(targetEntity="Camino", inversedBy="usuarios")
-     * @ORM\JoinTable(name="usuarios_caminos")
+     * Un usuario tiene muchos UsuarioCamino
+     * @ORM\OneToMany(targetEntity="UsuarioCamino", mappedBy="usuario")
      */
-    private $caminos;
+    private $userCamino;
 
-    /**
+     /**
      * Un usuario tiene muchas mochilas
      * @ORM\OneToMany(targetEntity="Mochila", mappedBy="usuario")
      */
-    private $mochilas;
+    private $backpack;
 
-    /**
-     * Muchos usuarios tienen muchos logros
-     * @ORM\ManyToMany(targetEntity="Logro", inversedBy="usuarios")
-     * @ORM\JoinTable(name="usuarios_logros")
-     */
-    private $logros;
-
+    
     public function getId(): ?int {
         return $this->id;
+    }   
+
+    public function getName(): ?string {
+        return $this->name;
     }
 
-    public function getDni(): ?string {
-        return $this->dni;
-    }
-
-    public function setDni(string $dni): self {
-        $this->dni = $dni;
+    public function setName(string $name): self {
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getNombre(): ?string {
-        return $this->nombre;
+    public function getSurname(): ?string {
+        return $this->surname;
     }
 
-    public function setNombre(string $nombre): self {
-        $this->nombre = $nombre;
-
-        return $this;
-    }
-
-    public function getApellido(): ?string {
-        return $this->apellido;
-    }
-
-    public function setApellido(string $apellido): self {
-        $this->apellido = $apellido;
+    public function setSurname(string $surname): self {
+        $this->surname = $surname;
 
         return $this;
     }
@@ -119,25 +96,6 @@ class Usuario {
 
     public function setPass(string $pass): self {
         $this->pass = $pass;
-
         return $this;
-    }
-
-    function getMochilas() {
-        return $this->mochilas;
-    }
-
-    function setMochilas($mochilas): void {
-        $this->mochilas = $mochilas;
-    }
-
-    public function getLogros() {
-        return $this->logros;
-    }
-
-    public function setLogros($logros) {
-        $this->logros = $logros;
-        return $this;
-    }
-
+    }   
 }

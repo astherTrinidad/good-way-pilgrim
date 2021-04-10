@@ -11,9 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Camino {
 
-    public function __construct() {
-        $this->mochilas = new ArrayCollection();
-        $this->usuarios = new \Doctrine\Common\Collections\ArrayCollection();
+    public function __construct() {               
     }
 
     /**
@@ -26,116 +24,95 @@ class Camino {
     /**
      * @ORM\Column(type="string", length=30)
      */
-    private $nombre;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $origen;
+    private $start;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $destino;
+    private $finish;
 
     /**
-     * @ORM\Column(name="num_total_etapas",type="integer")
+     * @ORM\Column(type="integer")
      */
-    private $numTotalEtapas;
+    private $numEtapas;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $kilometros;
+    private $km;
 
     /**
      * @ORM\Column(type="string", length=500)
      */
-    private $descripcion;
+    private $description;
 
     /**
-     * Muchos caminos tienen muchos usuarios
-     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="caminos")
+     * Un camino tiene muchos UsuarioCamino
+     * @ORM\OneToMany(targetEntity="UsuarioCamino", mappedBy="camino")
      */
-    private $usuarios;
-
-    /**
-     * Un camino tiene muchas mochilas.
-     * @ORM\OneToMany(targetEntity="Mochila", mappedBy="camino")
-     */
-    private $mochilas;
+    private $userCamino;
+    
 
     public function getId(): ?int {
         return $this->id;
+    }    
+
+    public function getName(): ?string {
+        return $this->name;
     }
 
-    public function getCaminoId(): ?int {
-        return $this->camino_id;
-    }
-
-    public function setCaminoId(int $camino_id): self {
-        $this->camino_id = $camino_id;
-
+    public function setName(string $name): self {
+        $this->name = $name;
         return $this;
     }
 
-    public function getNombre(): ?string {
-        return $this->nombre;
+    public function getStart(): ?string {
+        return $this->start;
     }
 
-    public function setNombre(string $nombre): self {
-        $this->nombre = $nombre;
-
+    public function setStart(string $start): self {
+        $this->start = $start;
         return $this;
     }
 
-    public function getOrigen(): ?string {
-        return $this->origen;
+    public function getFinish(): ?string {
+        return $this->finish;
     }
 
-    public function setOrigen(string $origen): self {
-        $this->origen = $origen;
-
+    public function setFinish(string $finish): self {
+        $this->finish = $finish;
         return $this;
     }
 
-    public function getDestino(): ?string {
-        return $this->destino;
+    public function getNumEtapas(): ?int {
+        return $this->numEtapas;
     }
 
-    public function setDestino(string $destino): self {
-        $this->destino = $destino;
-
+    public function setNumEtapas(int $numEtapas): self {
+        $this->numEtapas = $numEtapas;
         return $this;
     }
 
-    public function getNumTotalEtapas(): ?int {
-        return $this->numTotalEtapas;
+    public function getKm(): ?float {
+        return $this->km;
     }
 
-    public function setNumTotalEtapas(int $numTotalEtapas): self {
-        $this->numTotalEtapas = $numTotalEtapas;
-
+    public function setKm(float $km): self {
+        $this->km = $km;
         return $this;
     }
 
-    public function getKilometros(): ?float {
-        return $this->kilometros;
+    public function getDescription(): ?string {
+        return $this->description;
     }
 
-    public function setKilometros(float $kilometros): self {
-        $this->kilometros = $kilometros;
-
-        return $this;
-    }
-
-    public function getDescripcion(): ?string {
-        return $this->descripcion;
-    }
-
-    public function setDescripcion(string $descripcion): self {
-        $this->descripcion = $descripcion;
-
+    public function setDescription(string $description): self {
+        $this->description = $description;
         return $this;
     }
 
