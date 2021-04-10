@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Camino {
 
-    public function __construct() {               
+    public function __construct() { 
+        $this->backpack = new ArrayCollection();              
     }
 
     /**
@@ -56,6 +57,18 @@ class Camino {
      * @ORM\OneToMany(targetEntity="UsuarioCamino", mappedBy="camino")
      */
     private $userCamino;
+
+    /**
+     * Un camino tiene muchos CaminoEtapa
+     * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="camino")
+     */
+    private $caminoEtapa;
+
+    /**
+     * Un camino tiene muchas mochilas
+     * @ORM\OneToMany(targetEntity="Mochila", mappedBy="camino")
+     */
+    private $backpack;
     
 
     public function getId(): ?int {

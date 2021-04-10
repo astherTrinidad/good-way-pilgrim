@@ -49,7 +49,7 @@ class Usuario {
      */
     private $userCamino;
 
-     /**
+    /**
      * Un usuario tiene muchas mochilas
      * @ORM\OneToMany(targetEntity="Mochila", mappedBy="usuario")
      */

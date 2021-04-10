@@ -10,83 +10,97 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Etapa
 {
+    public function __construct() {      
+        $this->caminoEtapa = new ArrayCollection();        
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $id;   
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $origen;
+    private $start;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $destino;
+    private $finish;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $kilometros;
+    private $km;
 
     /**
      * @ORM\Column(type="string", length=500)
      */
-    private $descripcion;
+    private $description;
+
+    /**
+     * Una Etapa tiene muchos caminoEtapa
+     * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="etapa")
+     */
+    private $caminoEtapa;
+
+    /**
+     * Un camino tiene muchos CaminoEtapa
+     * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="camino")
+     */
+    private $camino;
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getOrigen(): ?string
+    public function getStart(): ?string
     {
-        return $this->origen;
+        return $this->start;
     }
 
-    public function setOrigen(string $origen): self
+    public function setStart(string $start): self
     {
-        $this->origen = $origen;
+        $this->start = $start;
+        return $this;
+    }
+
+    public function getFinish(): ?string
+    {
+        return $this->finish;
+    }
+
+    public function setFinish(string $finish): self
+    {
+        $this->finish = $finish;
 
         return $this;
     }
 
-    public function getDestino(): ?string
+    public function getKm(): ?float
     {
-        return $this->destino;
+        return $this->km;
     }
 
-    public function setDestino(string $destino): self
+    public function setKm(float $km): self
     {
-        $this->destino = $destino;
-
+        $this->km = $km;
         return $this;
     }
 
-    public function getKilometros(): ?float
+    public function getDescription(): ?string
     {
-        return $this->kilometros;
+        return $this->description;
     }
 
-    public function setKilometros(float $kilometros): self
+    public function setDescription(string $description): self
     {
-        $this->kilometros = $kilometros;
-
-        return $this;
-    }
-
-    public function getDescripcion(): ?string
-    {
-        return $this->descripcion;
-    }
-
-    public function setDescripcion(string $descripcion): self
-    {
-        $this->descripcion = $descripcion;
-
+        $this->description = $description;
         return $this;
     }
 }
