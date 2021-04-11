@@ -11,10 +11,9 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $user)
     {
         //meter usuarios        
-        $user = new $Usuario();        
-        $user->setDni("70073677Z");
-        $user->setNombre("Patricia");
-        $user->setApellido("Herranz Maeso");
+        $user = new $Usuario();       
+        $user->setName("Patricia");
+        $user->setSurname("Herranz Maeso");
         $user->setEmail("phmaeso@gmail.com");
         $user->setPass("pass");
 

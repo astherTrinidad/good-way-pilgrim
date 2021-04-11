@@ -145,4 +145,19 @@ class Camino
         return $this;
     }
 
+    public function getUserCaminos(): ?int 
+    {
+        return $this->userCaminos;
+    } 
+
+    public function getCaminoEtapas(): ?int 
+    {
+        return $this->caminoEtapas;
+    } 
+
+    public function getBackpacks(): ?int 
+    {
+        return $this->backpacks;
+    } 
+
 }

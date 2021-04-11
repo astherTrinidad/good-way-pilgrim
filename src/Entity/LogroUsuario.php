@@ -54,5 +54,14 @@ class LogroUsuario
         return $this;
     }
 
+    public function getAchievement(): ?int 
+    {
+        return $this->achievement;
+    }
+
+    public function getUser(): ?int 
+    {
+        return $this->user;
+    }
 
 }

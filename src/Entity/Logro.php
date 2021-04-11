@@ -69,4 +69,9 @@ class Logro
         return $this;
     }
 
+    public function getAchievementUsers(): ?int 
+    {
+        return $this->achievementUsers;
+    }
+
 }

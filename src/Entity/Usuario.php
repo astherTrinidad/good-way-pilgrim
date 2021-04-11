@@ -121,4 +121,24 @@ class Usuario
         return $this;
     } 
 
+    public function getUserCaminos(): ?int 
+    {
+        return $this->userCaminos;
+    }
+
+    public function getBackpacks(): ?int 
+    {
+        return $this->backpacks;
+    }
+
+    public function getAchievementUsers(): ?int 
+    {
+        return $this->achievementUsers;
+    }
+
+    public function getUserCaminoEtapas(): ?int 
+    {
+        return $this->userCaminoEtapas;
+    }
+
 }

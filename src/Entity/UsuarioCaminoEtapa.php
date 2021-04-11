@@ -54,5 +54,15 @@ class UsuarioCaminoEtapa
         return $this;
     }
 
+    public function getUser(): ?int 
+    {
+        return $this->user;
+    } 
+
+    public function getCaminoEtapa(): ?int 
+    {
+        return $this->caminoEtapa;
+    } 
+
 
 }

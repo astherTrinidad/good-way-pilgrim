@@ -106,4 +106,14 @@ class Etapa
         return $this;
     }
 
+    public function getCaminoEtapas(): ?int
+    {
+        return $this->caminoEtapas;
+    }
+
+    public function getCaminos(): ?int
+    {
+        return $this->caminos;
+    }
+
 }

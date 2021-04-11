@@ -69,5 +69,15 @@ class Mochila
         $this->item = $item;
         return $this;
     } 
+
+    public function getUser(): ?int 
+    {
+        return $this->user;
+    }  
+
+    public function getCamino(): ?int 
+    {
+        return $this->camino;
+    }  
     
 }

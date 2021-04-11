@@ -47,7 +47,8 @@ class CaminoEtapa
     public function __construct() 
     {         
         $this->userCaminoEtapas = new ArrayCollection();             
-    }    
+    } 
+
 
     public function getId(): ?int 
     {
@@ -64,5 +65,20 @@ class CaminoEtapa
         $this->numEtapa = $numEtapa;
         return $this;
     }    
+
+    public function getCamino(): ?int 
+    {
+        return $this->camino;
+    } 
+
+    public function getEtapa(): ?int 
+    {
+        return $this->etapa;
+    } 
+
+    public function getUserCaminoEtapas(): ?int 
+    {
+        return $this->userCaminoEtapas;
+    } 
 
 }
