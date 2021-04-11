@@ -26,7 +26,7 @@ class Mochila
     /**
      * @ORM\Column(type="integer")
      */
-    private $item;  
+    private $quantity;  
     
     /**
      * Muchas mochilas tienen un usuario.
@@ -59,14 +59,14 @@ class Mochila
         return $this;
     }
 
-    public function getItem(): ?int 
+    public function getQuantity(): ?int 
     {
-        return $this->item;
+        return $this->quantity;
     }
 
-    public function setItem(int $item): self 
+    public function setQuantity(int $quantity): self 
     {
-        $this->item = $item;
+        $this->quantity = $quantity;
         return $this;
     } 
 
