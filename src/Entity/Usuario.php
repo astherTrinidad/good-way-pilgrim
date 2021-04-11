@@ -13,7 +13,8 @@ class Usuario {
 
     public function __construct() {      
         $this->userCamino = new ArrayCollection();
-        $this->backpack = new ArrayCollection(); 
+        $this->backpack = new ArrayCollection();
+        $this->userCaminoEtapa = new ArrayCollection(); 
     }
 
     /**
@@ -54,6 +55,18 @@ class Usuario {
      * @ORM\OneToMany(targetEntity="Mochila", mappedBy="usuario")
      */
     private $backpack;
+    
+    /**
+     * Un usuario tiene muchos LogroUsuarios
+     * @ORM\OneToMany(targetEntity="LogroUsuario", mappedBy="usuario")
+     */
+    private $achievementUser;
+
+    /**
+     * Un usuario tiene muchos UsuarioCaminoEtapa
+     * @ORM\OneToMany(targetEntity="UsuarioCaminoEtapa", mappedBy="usuario")
+     */
+    private $userCaminoEtapa;
 
     
     public function getId(): ?int {

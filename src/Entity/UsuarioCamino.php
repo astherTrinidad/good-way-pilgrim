@@ -18,7 +18,7 @@ class UsuarioCamino {
     private $id;
 
     /**
-     * Muchas UsuarioCamino estan un usuario. 
+     * Muchos UsuarioCamino son realizados por un usuario. 
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="usuarioCamino")
      * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
      */
@@ -43,16 +43,7 @@ class UsuarioCamino {
 
     public function getId(): ?int {
         return $this->id;
-    }   
-
-    public function getUser(): ?string {
-        return $this->user;
-    }
-
-    public function setUser(string $user): self {
-        $this->user = $user;
-        return $this;
-    }
+    }       
 
     public function getStartDate(): ?date {
         return $this->startDate;

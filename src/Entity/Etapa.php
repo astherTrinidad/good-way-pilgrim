@@ -11,7 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Etapa
 {
     public function __construct() {      
-        $this->caminoEtapa = new ArrayCollection();        
+        $this->caminoEtapa = new ArrayCollection();
+        $this->userCaminoEtapa = new ArrayCollection();         
     }
 
     /**
@@ -52,6 +53,12 @@ class Etapa
      * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="camino")
      */
     private $camino;
+
+    /**
+     * Una etapa tiene muchos UsuarioCaminoEtapa
+     * @ORM\OneToMany(targetEntity="UsuarioCaminoEtapa", mappedBy="etapa")
+     */
+    private $userCaminoEtapa;
 
 
     public function getId(): ?int
