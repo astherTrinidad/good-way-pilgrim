@@ -8,7 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=UsuarioCaminoEtapaRepository::class)
  */
-class UsuarioCaminoEtapa {    
+class UsuarioCaminoEtapa 
+{    
 
     /**
      * @ORM\Id
@@ -24,37 +25,34 @@ class UsuarioCaminoEtapa {
 
     /**
      * Muchos UsuarioCaminoEtapa son realizados por un usuario. 
-     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="usuarioCaminoEtapa")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="usuarioCaminoEtapas")
      * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
      */
     private $user;
 
     /**
-     * Muchos UsuarioCaminoEtapa son realizados por un camino. 
-     * @ORM\ManyToOne(targetEntity="Camino", inversedBy="usuarioCaminoEtapa")
-     * @ORM\JoinColumn(name="id_camino", referencedColumnName="id")
+     * Muchos UsuarioCaminoEtapa son realizados por un caminoEtapa. 
+     * @ORM\ManyToOne(targetEntity="CaminoEtapa", inversedBy="usuarioCaminoEtapas")
+     * @ORM\JoinColumn(name="id_caminoEtapa", referencedColumnName="id")
      */
-    private $camino;
-
-    /**
-     * Muchos UsuarioCaminoEtapa son realizados por una etapa. 
-     * @ORM\ManyToOne(targetEntity="Etapa", inversedBy="usuarioCaminoEtapa")
-     * @ORM\JoinColumn(name="id_etapa", referencedColumnName="id")
-     */
-    private $etapa;
+    private $caminoEtapa;   
 
 
-    public function getId(): ?int {
+    public function getId(): ?int 
+    {
         return $this->id;
     } 
 
-    public function getStatus(): ?string {
+    public function getStatus(): ?string 
+    {
         return $this->status;
     }
 
-    public function setStatus(string $status): self {
+    public function setStatus(string $status): self 
+    {
         $this->status = $status;
         return $this;
     }
+
 
 }

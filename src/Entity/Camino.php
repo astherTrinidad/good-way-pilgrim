@@ -9,12 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=CaminoRepository::class)
  */
-class Camino {
-
-    public function __construct() { 
-        $this->backpack = new ArrayCollection(); 
-        $this->userCaminoEtapa = new ArrayCollection();             
-    }
+class Camino 
+{    
 
     /**
      * @ORM\Id
@@ -29,12 +25,12 @@ class Camino {
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=30)
      */
     private $start;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=30)
      */
     private $finish;
 
@@ -54,84 +50,97 @@ class Camino {
     private $description;
 
     /**
-     * Un camino tiene muchos UsuarioCamino
+     * Un camino tiene muchos usuarioCaminos
      * @ORM\OneToMany(targetEntity="UsuarioCamino", mappedBy="camino")
      */
-    private $userCamino;
+    private $userCaminos;
 
     /**
-     * Un camino tiene muchos CaminoEtapa
+     * Un camino tiene muchos caminoEtapas
      * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="camino")
      */
-    private $caminoEtapa;
+    private $caminoEtapas;
 
     /**
      * Un camino tiene muchas mochilas
      * @ORM\OneToMany(targetEntity="Mochila", mappedBy="camino")
      */
-    private $backpack;
-
-    /**
-     * Un camino tiene muchos UsuarioCaminoEtapa
-     * @ORM\OneToMany(targetEntity="UsuarioCaminoEtapa", mappedBy="camino")
-     */
-    private $userCaminoEtapa;
+    private $backpacks;   
+    
+    
+    public function __construct() 
+    { 
+        $this->backpacks = new ArrayCollection();                     
+    }
     
 
-    public function getId(): ?int {
+    public function getId(): ?int 
+    {
         return $this->id;
     }    
 
-    public function getName(): ?string {
+    public function getName(): ?string 
+    {
         return $this->name;
     }
 
-    public function setName(string $name): self {
+    public function setName(string $name): self 
+    {
         $this->name = $name;
         return $this;
     }
 
-    public function getStart(): ?string {
+    public function getStart(): ?string 
+    {
         return $this->start;
     }
 
-    public function setStart(string $start): self {
+    public function setStart(string $start): self 
+    {
         $this->start = $start;
         return $this;
     }
 
-    public function getFinish(): ?string {
+    public function getFinish(): ?string 
+    {
         return $this->finish;
     }
 
-    public function setFinish(string $finish): self {
+    public function setFinish(string $finish): self 
+    {
         $this->finish = $finish;
         return $this;
     }
 
-    public function getNumEtapas(): ?int {
+    public function getNumEtapas(): ?int 
+    {
         return $this->numEtapas;
     }
 
-    public function setNumEtapas(int $numEtapas): self {
+    public function setNumEtapas(int $numEtapas): self 
+    {
         $this->numEtapas = $numEtapas;
         return $this;
     }
 
-    public function getKm(): ?float {
+    public function getKm(): ?float 
+    {
         return $this->km;
     }
 
-    public function setKm(float $km): self {
+    public function setKm(float $km): self 
+    {
         $this->km = $km;
         return $this;
     }
 
-    public function getDescription(): ?string {
+    public function getDescription(): ?string 
+    {
         return $this->description;
     }
 
-    public function setDescription(string $description): self {
+    public function setDescription(string $description): self 
+    {
         $this->description = $description;
         return $this;
     }

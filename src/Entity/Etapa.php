@@ -9,11 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=EtapaRepository::class)
  */
 class Etapa
-{
-    public function __construct() {      
-        $this->caminoEtapa = new ArrayCollection();
-        $this->userCaminoEtapa = new ArrayCollection();         
-    }
+{   
 
     /**
      * @ORM\Id
@@ -23,12 +19,12 @@ class Etapa
     private $id;   
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=30)
      */
     private $start;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=30)
      */
     private $finish;
 
@@ -46,19 +42,19 @@ class Etapa
      * Una Etapa tiene muchos caminoEtapa
      * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="etapa")
      */
-    private $caminoEtapa;
+    private $caminoEtapas;
 
     /**
      * Un camino tiene muchos CaminoEtapa
      * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="camino")
      */
-    private $camino;
+    private $caminos;
 
-    /**
-     * Una etapa tiene muchos UsuarioCaminoEtapa
-     * @ORM\OneToMany(targetEntity="UsuarioCaminoEtapa", mappedBy="etapa")
-     */
-    private $userCaminoEtapa;
+   
+    public function __construct() 
+    {      
+        $this->caminoEtapas = new ArrayCollection();                
+    }
 
 
     public function getId(): ?int
@@ -85,7 +81,6 @@ class Etapa
     public function setFinish(string $finish): self
     {
         $this->finish = $finish;
-
         return $this;
     }
 
@@ -110,4 +105,5 @@ class Etapa
         $this->description = $description;
         return $this;
     }
+
 }

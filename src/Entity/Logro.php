@@ -9,11 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=LogroRepository::class)
  */
-class Logro {
-
-    public function __construct() {      
-        $this->achievementUser = new ArrayCollection();        
-    }
+class Logro 
+{    
 
     /**
      * @ORM\Id
@@ -28,7 +25,7 @@ class Logro {
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=500)
      */
     private $description;
 
@@ -36,27 +33,38 @@ class Logro {
      * Un logro tiene muchos logroUsuarios
      * @ORM\OneToMany(targetEntity="LogroUsuario", mappedBy="logro")
      */
-    private $achievementUser;
+    private $achievementUsers;
+
+
+    public function __construct() 
+    {      
+        $this->achievementUsers = new ArrayCollection();        
+    }
     
 
-    public function getId(): ?int {
+    public function getId(): ?int 
+    {
         return $this->id;
     }
 
-    public function getName(): ?string {
+    public function getName(): ?string 
+    {
         return $this->name;
     }
 
-    public function setName(string $name): self {
+    public function setName(string $name): self 
+    {
         $this->name = $name;
         return $this;
     }
 
-    public function getDescription(): ?string {
+    public function getDescription(): ?string 
+    {
         return $this->description;
     }
 
-    public function setDescription(string $description): self {
+    public function setDescription(string $description): self 
+    {
         $this->description = $description;
         return $this;
     }
