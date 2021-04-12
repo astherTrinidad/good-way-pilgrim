@@ -55,8 +55,6 @@ class UsuarioRepository extends ServiceEntityRepository
         }
 
 
-        dump($resultado);
-        die();
 //        $qb = $this->getEntityManager()->createQueryBuilder();
 //        $qb->select('u')->from(Usuario::class, 'u')->where('u.email = :email')->setParameter('email', $email);
 //        $user = $qb->getQuery()->getResult();
