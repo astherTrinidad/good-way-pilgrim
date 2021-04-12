@@ -5,21 +5,19 @@ namespace App\Entity;
 use App\Repository\UsuarioRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
  */
-class Usuario 
-{    
-
-    /**
+class Usuario {    
+   /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
+   /**
      * @ORM\Column(type="string", length=50)
      */
     private $name;
@@ -35,7 +33,7 @@ class Usuario
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=8)
+     * @ORM\Column(type="string")
      */
     private $pass;
 
@@ -70,7 +68,6 @@ class Usuario
         $this->backpacks = new ArrayCollection();
         $this->userCaminoEtapas = new ArrayCollection(); 
     }
-
     
     public function getId(): ?int 
     {
@@ -139,6 +136,33 @@ class Usuario
     public function getUserCaminoEtapas(): ?int 
     {
         return $this->userCaminoEtapas;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt() {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials() {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getPassword(): ?string {
+        return $this->pass;
+    }
+
+    public function getRoles() {
+        
+    }
+
+    public function getUsername() {
+        return $this->nombre;
     }
 
 }
