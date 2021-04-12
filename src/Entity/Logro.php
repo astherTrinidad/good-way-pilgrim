@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=LogroRepository::class)
  */
-class Logro {
+class Logro 
+{    
 
     /**
      * @ORM\Id
@@ -21,41 +22,56 @@ class Logro {
     /**
      * @ORM\Column(type="string", length=30)
      */
-    private $nombre;
+    private $name;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=500)
      */
-    private $descripcion;
+    private $description;
 
     /**
-     * Muchos logros tienen muchos usuarios
-     * @ORM\ManyToMany(targetEntity="Usuario", mappedBy="logros")
+     * Un logro tiene muchos logroUsuarios
+     * @ORM\OneToMany(targetEntity="LogroUsuario", mappedBy="logro")
      */
-    private $usuarios;
+    private $achievementUsers;
 
-    public function getId(): ?int {
+
+    public function __construct() 
+    {      
+        $this->achievementUsers = new ArrayCollection();        
+    }
+    
+
+    public function getId(): ?int 
+    {
         return $this->id;
     }
 
-    public function getNombre(): ?string {
-        return $this->nombre;
+    public function getName(): ?string 
+    {
+        return $this->name;
     }
 
-    public function setNombre(string $nombre): self {
-        $this->nombre = $nombre;
-
+    public function setName(string $name): self 
+    {
+        $this->name = $name;
         return $this;
     }
 
-    public function getDescripcion(): ?string {
-        return $this->descripcion;
+    public function getDescription(): ?string 
+    {
+        return $this->description;
     }
 
-    public function setDescripcion(string $descripcion): self {
-        $this->descripcion = $descripcion;
-
+    public function setDescription(string $description): self 
+    {
+        $this->description = $description;
         return $this;
+    }
+
+    public function getAchievementUsers(): ?int 
+    {
+        return $this->achievementUsers;
     }
 
 }

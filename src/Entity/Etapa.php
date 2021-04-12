@@ -9,84 +9,111 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=EtapaRepository::class)
  */
 class Etapa
-{
+{   
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $id;   
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=30)
      */
-    private $origen;
+    private $start;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=30)
      */
-    private $destino;
+    private $finish;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $kilometros;
+    private $km;
 
     /**
      * @ORM\Column(type="string", length=500)
      */
-    private $descripcion;
+    private $description;
+
+    /**
+     * Una Etapa tiene muchos caminoEtapa
+     * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="etapa")
+     */
+    private $caminoEtapas;
+
+    /**
+     * Un camino tiene muchos CaminoEtapa
+     * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="camino")
+     */
+    private $caminos;
+
+   
+    public function __construct() 
+    {      
+        $this->caminoEtapas = new ArrayCollection();                
+    }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getOrigen(): ?string
+    public function getStart(): ?string
     {
-        return $this->origen;
+        return $this->start;
     }
 
-    public function setOrigen(string $origen): self
+    public function setStart(string $start): self
     {
-        $this->origen = $origen;
-
+        $this->start = $start;
         return $this;
     }
 
-    public function getDestino(): ?string
+    public function getFinish(): ?string
     {
-        return $this->destino;
+        return $this->finish;
     }
 
-    public function setDestino(string $destino): self
+    public function setFinish(string $finish): self
     {
-        $this->destino = $destino;
-
+        $this->finish = $finish;
         return $this;
     }
 
-    public function getKilometros(): ?float
+    public function getKm(): ?float
     {
-        return $this->kilometros;
+        return $this->km;
     }
 
-    public function setKilometros(float $kilometros): self
+    public function setKm(float $km): self
     {
-        $this->kilometros = $kilometros;
-
+        $this->km = $km;
         return $this;
     }
 
-    public function getDescripcion(): ?string
+    public function getDescription(): ?string
     {
-        return $this->descripcion;
+        return $this->description;
     }
 
-    public function setDescripcion(string $descripcion): self
+    public function setDescription(string $description): self
     {
-        $this->descripcion = $descripcion;
-
+        $this->description = $description;
         return $this;
     }
+
+    public function getCaminoEtapas(): ?int
+    {
+        return $this->caminoEtapas;
+    }
+
+    public function getCaminos(): ?int
+    {
+        return $this->caminos;
+    }
+
 }

@@ -18,14 +18,11 @@ class authenticationController extends AbstractController
     {
         $name = $request->get('name');
         $surname = $request->get('surname');
-        $dni = $request->get('dni');
         $email = $request->get('email');
         $password = $request->get('password');
         $user = new Usuario();
         $user->setNombre($name);
         $user->setApellido($surname);
-        $user->setDni($dni);
-        //$user->setPass($password);
         $user->setPass($encoder->encodePassword($user, $password));
         $user->setEmail($email);
         $em = $this->getDoctrine()->getManager();
@@ -58,7 +55,7 @@ public function login(Request $request, UsuarioRepository $userRepository, UserP
 
         $jwt = JWT::encode($payload, $this->getParameter('jwt_secret'), 'HS256');
         return $this->json([
-            'message' => 'success!',
+            'message' => 'success',
             'token' => sprintf('Bearer %s', $jwt),
         ]);
 }
