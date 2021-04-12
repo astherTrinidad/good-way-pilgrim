@@ -33,7 +33,7 @@ class Usuario {
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=8)
+     * @ORM\Column(type="string")
      */
     private $pass;
 

@@ -44,7 +44,7 @@ public function login(Request $request, UsuarioRepository $userRepository, UserP
 //        ]);
         if (!$user || !$encoder->isPasswordValid($user, $request->get('password'))) {
                 return $this->json([
-                    'message' => 'email or password is wrong.',
+                    'message' => 'email or password is wrong',
                 ]);
         }
        $payload = [
