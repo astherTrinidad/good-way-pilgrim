@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Firebase\JWT\JWT;
 
 
 class authenticationController extends AbstractController
@@ -21,8 +22,8 @@ class authenticationController extends AbstractController
         $email = $request->get('email');
         $password = $request->get('password');
         $user = new Usuario();
-        $user->setNombre($name);
-        $user->setApellido($surname);
+        $user->setName($name);
+        $user->setSurname($surname);
         $user->setPass($encoder->encodePassword($user, $password));
         $user->setEmail($email);
         $em = $this->getDoctrine()->getManager();

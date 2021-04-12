@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
  */
-class Usuario {    
+class Usuario implements UserInterface {    
    /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -162,7 +162,7 @@ class Usuario {
     }
 
     public function getUsername() {
-        return $this->nombre;
+        return $this->name;
     }
 
 }
