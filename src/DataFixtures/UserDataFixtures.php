@@ -5,17 +5,24 @@ namespace App\DataFixtures;
 use App\Entity\Usuario;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserDataFixtures extends Fixture
+//Incluir encoder como atributo
 {    
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder) {
+        $this->encoder = $encoder;
+    }
     public function load(ObjectManager $manager)
     {
         //meter usuarios        
         $user = new Usuario();       
         $user->setName("Patricia");
         $user->setSurname("Herranz Maeso");
-        $user->setEmail("phmaeso@gmail.com");
-        $user->setPass("passPatri");  
+        $user->setEmail("phmaeso10@gmail.com");
+        $user->setPass($this->encoder->encodePassword($user, "passPatricia"));  
         $manager->persist($user);
         $manager->flush();
 
@@ -23,7 +30,7 @@ class UserDataFixtures extends Fixture
         $user1->setName("Irene");
         $user1->setSurname("Sánchez");
         $user1->setEmail("irene.sanchez@hotmail.com");
-        $user1->setPass("passIrene");  
+        $user1->setPass($this->encoder->encodePassword($user, "passIrene"));  
         $manager->persist($user1);
         $manager->flush();
 
@@ -31,7 +38,7 @@ class UserDataFixtures extends Fixture
         $user2->setName("Asther");
         $user2->setSurname("Trinidad Mora");
         $user2->setEmail("asthercita@gmail.com");
-        $user2->setPass("passAsther");  
+        $user2->setPass($this->encoder->encodePassword($user, "passAsther"));  
         $manager->persist($user2);
         $manager->flush();
 
@@ -39,7 +46,7 @@ class UserDataFixtures extends Fixture
         $user3->setName("Sara");
         $user3->setSurname("Ardila");
         $user3->setEmail("ardila@hotmail.com");
-        $user3->setPass("passSara");  
+        $user3->setPass($this->encoder->encodePassword($user, "passSara"));  
         $manager->persist($user3);
         $manager->flush();
 
@@ -47,7 +54,7 @@ class UserDataFixtures extends Fixture
         $user4->setName("Javi");
         $user4->setSurname("Carrillo");
         $user4->setEmail("javichu@gmail.com");
-        $user4->setPass("passJavi");  
+        $user4->setPass($this->encoder->encodePassword($user, "passJavi"));   
         $manager->persist($user4);
         $manager->flush();  
                
