@@ -12,32 +12,22 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Usuario[]    findAll()
  * @method Usuario[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UsuarioRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class UsuarioRepository extends ServiceEntityRepository {
+
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Usuario::class);
     }
-    
-    
 
-    // /**
-    //  * @return Usuario[] Returns an array of Usuario objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-    public function getOneByEmail ($email){
+    public function getOneByEmail($email) {
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('u')->from(Usuario::class, 'u')->where('u.email = :email')->setParameter('email', $email);
+        $user = $qb->getQuery()->getResult();
+        if ($user == null) {
+            return false;
+        }
+        return $user[0];
+
 //        $em = $this->getEntityManager();
 //        $db = $em->getConnection();
 // 
@@ -52,23 +42,52 @@ class UsuarioRepository extends ServiceEntityRepository
 //            echo $p["apellido"];
 //            echo "<hr/>";
 //        }
-
-
+    }
+    
+      public function getOneById($id) {
+          
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('u')->from(Usuario::class, 'u')->where('u.email = :email')->setParameter('email', $email);
+        $qb->select('u')->from(Usuario::class, 'u')->where('u.id = :id')->setParameter('id', $id);
         $user = $qb->getQuery()->getResult();
+        if ($user == null) {
+            return false;
+        }
         return $user[0];
     }
+    
+       public function deleteOneById($id) {
 
-    /*
-    public function findOneBySomeField($value): ?Usuario
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
+        $query = "DELETE FROM usuario where id = $id ";
+        $db->executeQuery($query);       
+
     }
-    */
+
+    // /**
+    //  * @return Usuario[] Returns an array of Usuario objects
+    //  */
+    /*
+      public function findByExampleField($value)
+      {
+      return $this->createQueryBuilder('u')
+      ->andWhere('u.exampleField = :val')
+      ->setParameter('val', $value)
+      ->orderBy('u.id', 'ASC')
+      ->setMaxResults(10)
+      ->getQuery()
+      ->getResult()
+      ;
+      }
+
+      public function findOneBySomeField($value): ?Usuario
+      {
+      return $this->createQueryBuilder('u')
+      ->andWhere('u.exampleField = :val')
+      ->setParameter('val', $value)
+      ->getQuery()
+      ->getOneOrNullResult()
+      ;
+      }
+     */
 }
