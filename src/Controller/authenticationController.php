@@ -59,8 +59,8 @@ class authenticationController extends AbstractController {
             ]);
         }
         $payload = [
-            "user" => $user->getUsername(),
-            "exp" => (new \DateTime())->modify("+30 minutes")->getTimestamp(),
+            "email" => $user->getEmail(),
+            "exp" => (new \DateTime())->modify("+60 minutes")->getTimestamp(),
         ];
 
 
@@ -111,7 +111,39 @@ class authenticationController extends AbstractController {
      * @Route("/auth/showUsers", name="showUsers", methods={"POST"})
      */
     public function showUsers(Request $request, UsuarioRepository $userRepository) {
+       $name = $request->get('name');
+        $surname = $request->get('surname');
+        $email = $request->get('email');
+        $password = $request->get('password');
+        $user = new Usuario();
+        $user->setName($name);
+        $user->setSurname($surname);
+        $user->setPass($encoder->encodePassword($user, $password));
+        $user->setEmail($email);
+        $em = $this->getDoctrine()->getManager();
+        try {
+            $em->persist($user);
+            $em->flush();
+        } catch (Exception $ex) {
+            return 'error';
+        }
         
+        return $this->json([
+                    'id' => $user->getId(),
+                    'name' => $user->getName(),
+                    'surname' => $user->getSurname(),
+                    'email' => $user->getEmail(),
+                    'password' => $user->getPassword(),
+        ]); 
+    }
+    
+    /**
+     * @Route("/api/test", name="testapi")
+     */
+    public function test() {
+        return $this->json([
+                    'message' => 'test!',
+        ]);
     }
 
 }

@@ -35,8 +35,29 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                example: "ok"
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: User id
+                    example: 1
+                  name:
+                    type: string
+                    description: User name
+                    example: "Irene"
+                  surname:
+                    type: string
+                    description: User surname
+                    example: "Sánchez"
+                  email:
+                    type: string
+                    description: User email
+                    example: "irene@example.com"
+                  password:
+                    type: string
+                    description: User password
+                    example: "123123"
+                example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'password': '123123'}
 
         "405":
           description: "Invalid input"
@@ -44,6 +65,4 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "not ok"
-## YAML Template.
----
+                example: "error"

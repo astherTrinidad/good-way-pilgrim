@@ -13,15 +13,18 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Firebase\JWT\JWT;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Repository\UsuarioRepository;
 
 class JwtAuthenticator extends AbstractGuardAuthenticator {
 
     private $em;
     private $params;
+    private $userRepository;
 
-    public function __construct(EntityManagerInterface $em, ContainerBagInterface $params) {
+    public function __construct(EntityManagerInterface $em, ContainerBagInterface $params, UsuarioRepository $userRepository) {
         $this->em = $em;
         $this->params = $params;
+        $this->userRepository = $userRepository;
     }
 
     public function start(Request $request, AuthenticationException $authException = null) {
@@ -48,17 +51,20 @@ class JwtAuthenticator extends AbstractGuardAuthenticator {
                             $this->params->get('jwt_secret'),
                             ['HS256']
             );
-            return $this->em->getRepository(User::class)
-                            ->findOneBy([
-                                'email' => $jwt['user'],
+            return $this->userRepository->findOneBy([
+                                'email' => $jwt['email'],
             ]);
+            
+//            return $this->userRepository->findOneBy([
+//                                'email' => $jwt['user'],
+//            ]);
         } catch (\Exception $exception) {
             throw new AuthenticationException($exception->getMessage());
         }
     }
 
     public function checkCredentials($credentials, UserInterface $user) {
-        
+        return true;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception) {

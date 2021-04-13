@@ -8,9 +8,12 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserDataFixtures extends Fixture
+//Incluir encoder como atributo
 {    
-    public function load(ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function load(ObjectManager $manager)
     {
+        
+        //, UserPasswordEncoderInterface $encoder
         //meter usuarios        
         $user = new Usuario();       
         $user->setName("Patricia");
