@@ -33,7 +33,6 @@ class authenticationController extends AbstractController {
         } catch (Exception $ex) {
             return 'error';
         }
-        
         return $this->json([
                     'id' => $user->getId(),
                     'name' => $user->getName(),
@@ -72,7 +71,7 @@ class authenticationController extends AbstractController {
     }
 
     /**
-     * @Route("/auth/showProfile", name="showProfile", methods={"POST"})
+     * @Route("/auth/showProfile", name="showProfile", methods={"GET"})
      */
     public function showProfile(Request $request, UsuarioRepository $userRepository) {
         $user = $userRepository->getOneById($request->get('id'));
@@ -92,7 +91,7 @@ class authenticationController extends AbstractController {
     }
 
     /**
-     * @Route("/auth/deleteUser", name="deleteUser", methods={"POST"})
+     * @Route("/auth/deleteUser", name="deleteUser", methods={"DELTE"})
      */
     public function deleteProfile(Request $request, UsuarioRepository $userRepository) {
         $userRepository->deleteOneById($request->get('id'));
@@ -101,17 +100,11 @@ class authenticationController extends AbstractController {
     }
 
     /**
-     * @Route("/auth/editProfile", name="editProfile", methods={"POST"})
+     * @Route("/auth/editProfile", name="editProfile", methods={"PUT"})
      */
-    public function editProfile(Request $request, UsuarioRepository $userRepository) {
-        
-    }
-
-    /**
-     * @Route("/auth/showUsers", name="showUsers", methods={"POST"})
-     */
-    public function showUsers(Request $request, UsuarioRepository $userRepository) {
-       $name = $request->get('name');
+    public function editProfile(Request $request, UsuarioRepository $userRepository)  {
+        $id = $request->get('id');
+        $name = $request->get('name');
         $surname = $request->get('surname');
         $email = $request->get('email');
         $password = $request->get('password');
@@ -120,13 +113,7 @@ class authenticationController extends AbstractController {
         $user->setSurname($surname);
         $user->setPass($encoder->encodePassword($user, $password));
         $user->setEmail($email);
-        $em = $this->getDoctrine()->getManager();
-        try {
-            $em->persist($user);
-            $em->flush();
-        } catch (Exception $ex) {
-            return 'error';
-        }
+        
         
         return $this->json([
                     'id' => $user->getId(),
@@ -135,6 +122,13 @@ class authenticationController extends AbstractController {
                     'email' => $user->getEmail(),
                     'password' => $user->getPassword(),
         ]); 
+    }
+
+    /**
+     * @Route("/auth/showUsers", name="showUsers", methods={"GET"})
+     */
+    public function showUsers(Request $request, UsuarioRepository $userRepository) {
+       
     }
     
     /**
