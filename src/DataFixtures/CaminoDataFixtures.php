@@ -29,7 +29,8 @@ class CaminoDataFixtures extends Fixture
         $camino1->setDescription("El Camino Primitivo es el Camino de Santiago que desde Oviedo se dirige a Compostela por el interior de Asturias y Galicia. Debe su origen a la peregrinación del rey Alfonso II de Asturias en el siglo IX, la primera de la que se conservan referencias (de ahí el nombre “Primitivo”). Este camino ha ganado en los últimos años un gran prestigio en el mundo jacobeo, gracias a sus paisajes, a su cierta dureza y a la aún moderada afluencia de peregrinos.");  
         $manager->persist($camino1);
         $manager->flush();
-                
+        
+        /*
         $camino2 = new Camino();       
         $camino2->setName("Camino del Norte");
         $camino2->setStart("Irún");
@@ -58,7 +59,7 @@ class CaminoDataFixtures extends Fixture
         $camino4->setKm(119);
         $camino4->setDescription("El Camino Portugués es un camino diferente. Comienza en el bonito pueblo de Tui. Tui es un pueblo fronterizo entre España y Portugal, ambos países son divididos por el río Miño y se puede ir de un país al otro atravesando el Puente Internacional. Caminaremos a través de grandes bosques, tierras de cultivo tradicionales y pequeñas aldeas y pueblos rurales así como ciudades históricas.  Es, probablemente, uno de los que menos desniveles tiene.");  
         $manager->persist($camino4);
-        $manager->flush();               
+        $manager->flush();  */             
     }
 }
 
