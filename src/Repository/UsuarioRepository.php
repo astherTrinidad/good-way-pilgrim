@@ -67,13 +67,18 @@ class UsuarioRepository extends ServiceEntityRepository {
 
         $em = $this->getEntityManager();
         $db = $em->getConnection();
-        
+
+        $picture = $user->getPicture();
         $name = $user->getName();
         $surname = $user->getSurname();
-        $password = $user->getPassword();
-        
-        $query = "UPDATE usuario SET name='$name', surname='$surname', pass='$password' where id = $id ";
+
+        if (isset($picture)) {
+            $query = "UPDATE usuario SET name='$name', surname='$surname', pass='$password', picture='$picture' where id = $id ";
+        } else {
+            $query = "UPDATE usuario SET name='$name', surname='$surname', pass='$password' where id = $id ";
+        }
         $db->executeQuery($query);
+            
         //$this->getOneById($id);
     }
 

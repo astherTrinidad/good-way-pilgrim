@@ -40,7 +40,7 @@ class Usuario implements UserInterface {
     private $pass;
 
     /**
-     * @ORM\Column(type="longblob")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $picture;
     
@@ -114,8 +114,16 @@ class Usuario implements UserInterface {
         $this->pass = $pass;
         return $this;
     }
+    
+    function getPicture() {
+        return $this->picture;
+    }
 
-    public function getUserCaminos(): ?int {
+    function setPicture($picture): void {
+        $this->picture = $picture;
+    }
+
+        public function getUserCaminos(): ?int {
         return $this->userCaminos;
     }
 

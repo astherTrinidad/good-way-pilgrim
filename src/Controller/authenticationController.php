@@ -27,6 +27,7 @@ class authenticationController extends AbstractController {
         $user->setSurname($surname);
         $user->setPass($encoder->encodePassword($user, $password));
         $user->setEmail($email);
+        $user->setPicture("");
 
         if (!$this->isPartLowercase($password) || !$this->isPartUppercase($password) || strlen($password) < 8) {
             http_response_code(422);
@@ -63,9 +64,7 @@ class authenticationController extends AbstractController {
     public function login(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder) {
 
         $user = $userRepository->getOneByEmail($request->get('email'));
-//        $user = $userRepository->findOneBy([
-//                'email'=>$request->get('email'),
-//        ]);
+
         if (!$user || !$encoder->isPasswordValid($user, $request->get('password'))) {
             http_response_code(422);
             return $this->json([
@@ -78,7 +77,6 @@ class authenticationController extends AbstractController {
             "exp" => (new \DateTime())->modify("+60 minutes")->getTimestamp(),
         ];
 
-
         $jwt = JWT::encode($payload, $this->getParameter('jwt_secret'), 'HS256');
         return $this->json([
                     'message' => 'success',
@@ -90,14 +88,16 @@ class authenticationController extends AbstractController {
      * @Route("/pri/showProfile", name="showProfile", methods={"GET"})
      */
     public function showProfile(Request $request, UsuarioRepository $userRepository) {
+        
         $user = $userRepository->getOneById($request->get('id'));
+        
         if ($user) {
             return $this->json([
                         'id' => $user->getId(),
                         'name' => $user->getName(),
                         'surname' => $user->getSurname(),
                         'email' => $user->getEmail(),
-                        'password' => $user->getPassword(),
+                        'picture' => $user->getPicture(),
             ]);
         } else {
             http_response_code(422);
@@ -114,36 +114,42 @@ class authenticationController extends AbstractController {
     public function deleteProfile(Request $request, UsuarioRepository $userRepository) {
         $userRepository->deleteOneById($request->get('id'));
         return $this->json([
-                    'message' => 'success']);
+                    'message' => 'ok']);
     }
 
     /**
-     * @Route("/pub/editProfile", name="editProfile", methods={"PUT"})
+     * @Route("/pub/editProfile", name="editProfile", methods={"POST"})
      */
     public function editProfile(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder) {
-        //$picture = addslashes(file_get_contents($_FILES['photo']['tmp_name']));
+
         $id = $request->get('id');
         $name = $request->get('name');
         $surname = $request->get('surname');
         $email = $request->get('email');
-        $password = $request->get('password');        
+        $password = $request->get('password');
+        
         $user = new Usuario();
-        //$user->setPicture($picture);
         $user->setName($name);
         $user->setSurname($surname);
         $user->setPass($encoder->encodePassword($user, $password));
-        $user->setEmail($email);       
+        $user->setEmail($email);
+        
+        if (isset($_FILES['photo'])) {
+            $picture = base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name'])));
+            $user->setPicture($picture);
+        }
+        
         $userRepository->updateOneById($id, $user);
         $userEdited = $userRepository->getOneById($id);
-
+           
         return $this->json([
                     'id' => $userEdited->getId(),
                     'name' => $userEdited->getName(),
                     'surname' => $userEdited->getSurname(),
                     'email' => $userEdited->getEmail(),
+                    'picture' => $userEdited->getPicture()
         ]);
     }
-    
 
     /**
      * @Route("/pri/showUsers", name="showUsers", methods={"GET"})
