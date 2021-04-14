@@ -40,9 +40,15 @@ class Usuario implements UserInterface {
     private $pass;
 
     /**
+     * @ORM\Column(type="longblob")
+     */
+    private $picture;
+    
+    /**
      * Un usuario tiene muchos UsuarioCaminos
      * @ORM\OneToMany(targetEntity="UsuarioCamino", mappedBy="usuario")
      */
+    
     private $userCaminos;
 
     /**

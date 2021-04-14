@@ -43,9 +43,9 @@ class UsuarioRepository extends ServiceEntityRepository {
 //            echo "<hr/>";
 //        }
     }
-    
-      public function getOneById($id) {
-          
+
+    public function getOneById($id) {
+
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('u')->from(Usuario::class, 'u')->where('u.id = :id')->setParameter('id', $id);
         $user = $qb->getQuery()->getResult();
@@ -54,14 +54,27 @@ class UsuarioRepository extends ServiceEntityRepository {
         }
         return $user[0];
     }
-    
-       public function deleteOneById($id) {
+
+    public function deleteOneById($id) {
 
         $em = $this->getEntityManager();
         $db = $em->getConnection();
         $query = "DELETE FROM usuario where id = $id ";
-        $db->executeQuery($query);       
+        $db->executeQuery($query);
+    }
 
+    function updateOneById($id, $user) {
+
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
+        
+        $name = $user->getName();
+        $surname = $user->getSurname();
+        $password = $user->getPassword();
+        
+        $query = "UPDATE usuario SET name='$name', surname='$surname', pass='$password' where id = $id ";
+        $db->executeQuery($query);
+        //$this->getOneById($id);
     }
 
     // /**

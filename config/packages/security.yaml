@@ -4,7 +4,7 @@ security:
         users_in_memory: { memory: null }
     firewalls:
         main:
-                    pattern: ^/api
+                    pattern: ^/pri
                     guard:
                         authenticators:
                                 - App\Security\JwtAuthenticator
