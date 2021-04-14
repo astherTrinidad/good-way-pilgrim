@@ -107,9 +107,15 @@ class Etapa
         return $this;
     }
 
-    public function getCaminoEtapas(): ?int
+    public function getCaminoEtapas(): ?CaminoEtapa
     {
         return $this->caminoEtapas;
+    }
+
+    public function setCaminoEtapas(CaminoEtapa $caminoEtapas): self 
+    {
+        $this->caminoEtapas = $caminoEtapas;
+        return $this;
     }
 
     public function getCaminos(): ?int

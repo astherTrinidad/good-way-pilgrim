@@ -7,7 +7,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class CaminoDataFixtures extends Fixture
-{    
+{  
+    public const CAMINOS = array();
+
     public function load(ObjectManager $manager)
     {          
         $camino = new Camino();       
@@ -19,6 +21,7 @@ class CaminoDataFixtures extends Fixture
         $camino->setDescription("El Camino Francés es el Camino de Santiago de mayor relevancia histórica y el más seguido por los peregrinos. Se caracteriza por su variedad paisajística y su extraordinaria riqueza monumental.  Debe su origen a tres de las cuatro principales vías históricas de peregrinación que provienen del interior de Europa, las cuales confluyen en la pequeña villa de Ostabat, a pocos kilómetros de Saint Jean Pied de Port. La masificación es su mayor inconveniente.");  
         $manager->persist($camino);
         $manager->flush();
+        CAMINOS_push($camino);
                
         $camino1 = new Camino();       
         $camino1->setName("Camino Primitivo");
@@ -29,6 +32,7 @@ class CaminoDataFixtures extends Fixture
         $camino1->setDescription("El Camino Primitivo es el Camino de Santiago que desde Oviedo se dirige a Compostela por el interior de Asturias y Galicia. Debe su origen a la peregrinación del rey Alfonso II de Asturias en el siglo IX, la primera de la que se conservan referencias (de ahí el nombre “Primitivo”). Este camino ha ganado en los últimos años un gran prestigio en el mundo jacobeo, gracias a sus paisajes, a su cierta dureza y a la aún moderada afluencia de peregrinos.");  
         $manager->persist($camino1);
         $manager->flush();
+        CAMINOS_push($camino1);
         
         /*
         $camino2 = new Camino();       

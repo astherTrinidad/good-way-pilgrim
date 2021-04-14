@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CaminoEtapaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CaminoEtapaRepository::class)
@@ -55,25 +56,37 @@ class CaminoEtapa
         return $this->id;
     }   
 
-    public function getNumEtapa(): ?string 
+    public function getNumEtapa(): ?int 
     {
         return $this->numEtapa;
     }
 
-    public function setNumEtapa(string $numEtapa): self 
+    public function setNumEtapa(int $numEtapa): self 
     {
         $this->numEtapa = $numEtapa;
         return $this;
     }    
 
-    public function getCamino(): ?int 
+    public function getCamino(): ?Camino 
     {
         return $this->camino;
     } 
 
-    public function getEtapa(): ?int 
+    public function setCamino(Camino $camino): self 
+    {
+        $this->camino = $camino;
+        return $this;
+    } 
+
+    public function getEtapa(): ?Etapa 
     {
         return $this->etapa;
+    } 
+
+    public function setEtapa(Etapa $etapa): self 
+    {
+        $this->etapa = $etapa;
+        return $this;
     } 
 
     public function getUserCaminoEtapas(): ?int 
