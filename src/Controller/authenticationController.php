@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Usuario;
 use App\Entity\Camino;
+use App\Repository\CaminoRepository;
 use App\Repository\UsuarioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,6 +65,7 @@ class authenticationController extends AbstractController {
 
         $user = $userRepository->getOneByEmail($request->get('email'));
 
+        //Claúsula de guarda
         if (!$user || !$encoder->isPasswordValid($user, $request->get('password'))) {
             $data = [
                 'message' => 'email or password is wrong'
@@ -83,12 +85,12 @@ class authenticationController extends AbstractController {
     }
 
     /**
-     * @Route("/pri/showProfile", name="showProfile", methods={"GET"})
+     * @Route("/pri/me/showProfile", name="showProfile", methods={"GET"})
      */
     public function showProfile(Request $request, UsuarioRepository $userRepository) {
 
         $user = $userRepository->getOneById($request->get('id'));
-
+        
         if (!$user) {
             $data = [
                 'message' => 'user not in database'
@@ -109,7 +111,7 @@ class authenticationController extends AbstractController {
      * @Route("/pri/deleteUser", name="deleteUser", methods={"DELETE"})
      */
     public function deleteProfile(Request $request, UsuarioRepository $userRepository) {
-        
+
         $user = $userRepository->getOneByID($request->get('id'));
 
         if (!$user) {
@@ -137,7 +139,7 @@ class authenticationController extends AbstractController {
             ];
             return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        
+
         $id = $request->get('id');
         $name = ucwords(strtolower($request->get('name')));
         $surname = ucwords(strtolower($request->get('surname')));
@@ -168,10 +170,20 @@ class authenticationController extends AbstractController {
     }
 
     /**
-     * @Route("/pri/showUsers", name="showUsers", methods={"GET"})
+     * @Route("/pub/showUsers", name="showUsers", methods={"GET"})
      */
     public function showUsers(Request $request, UsuarioRepository $userRepository) {
+        $searchString = $request->get('string');
+        $matchUsers = $userRepository->getByString($searchString);
+
+        if (empty($matchUsers)) {
+            $data = [
+                'message' => 'no results found'
+            ];
+            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
         
+        return new JsonResponse($matchUsers);
     }
 
     /**
@@ -198,13 +210,11 @@ class authenticationController extends AbstractController {
     }
 
     /**
-     * @Route("/pri/csv_download", name="csv_download", methods={"GET"})
+     * @Route("/pub/csv_download", name="csv_download", methods={"GET"})
      */
-    public function descargarCSV(): Response {
+    public function descargarCSV(CaminoRepository $caminoRepository): Response {
 
-        $caminos = $this->getDoctrine()
-                ->getRepository(Camino::class)
-                ->findAll();
+        $caminos = $caminoRepository->getAll();
 
         $fp = fopen('php://output', 'w');
 

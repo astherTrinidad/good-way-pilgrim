@@ -107,15 +107,15 @@ class Usuario implements UserInterface {
     }
 
     public function getPassword(): ?string {
-        return $this->pass;
+        return $this->password;
     }
 
-    public function setPassword(string $pass): self {
-        $this->pass = $pass;
+    public function setPassword(string $password): self {
+        $this->password = $password;
         return $this;
     }
     
-    function getPicture() {
+    function getPicture(): ?string {
         return $this->picture;
     }
 

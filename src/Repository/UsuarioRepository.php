@@ -63,7 +63,7 @@ class UsuarioRepository extends ServiceEntityRepository {
         $db->executeQuery($query);
     }
 
-    function updateOneById($id, $user) {
+    public function updateOneById($id, $user) {
 
         $em = $this->getEntityManager();
         $db = $em->getConnection();
@@ -80,34 +80,69 @@ class UsuarioRepository extends ServiceEntityRepository {
             $query = "UPDATE usuario SET name='$name', surname='$surname', password='$password' where id = $id ";
         }
         $db->executeQuery($query);
-
-        //$this->getOneById($id);
     }
 
-    // /**
-    //  * @return Usuario[] Returns an array of Usuario objects
-    //  */
-    /*
-      public function findByExampleField($value)
-      {
-      return $this->createQueryBuilder('u')
-      ->andWhere('u.exampleField = :val')
-      ->setParameter('val', $value)
-      ->orderBy('u.id', 'ASC')
-      ->setMaxResults(10)
-      ->getQuery()
-      ->getResult()
-      ;
-      }
+    public function getByString($string) {
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
 
-      public function findOneBySomeField($value): ?Usuario
-      {
-      return $this->createQueryBuilder('u')
-      ->andWhere('u.exampleField = :val')
-      ->setParameter('val', $value)
-      ->getQuery()
-      ->getOneOrNullResult()
-      ;
-      }
-     */
+        $query = "SELECT id, name, surname FROM usuario";
+        $result = $db->executeQuery($query);
+        $users = $result->fetchAll();
+        $matchUsers = array();
+        $stringFormatted = str_replace(" ", "", $this->stringPlainFormat(strtolower($string)));
+        
+        foreach ($users as $user) {
+            $stringDB = $user["name"] . $user["surname"];
+            $stringDBFormatted = str_replace(" ", "", $this->stringPlainFormat(strtolower($stringDB)));
+            if (strcmp($stringDBFormatted, $stringFormatted) == 0
+                    || $this->likeMatch('%'.$stringFormatted.'%',$stringDBFormatted)) {
+                array_push($matchUsers, $user);
+            }
+        }
+        return $matchUsers;
+    }
+
+    public function likeMatch($pattern, $subject) {
+        $pattern = str_replace('%', '.*', preg_quote($pattern, '/'));
+        return (bool) preg_match("/^{$pattern}$/i", $subject);
+    }
+
+    public function stringPlainFormat($string) {
+
+        $string = str_replace(
+                array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+                array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+                $string
+        );
+
+        $string = str_replace(
+                array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+                array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+                $string);
+
+        $string = str_replace(
+                array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+                array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+                $string);
+
+        $string = str_replace(
+                array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+                array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+                $string);
+
+        $string = str_replace(
+                array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+                array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+                $string);
+
+        $string = str_replace(
+                array('ñ', 'Ñ', 'ç', 'Ç'),
+                array('n', 'N', 'c', 'C'),
+                $string
+        );
+
+        return $string;
+    }
+
 }
