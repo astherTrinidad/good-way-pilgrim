@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Firebase\JWT\JWT;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class authenticationController extends AbstractController {
 
@@ -30,19 +31,17 @@ class authenticationController extends AbstractController {
         $user->setPicture("");
 
         if (!$this->isPartLowercase($password) || !$this->isPartUppercase($password) || strlen($password) < 8) {
-            http_response_code(422);
-            return $this->json([
-                        'code' => http_response_code(),
-                        'message' => 'password not valid',
-            ]);
+            $data = [
+                'message' => 'password not valid'
+            ];
+            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         if ($this->emailExists($email, $userRepository)) {
-            http_response_code(422);
-            return $this->json([
-                        'code' => http_response_code(),
-                        'message' => 'email is already in database',
-            ]);
+            $data = [
+                'message' => 'email is already in database'
+            ];
+            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -66,11 +65,10 @@ class authenticationController extends AbstractController {
         $user = $userRepository->getOneByEmail($request->get('email'));
 
         if (!$user || !$encoder->isPasswordValid($user, $request->get('password'))) {
-            http_response_code(422);
-            return $this->json([
-                        'code' => http_response_code(),
-                        'message' => 'email or password is wrong',
-            ]);
+            $data = [
+                'message' => 'email or password is wrong'
+            ];
+            return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
         }
         $payload = [
             "email" => $user->getEmail(),
@@ -88,9 +86,9 @@ class authenticationController extends AbstractController {
      * @Route("/pri/showProfile", name="showProfile", methods={"GET"})
      */
     public function showProfile(Request $request, UsuarioRepository $userRepository) {
-        
+
         $user = $userRepository->getOneById($request->get('id'));
-        
+
         if ($user) {
             return $this->json([
                         'id' => $user->getId(),
@@ -100,11 +98,10 @@ class authenticationController extends AbstractController {
                         'picture' => $user->getPicture(),
             ]);
         } else {
-            http_response_code(422);
-            return $this->json([
-                        'code' => http_response_code(),
-                        'message' => 'user not in database'
-            ]);
+            $data = [
+                'message' => 'user not in database'
+            ];
+            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -123,25 +120,25 @@ class authenticationController extends AbstractController {
     public function editProfile(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder) {
 
         $id = $request->get('id');
-        $name = $request->get('name');
-        $surname = $request->get('surname');
+        $name = ucwords(strtolower($request->get('name')));
+        $surname = ucwords(strtolower($request->get('surname')));
         $email = $request->get('email');
         $password = $request->get('password');
-        
+
         $user = new Usuario();
         $user->setName($name);
         $user->setSurname($surname);
         $user->setPass($encoder->encodePassword($user, $password));
         $user->setEmail($email);
-        
+
         if (isset($_FILES['photo'])) {
             $picture = base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name'])));
             $user->setPicture($picture);
         }
-        
+
         $userRepository->updateOneById($id, $user);
         $userEdited = $userRepository->getOneById($id);
-           
+
         return $this->json([
                     'id' => $userEdited->getId(),
                     'name' => $userEdited->getName(),

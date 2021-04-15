@@ -28,9 +28,7 @@ class JwtAuthenticator extends AbstractGuardAuthenticator {
     }
 
     public function start(Request $request, AuthenticationException $authException = null) {
-        http_response_code(511);
         $data = [
-            'code' => http_response_code(),
             'message' => 'Authentication Required'
         ];
         return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
@@ -57,9 +55,6 @@ class JwtAuthenticator extends AbstractGuardAuthenticator {
                         'email' => $jwt['email'],
             ]);
 
-//            return $this->userRepository->findOneBy([
-//                                'email' => $jwt['user'],
-//            ]);
         } catch (\Exception $exception) {
             throw new AuthenticationException($exception->getMessage());
         }
@@ -70,9 +65,7 @@ class JwtAuthenticator extends AbstractGuardAuthenticator {
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception) {
-        http_response_code(401);
         return new JsonResponse([
-            'code' => http_response_code(),
             'message' => $exception->getMessage()
                 ], Response::HTTP_UNAUTHORIZED);
     }

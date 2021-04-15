@@ -37,10 +37,10 @@ class Usuario implements UserInterface {
     /**
      * @ORM\Column(type="string")
      */
-    private $pass;
+    private $password;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $picture;
     
@@ -106,11 +106,11 @@ class Usuario implements UserInterface {
         return $this;
     }
 
-    public function getPass(): ?string {
+    public function getPassword(): ?string {
         return $this->pass;
     }
 
-    public function setPass(string $pass): self {
+    public function setPassword(string $pass): self {
         $this->pass = $pass;
         return $this;
     }
@@ -154,9 +154,6 @@ class Usuario implements UserInterface {
         // $this->plainPassword = null;
     }
 
-    public function getPassword(): ?string {
-        return $this->pass;
-    }
 
     public function getRoles() {
         return array('ROLE_USER');

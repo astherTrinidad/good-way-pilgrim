@@ -33,7 +33,7 @@ class LogroUsuario
     /**
      * Muchos LogroUsuario estan en un usuario. 
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="logroUsuarios")
-     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 
