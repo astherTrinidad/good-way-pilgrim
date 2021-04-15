@@ -26,7 +26,7 @@ class authenticationController extends AbstractController {
         $user = new Usuario();
         $user->setName($name);
         $user->setSurname($surname);
-        $user->setPass($encoder->encodePassword($user, $password));
+        $user->setPassword($encoder->encodePassword($user, $password));
         $user->setEmail($email);
         $user->setPicture("");
 
@@ -89,36 +89,55 @@ class authenticationController extends AbstractController {
 
         $user = $userRepository->getOneById($request->get('id'));
 
-        if ($user) {
-            return $this->json([
-                        'id' => $user->getId(),
-                        'name' => $user->getName(),
-                        'surname' => $user->getSurname(),
-                        'email' => $user->getEmail(),
-                        'picture' => $user->getPicture(),
-            ]);
-        } else {
+        if (!$user) {
             $data = [
                 'message' => 'user not in database'
             ];
             return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+
+        return $this->json([
+                    'id' => $user->getId(),
+                    'name' => $user->getName(),
+                    'surname' => $user->getSurname(),
+                    'email' => $user->getEmail(),
+                    'picture' => $user->getPicture(),
+        ]);
     }
 
     /**
-     * @Route("/pri/deleteUser", name="deleteUser", methods={"DELTE"})
+     * @Route("/pri/deleteUser", name="deleteUser", methods={"DELETE"})
      */
     public function deleteProfile(Request $request, UsuarioRepository $userRepository) {
+        
+        $user = $userRepository->getOneByID($request->get('id'));
+
+        if (!$user) {
+            $data = [
+                'message' => 'user not in database'
+            ];
+            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $userRepository->deleteOneById($request->get('id'));
         return $this->json([
-                    'message' => 'ok']);
+                    'message' => 'success']);
     }
 
     /**
-     * @Route("/pub/editProfile", name="editProfile", methods={"POST"})
+     * @Route("/pub/editProfile", name="editProfile", methods={"PUT"})
      */
     public function editProfile(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder) {
 
+        $user = $userRepository->getOneByID($request->get('id'));
+
+        if (!$user) {
+            $data = [
+                'message' => 'user not in database'
+            ];
+            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        
         $id = $request->get('id');
         $name = ucwords(strtolower($request->get('name')));
         $surname = ucwords(strtolower($request->get('surname')));
@@ -128,7 +147,7 @@ class authenticationController extends AbstractController {
         $user = new Usuario();
         $user->setName($name);
         $user->setSurname($surname);
-        $user->setPass($encoder->encodePassword($user, $password));
+        $user->setPassword($encoder->encodePassword($user, $password));
         $user->setEmail($email);
 
         if (isset($_FILES['photo'])) {
@@ -179,7 +198,7 @@ class authenticationController extends AbstractController {
     }
 
     /**
-     * @Route("/pri/descargar_csv", name="descargar_csv", methods={"GET"})
+     * @Route("/pri/csv_download", name="csv_download", methods={"GET"})
      */
     public function descargarCSV(): Response {
 

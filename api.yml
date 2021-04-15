@@ -6,10 +6,13 @@ info:
 paths:
   /pub/register:
     post:
-      summary: "Add a new user"
+      tags:
+      - "user"
+      summary: "Adds a new user"
       parameters:
         - name: user
           in: query
+          required: true
           schema:
             type: object
             properties:
@@ -25,6 +28,10 @@ paths:
                 type: string
                 description: User email
                 example: "irene@example.com"
+              password:
+                type: string
+                description: User password
+                example: "Password1"
       responses:
         "200":
           description: "New user created"
@@ -52,8 +59,8 @@ paths:
                   password:
                     type: string
                     description: User password
-                    example: "123123"
-                example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'password': '123123'}
+                    example: "Password1"
+                example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'password': 'Password1'}
 
         "422":
           description: "Invalid input"
@@ -61,4 +68,201 @@ paths:
             application/json:
               schema:
                 type: string
-                example: "password not valid"
+                example: {"message":"password not valid"}
+  /pub/login:
+    post:
+      tags:
+      - "user"
+      summary: "Log in GoodWayPilgrim"
+      parameters:
+        - name: identification
+          in: query
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: User email
+                example: "irene@example.com"
+              password:
+                type: string
+                description: User password
+                example: "Password1"
+      responses:
+        "200":
+          description: "Email and password are correct"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: message
+                    example: "success"
+                  token:
+                    type: string
+                    description: personal token
+                    example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                example: {'message': 'success','token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'}
+
+        "401":
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"email or password is wrong"}
+  /pri/showProfile:
+    get:
+      tags:
+      - "user"
+      summary: "Shows a complete profile by ID"
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 100
+      responses:
+        "200":
+          description: "Shows profile"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: User id
+                    example: 1
+                  name:
+                    type: string
+                    description: User name
+                    example: "Irene"
+                  surname:
+                    type: string
+                    description: User surname
+                    example: "Sánchez"
+                  email:
+                    type: string
+                    description: User email
+                    example: "irene@example.com"
+                  picture:
+                    type: string
+                    description: Profile picture
+                    example: null
+                example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'picture': 'null'}
+
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"user not in database"}
+  /pri/editProfile:
+    put:
+      tags:
+      - "user"
+      summary: "Shows a complete profile by ID"
+      parameters:
+        - name: user
+          in: query
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: User name
+                example: "Irene"
+              surname:
+                type: string
+                description: User surname
+                example: "Sánchez"
+              email:
+                type: string
+                description: User email
+                example: "irene@example.com"
+              password:
+                type: string
+                description: User password
+                example: "Password1"
+      responses:
+        "200":
+          description: "Shows profile"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: User id
+                    example: 1
+                  name:
+                    type: string
+                    description: User name
+                    example: "Irene"
+                  surname:
+                    type: string
+                    description: User surname
+                    example: "Sánchez"
+                  email:
+                    type: string
+                    description: User email
+                    example: "irene@example.com"
+                  picture:
+                    type: string
+                    description: Profile picture
+                    example: null
+                example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'picture': 'null'}
+
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"user not in database"}
+  /pri/deleteUser:
+    delete:
+      tags:
+      - "user"
+      summary: "Deletes user by ID"
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 100
+      responses:
+        "200":
+          description: "User deleted"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"user not in database"}
+  /pri/csv_download:
+    get:
+      tags:
+      - "camino"
+      summary: "Downloads csv file with caminos' data"
+      responses:
+        "200":
+          description: "File downloaded"
+
+
