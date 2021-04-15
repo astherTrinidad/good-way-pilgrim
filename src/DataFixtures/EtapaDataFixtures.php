@@ -8,10 +8,12 @@ use Doctrine\Persistence\ObjectManager;
 
 class EtapaDataFixtures extends Fixture
 {    
-    public const ETAPAS = array();
+   
 
     public function load(ObjectManager $manager)
-    {          
+    {     
+        static $todasEtapas = array();
+        
        //camino frances
         $etapa = new Etapa();       
         $etapa->setStart("Saint Jean Pied de Port");
@@ -20,7 +22,7 @@ class EtapaDataFixtures extends Fixture
         $etapa->setDescription("Saint Jean Pied de Port es el segundo punto de partida más empleado para iniciar su andadura. Antigua ciudad, amurallada y rodeada de majestuosas montañas.La jornada inaugural reta al peregrino con un desnivel de más de 1250 metros que enlazan St.Jean Pied de Port con el Puerto de Lepoeder, la entrada a territorio español conocida como la ruta de Napoleón.");  
         $manager->persist($etapa);
         $manager->flush();
-        ETAPAS_push($etapa);
+        array_push($todasEtapas, $etapa);        
                
         $etapa1 = new Etapa();       
         $etapa1->setStart("Roncesvalles");
@@ -29,7 +31,7 @@ class EtapaDataFixtures extends Fixture
         $etapa1->setDescription("El camino se inicia atravesando el bosque de Sorginaritzaga o Robedal de las Brujas. Un hermoso bosque de hayas, robles y tréboles junto con lo bucólico del río Arga, en nuestra llegada a Zubiri, serán los grandes regalos de la jornada.");  
         $manager->persist($etapa1);
         $manager->flush();
-        ETAPAS_push($etapa1);
+        array_push($todasEtapas, $etapa1);
                 
         $etapa2 = new Etapa();       
         $etapa2->setStart("Zubiri");
@@ -38,7 +40,7 @@ class EtapaDataFixtures extends Fixture
         $etapa2->setDescription("Comenzaremos la jornada cruzando el Puente de la Rabia. En lo alto de Akerreta, se ubica la iglesia de la Transfiguración en la que observaremos elementos medievales. Abandonaremos Zuriain siguiendo la carretera N-135 y volvemos a cruzar el río Arga por el puente de Iturgaiz. En la ruta de Huarte y retomaremos la senda tradicional a la altura de Trinidad de Arre. Siguiendo las señales del Camino de Santiago avanzaremos hasta el puente de la Magadalena dando acceso al casco antiguo de Pamplona.");  
         $manager->persist($etapa2);
         $manager->flush();
-        ETAPAS_push($etapa2);
+        array_push($todasEtapas, $etapa2);
 
         $etapa3 = new Etapa();       
         $etapa3->setStart("Pamplona");
@@ -47,7 +49,7 @@ class EtapaDataFixtures extends Fixture
         $etapa3->setDescription("Descendemos la calle Curia a Mercaderes. Seguimos por la calle San Saturnino atravesando la calle Mayor. Cruzamos el puente de Acella que atraviesa el río Sadar. Tras dos kilómetros en la entrada de Cizur Menor veremos a la derecha un antiguo señorío despoblado. Subiendo estará el templo geométrico de San Andrés en Zariquiegui. En lo alto del Perdón descenderemos y atravesamos el arco puntado de la puerta de Obanos, seguimos la vega del río Robo hasta el Puente la Reina.");  
         $manager->persist($etapa3);
         $manager->flush($etapa3);
-        ETAPAS_push($etapa3);
+        array_push($todasEtapas, $etapa3);
 
         $etapa4 = new Etapa();       
         $etapa4->setStart("Puente de la Reina");
@@ -56,7 +58,7 @@ class EtapaDataFixtures extends Fixture
         $etapa4->setDescription("Atravesamos el arco que une la iglesia del Crucifijo con el convento de San Juan y accedemos a la calle Mayor. Llegamos a Zubiurrutia donde se ubica el convento de las Comendadoras del Sancti Spiritus. Avanzamos por el margen derecho del río Arga hasta Mañeru. A la salida, un camino rodeado de cereal y viñedos discurre hasta un pueblo medieval en lo alto de una colina, Ciraqui. Descendemos hasta llegar a la regata Dorrondoa. En Lorca seguimos a cruz de Maurien y nos dirigimos a Villatuerta.");  
         $manager->persist($etapa4);
         $manager->flush(); 
-        ETAPAS_push($etapa4);
+        array_push($todasEtapas, $etapa4);
 
         $etapa5 = new Etapa();       
         $etapa5->setStart("Estella");
@@ -65,7 +67,9 @@ class EtapaDataFixtures extends Fixture
         $etapa5->setDescription("Abandonamos la localidad por las calles de la Rúa y San Nicolás, pasando junto al Palacio de los reyes de Navarra. Salimos a la calle Zalatambor y continuamos de frente después de la rotonda. Al pasar la gasolinera nos desviaremos a mano derecha hasta Ayegui. La ruta desciende hasta la fuente del Vino y el Monasterio de Irache. Cruzaremos la carretera N-111. Un conducto subterráneo nos permitirá acceder a campos de cultivo hasta Ázqueta. Junto a la senda encontramos Villamayor de Monjardín.");  
         $manager->persist($etapa5);
         $manager->flush($etapa5);
-        ETAPAS_push($etapa5);
+        array_push($todasEtapas, $etapa5);
+
+        
 
         $etapa6 = new Etapa();       
         $etapa6->setStart("Los Arcos");
@@ -83,7 +87,7 @@ class EtapaDataFixtures extends Fixture
         $manager->persist($etapa7);
         $manager->flush();
 
-        $etapa8 = new Etapa();       
+        $etapa8 = new Etapa();    
         $etapa8->setStart("Nájera");
         $etapa8->setFinish("Santo Domingo de La Calzada");        
         $etapa8->setKm(20.7);

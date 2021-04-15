@@ -8,7 +8,7 @@ use App\DataFixtures\EtapaDataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class EtapaDataFixtures extends Fixture implements DependentFixtureInterface
+class CaminoEtapaDataFixtures extends Fixture implements DependentFixtureInterface
 {        
     public function load(ObjectManager $manager)
     {          
@@ -16,25 +16,16 @@ class EtapaDataFixtures extends Fixture implements DependentFixtureInterface
            for ($j = 0; $j < 6; $j++){
                 $caminoEtapa = new CaminoEtapa();       
                 $caminoEtapa->setNumEtapa($j+1);
-                $caminoEtapa->setCamino($this->getReference(CaminoDataFixtures::CAMINOS[$j]));        
-                $caminoEtapa->setEtapa($this->getReference(EtapaDataFixtures::ETAPAS[$i]));
+                $caminoEtapa->setCamino($this->getReference(CaminoDataFixtures::todosCaminos[$i]));        
+                $caminoEtapa->setEtapa($this->getReference(EtapaDataFixtures::todasEtapas[$j]));
                 $manager->persist($caminoEtapa);
                 $manager->flush(); 
            }
-       }
-        
-        
-        
-        /*otro camino
-        $etapa = new Etapa();       
-        $etapa->setStart("");
-        $etapa->setFinish("");        
-        $etapa->setKm();
-        $etapa->setDescription("");  
-        $manager->persist($etapa);
-        $manager->flush();*/        
+       }                      
        
     }
+
+
 
     public function getDependencies()
     {
