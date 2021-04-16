@@ -10,7 +10,9 @@ security:
                     pattern: ^/pri/me
                     guard:
                         authenticators:
+                                - App\Security\JwtAuthenticator
                                 - App\Security\IdentityAuthenticator
+                        entry_point: App\Security\JwtAuthenticator
         main:
                     pattern: ^/pri
                     guard:

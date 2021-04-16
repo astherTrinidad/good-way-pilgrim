@@ -51,6 +51,7 @@ class IdentityAuthenticator extends AbstractGuardAuthenticator {
 
         $id = $credentials['id'];
         $credentials = $credentials['Authorization'];
+
         $credentials = str_replace('Bearer ', '', $credentials);
         $jwt = (array) JWT::decode(
                         $credentials,

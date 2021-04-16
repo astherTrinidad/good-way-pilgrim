@@ -108,7 +108,7 @@ class authenticationController extends AbstractController {
     }
 
     /**
-     * @Route("/pri/me/deleteUser", name="deleteUser", methods={"DELETE"})
+     * @Route("/pri/me/deleteProfile", name="deleteProfile", methods={"DELETE"})
      */
     public function deleteProfile(Request $request, UsuarioRepository $userRepository) {
 
