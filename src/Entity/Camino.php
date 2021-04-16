@@ -70,7 +70,8 @@ class Camino
     
     public function __construct() 
     { 
-        $this->backpacks = new ArrayCollection();                     
+        $this->backpacks = new ArrayCollection();
+        $this->caminoEtapas = new ArrayCollection();                     
     }
     
 

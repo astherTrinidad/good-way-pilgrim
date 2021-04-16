@@ -2,30 +2,41 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Etapa;
+use App\Entity\CaminoEtapa;
 use App\DataFixtures\CaminoDataFixtures;
 use App\DataFixtures\EtapaDataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class CaminoEtapaDataFixtures extends Fixture implements DependentFixtureInterface
 {        
     public function load(ObjectManager $manager)
-    {          
-       for ($i = 0; $i < 2; $i++){
-           for ($j = 0; $j < 6; $j++){
-                $caminoEtapa = new CaminoEtapa();       
-                $caminoEtapa->setNumEtapa($j+1);
-                $caminoEtapa->setCamino($this->getReference(CaminoDataFixtures::todosCaminos[$i]));        
-                $caminoEtapa->setEtapa($this->getReference(EtapaDataFixtures::todasEtapas[$j]));
-                $manager->persist($caminoEtapa);
-                $manager->flush(); 
-           }
-       }                      
-       
+    {   
+        //camino frances 
+        $contador = 0;         
+        for ($j = 1; $j < 34; $j++){  
+            $contador++;            
+            $caminoEtapa = new CaminoEtapa();       
+            $caminoEtapa->setNumEtapa($contador);
+            $caminoEtapa->setCamino($this->getReference(CaminoDataFixtures::CAMINO . 1));        
+            $caminoEtapa->setEtapa($this->getReference(EtapaDataFixtures::ETAPA . $j));
+            $manager->persist($caminoEtapa);
+            $manager->flush();            
+        }  
+        
+        //camino primitivo
+        $contador = 0;
+        for ($j = 34; $j < 48; $j++){      
+            $contador++; 
+            $caminoEtapa = new CaminoEtapa();       
+            $caminoEtapa->setNumEtapa($contador);
+            $caminoEtapa->setCamino($this->getReference(CaminoDataFixtures::CAMINO . 2));        
+            $caminoEtapa->setEtapa($this->getReference(EtapaDataFixtures::ETAPA . $j));
+            $manager->persist($caminoEtapa);
+            $manager->flush();            
+        } 
     }
-
-
 
     public function getDependencies()
     {
