@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=CaminoRepository::class)
  */
-class Camino 
-{    
+class Camino
+{
 
     /**
      * @ORM\Id
@@ -65,106 +65,105 @@ class Camino
      * Un camino tiene muchas mochilas
      * @ORM\OneToMany(targetEntity="Mochila", mappedBy="camino")
      */
-    private $backpacks;   
-    
-    
-    public function __construct() 
-    { 
-        $this->backpacks = new ArrayCollection();
-        $this->caminoEtapas = new ArrayCollection();                     
-    }
-    
+    private $backpacks;
 
-    public function getId(): ?int 
+
+    public function __construct()
+    {
+        $this->backpacks = new ArrayCollection();
+        $this->caminoEtapas = new ArrayCollection();
+    }
+
+
+    public function getId(): ?int
     {
         return $this->id;
-    }    
+    }
 
-    public function getName(): ?string 
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self 
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    public function getStart(): ?string 
+    public function getStart(): ?string
     {
         return $this->start;
     }
 
-    public function setStart(string $start): self 
+    public function setStart(string $start): self
     {
         $this->start = $start;
         return $this;
     }
 
-    public function getFinish(): ?string 
+    public function getFinish(): ?string
     {
         return $this->finish;
     }
 
-    public function setFinish(string $finish): self 
+    public function setFinish(string $finish): self
     {
         $this->finish = $finish;
         return $this;
     }
 
-    public function getNumEtapas(): ?int 
+    public function getNumEtapas(): ?int
     {
         return $this->numEtapas;
     }
 
-    public function setNumEtapas(int $numEtapas): self 
+    public function setNumEtapas(int $numEtapas): self
     {
         $this->numEtapas = $numEtapas;
         return $this;
     }
 
-    public function getKm(): ?float 
+    public function getKm(): ?float
     {
         return $this->km;
     }
 
-    public function setKm(float $km): self 
+    public function setKm(float $km): self
     {
         $this->km = $km;
         return $this;
     }
 
-    public function getDescription(): ?string 
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): self 
+    public function setDescription(string $description): self
     {
         $this->description = $description;
         return $this;
     }
 
-    public function getUserCaminos(): ?int 
+    public function getUserCaminos(): ?int
     {
         return $this->userCaminos;
-    }     
+    }
 
     public function getCaminoEtapas(): ?CaminoEtapa
     {
         return $this->caminoEtapas;
-    } 
+    }
 
-    public function setCaminoEtapas(CaminoEtapa $caminoEtapas): self 
+    public function setCaminoEtapas(CaminoEtapa $caminoEtapas): self
     {
         $this->caminoEtapas = $caminoEtapas;
         return $this;
     }
 
-    public function getBackpacks(): ?int 
+    public function getBackpacks(): ?int
     {
         return $this->backpacks;
-    } 
-
+    }
 }
