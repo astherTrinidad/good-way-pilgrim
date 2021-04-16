@@ -39,24 +39,34 @@ class IdentityAuthenticator extends AbstractGuardAuthenticator {
     }
 
     public function getCredentials(Request $request) {
-        return $request->headers->get('Authorization');
+        $data = [
+            'Authorization' => $request->headers->get('Authorization'),
+            'id' => $request->get('id')
+        ];
+        return $data;
+        //return $request->headers->get('Authorization');
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider) {
 
-        try {
-            $credentials = str_replace('Bearer ', '', $credentials);
-            $jwt = (array) JWT::decode(
-                            $credentials,
-                            $this->params->get('jwt_secret'),
-                            ['HS256']
-            );
+        $id = $credentials['id'];
+        $credentials = $credentials['Authorization'];
+        $credentials = str_replace('Bearer ', '', $credentials);
+        $jwt = (array) JWT::decode(
+                        $credentials,
+                        $this->params->get('jwt_secret'),
+                        ['HS256']
+        );
+        $user = $this->userRepository->findOneBy([
+            'email' => $jwt['email'],
+        ]);
+
+        if ($id == $user->getId()) {
             return $this->userRepository->findOneBy([
                         'email' => $jwt['email'],
             ]);
-
-        } catch (\Exception $exception) {
-            throw new AuthenticationException($exception->getMessage());
+        } else {
+            throw new AuthenticationException('Unauthorized');
         }
     }
 

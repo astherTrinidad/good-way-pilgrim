@@ -6,11 +6,17 @@ security:
                 class: App\Entity\Usuario
                 property: email
     firewalls:
+        identity:
+                    pattern: ^/pri/me
+                    guard:
+                        authenticators:
+                                - App\Security\IdentityAuthenticator
         main:
                     pattern: ^/pri
                     guard:
                         authenticators:
                                 - App\Security\JwtAuthenticator
+        
 #        dev:
 #            pattern: ^/(_(profiler|wdt)|css|images|js)/
 #            security: false

@@ -114,7 +114,7 @@ paths:
               schema:
                 type: string
                 example: {"message":"email or password is wrong"}
-  /pri/showProfile:
+  /pri/me/showProfile:
     get:
       tags:
       - "user"
@@ -163,7 +163,7 @@ paths:
               schema:
                 type: string
                 example: {"message":"user not in database"}
-  /pri/editProfile:
+  /pri/me/editProfile:
     put:
       tags:
       - "user"
@@ -228,7 +228,7 @@ paths:
               schema:
                 type: string
                 example: {"message":"user not in database"}
-  /pri/deleteUser:
+  /pri/me/deleteUser:
     delete:
       tags:
       - "user"

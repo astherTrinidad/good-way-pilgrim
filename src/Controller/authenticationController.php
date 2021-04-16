@@ -108,7 +108,7 @@ class authenticationController extends AbstractController {
     }
 
     /**
-     * @Route("/pri/deleteUser", name="deleteUser", methods={"DELETE"})
+     * @Route("/pri/me/deleteUser", name="deleteUser", methods={"DELETE"})
      */
     public function deleteProfile(Request $request, UsuarioRepository $userRepository) {
 
@@ -127,7 +127,7 @@ class authenticationController extends AbstractController {
     }
 
     /**
-     * @Route("/pub/editProfile", name="editProfile", methods={"PUT"})
+     * @Route("/pri/me/editProfile", name="editProfile", methods={"PUT"})
      */
     public function editProfile(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder) {
 
