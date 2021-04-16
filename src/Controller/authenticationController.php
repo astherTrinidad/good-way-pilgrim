@@ -225,7 +225,7 @@ class authenticationController extends AbstractController {
 
         $response = new Response();
         $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="caminos.csv"');
+        $response->headers->set('Content-Disposition', 'attachment; filename="GoodWayPilgrim_caminos.csv"');
 
         return $response;
     }

@@ -48,7 +48,7 @@ class IdentityAuthenticator extends AbstractGuardAuthenticator {
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider) {
-
+        
         $id = $credentials['id'];
         $credentials = $credentials['Authorization'];
 

@@ -43,7 +43,7 @@ class JwtAuthenticator extends AbstractGuardAuthenticator {
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider) {
-
+        
         try {
             $credentials = str_replace('Bearer ', '', $credentials);
             $jwt = (array) JWT::decode(

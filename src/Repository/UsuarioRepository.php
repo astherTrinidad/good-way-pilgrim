@@ -28,20 +28,6 @@ class UsuarioRepository extends ServiceEntityRepository {
         }
         return $user[0];
 
-//        $em = $this->getEntityManager();
-//        $db = $em->getConnection();
-// 
-//        $query = "SELECT * FROM usuario where email = '$email' ";
-//        $resultado = $db->executeQuery($query);
-//        $po=$resultado->fetchAll();
-// 
-//        // Mostrar todo
-//        foreach ($po as $p) {
-//            echo $p["nombre"];
-//            echo "<br/>";
-//            echo $p["apellido"];
-//            echo "<hr/>";
-//        }
     }
 
     public function getOneById($id) {
