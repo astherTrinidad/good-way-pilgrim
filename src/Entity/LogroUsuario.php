@@ -43,7 +43,7 @@ class LogroUsuario
         return $this->id;
     }
 
-    public function getDate(): ?date 
+    public function getDate(): ?date
     {
         return $this->date;
     }
@@ -54,14 +54,26 @@ class LogroUsuario
         return $this;
     }
 
-    public function getAchievement(): ?int 
+    public function getAchievement(): ?Logro 
     {
         return $this->achievement;
     }
 
-    public function getUser(): ?int 
+    public function setAchievement(Logro $achievement): self 
+    {
+        $this->achievement = $achievement;
+        return $this;
+    }
+
+    public function getUser(): ?Usuario 
     {
         return $this->user;
+    }
+
+    public function setUser(Usuario $user): self 
+    {
+        $this->user = $user;
+        return $this;
     }
 
 }

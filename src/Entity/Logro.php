@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Logro 
 {    
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -69,9 +68,15 @@ class Logro
         return $this;
     }
 
-    public function getAchievementUsers(): ?int 
+    public function getAchievementUsers(): ?LogroUsuario 
     {
         return $this->achievementUsers;
+    }
+
+    public function setAchievementUsers(LogroUsuario $achievementUsers): self 
+    {
+        $this->achievementUsers = $achievementUsers;
+        return $this;
     }
 
 }
