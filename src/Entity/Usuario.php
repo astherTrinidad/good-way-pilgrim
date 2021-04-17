@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
  */
-class Usuario implements UserInterface 
+class Usuario implements UserInterface
 {
 
     /**
@@ -38,7 +38,7 @@ class Usuario implements UserInterface
     /**
      * @ORM\Column(type="string")
      */
-    private $pass;   
+    private $pass;
 
     /**
      * Un usuario tiene muchos UsuarioCaminos
@@ -64,7 +64,7 @@ class Usuario implements UserInterface
      */
     private $userCaminoEtapas;
 
-    public function __construct() 
+    public function __construct()
     {
         $this->userCaminos = new ArrayCollection();
         $this->backpacks = new ArrayCollection();
@@ -72,77 +72,83 @@ class Usuario implements UserInterface
         $this->achievementUsers = new ArrayCollection();
     }
 
-    public function getId(): ?int 
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string 
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self 
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    public function getSurname(): ?string 
+    public function getSurname(): ?string
     {
         return $this->surname;
     }
 
-    public function setSurname(string $surname): self 
+    public function setSurname(string $surname): self
     {
         $this->surname = $surname;
         return $this;
     }
 
-    public function getEmail(): ?string 
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self 
+    public function setEmail(string $email): self
     {
         $this->email = $email;
         return $this;
     }
 
-    public function getPass(): ?string 
+    public function getPass(): ?string
     {
         return $this->pass;
     }
 
-    public function setPass(string $pass): self 
+    public function setPass(string $pass): self
     {
         $this->pass = $pass;
         return $this;
-    }    
+    }
 
-    public function getUserCaminos(): ?int 
+    public function getUserCaminos(): ?UsuarioCamino
     {
         return $this->userCaminos;
     }
 
-    public function getBackpacks(): ?int 
+    public function setUserCaminos(UsuarioCamino $userCaminos): self
+    {
+        $this->userCaminos = $userCaminos;
+        return $this;
+    }
+
+    public function getBackpacks(): ?int
     {
         return $this->backpacks;
     }
 
-    public function getAchievementUsers(): ?LogroUsuario 
+    public function getAchievementUsers(): ?LogroUsuario
     {
         return $this->achievementUsers;
     }
 
-    public function setAchievementUsers(LogroUsuario $achievementUsers): self 
+    public function setAchievementUsers(LogroUsuario $achievementUsers): self
     {
         $this->achievementUsers = $achievementUsers;
         return $this;
     }
 
-    public function getUserCaminoEtapas(): ?int 
+    public function getUserCaminoEtapas(): ?int
     {
         return $this->userCaminoEtapas;
     }
@@ -150,7 +156,7 @@ class Usuario implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getSalt() 
+    public function getSalt()
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
@@ -158,25 +164,24 @@ class Usuario implements UserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials() 
+    public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
 
-    public function getPassword(): ?string 
+    public function getPassword(): ?string
     {
         return $this->pass;
     }
 
-    public function getRoles() 
+    public function getRoles()
     {
         return array('ROLE_USER');
     }
 
-    public function getUsername() 
+    public function getUsername()
     {
         return $this->name;
     }
-
 }
