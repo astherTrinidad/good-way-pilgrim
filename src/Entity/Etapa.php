@@ -43,13 +43,7 @@ class Etapa
      * Una Etapa tiene muchos caminoEtapa
      * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="etapa")
      */
-    private $caminoEtapas;
-
-    /**
-     * Un camino tiene muchos CaminoEtapa
-     * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="camino")
-     */
-    private $caminos;
+    private $caminoEtapas;    
 
    
     public function __construct() 
@@ -107,14 +101,17 @@ class Etapa
         return $this;
     }
 
-    public function getCaminoEtapas(): ?int
+    public function getCaminoEtapas(): ?CaminoEtapa
     {
         return $this->caminoEtapas;
     }
 
-    public function getCaminos(): ?int
+    public function setCaminoEtapas(CaminoEtapa $caminoEtapas): self 
     {
-        return $this->caminos;
+        $this->caminoEtapas = $caminoEtapas;
+        return $this;
     }
+
+    
 
 }

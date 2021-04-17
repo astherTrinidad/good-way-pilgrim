@@ -37,7 +37,7 @@ class Usuario implements UserInterface {
     /**
      * @ORM\Column(type="string")
      */
-    private $pass;
+    private $pass;   
 
     /**
      * Un usuario tiene muchos UsuarioCaminos
@@ -107,7 +107,7 @@ class Usuario implements UserInterface {
     public function setPass(string $pass): self {
         $this->pass = $pass;
         return $this;
-    }
+    }    
 
     public function getUserCaminos(): ?int {
         return $this->userCaminos;
