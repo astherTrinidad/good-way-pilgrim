@@ -148,9 +148,15 @@ class Usuario implements UserInterface
         return $this;
     }
 
-    public function getUserCaminoEtapas(): ?int
+    public function getUserCaminoEtapas(): ?UsuarioCamino
     {
         return $this->userCaminoEtapas;
+    }
+
+    public function setUserCaminoEtapas(UsuarioCamino $userCaminoEtapas): self
+    {
+        $this->userCaminoEtapas = $userCaminoEtapas;
+        return $this;
     }
 
     /**
