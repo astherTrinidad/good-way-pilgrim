@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UsuarioCaminoRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,7 +49,7 @@ class UsuarioCamino
         return $this->id;
     }
 
-    public function getStartDate(): ?string
+    public function getStartDate(): ?DateTime
     {
         return $this->startDate;
     }
@@ -60,7 +61,7 @@ class UsuarioCamino
         return $this;
     }
 
-    public function getFinishDate(): ?string
+    public function getFinishDate(): ?DateTime
     {
         return $this->finishDate;
     }

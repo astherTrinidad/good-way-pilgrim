@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UsuarioRepository;
+use App\Entity\UsuarioCamino;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -121,20 +122,29 @@ class Usuario implements UserInterface
         return $this;
     }
 
-    public function getUserCaminos(): ?UsuarioCamino
+    /**
+     * @return UsuarioCamino[]
+     */
+    public function getUserCaminos()
     {
         return $this->userCaminos;
     }
 
     public function setUserCaminos(UsuarioCamino $userCaminos): self
     {
-        $this->userCaminos = $userCaminos;
+        $this->userCaminos->add = $userCaminos;
         return $this;
     }
 
-    public function getBackpacks(): ?int
+    public function getBackpacks(): ?Mochila
     {
         return $this->backpacks;
+    }
+
+    public function setBackpacks(Mochila $backpacks): self
+    {
+        $this->backpacks = $backpacks;
+        return $this;
     }
 
     public function getAchievementUsers(): ?LogroUsuario

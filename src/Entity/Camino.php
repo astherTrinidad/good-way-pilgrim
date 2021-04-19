@@ -169,8 +169,14 @@ class Camino
         return $this;
     }
 
-    public function getBackpacks(): ?int
+    public function getBackpacks(): ?Mochila
     {
         return $this->backpacks;
+    }
+
+    public function setBackpacks(Mochila $backpacks): self
+    {
+        $this->backpacks = $backpacks;
+        return $this;
     }
 }
