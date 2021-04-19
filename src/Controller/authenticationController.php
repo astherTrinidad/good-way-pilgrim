@@ -14,12 +14,14 @@ use Firebase\JWT\JWT;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class authenticationController extends AbstractController {
+class authenticationController extends AbstractController
+{
 
     /**
      * @Route("/pub/register", name="register", methods={"POST"})
      */
-    public function register(Request $request, UserPasswordEncoderInterface $encoder, UsuarioRepository $userRepository) {
+    public function register(Request $request, UserPasswordEncoderInterface $encoder, UsuarioRepository $userRepository)
+    {
         $name = ucwords(strtolower($request->get('name')));
         $surname = ucwords(strtolower($request->get('surname')));
         $email = $request->get('email');
@@ -50,10 +52,10 @@ class authenticationController extends AbstractController {
         $em->flush();
 
         return $this->json([
-                    'id' => $user->getId(),
-                    'name' => $user->getName(),
-                    'surname' => $user->getSurname(),
-                    'email' => $user->getEmail(),
+            'id' => $user->getId(),
+            'name' => $user->getName(),
+            'surname' => $user->getSurname(),
+            'email' => $user->getEmail(),
         ]);
         //return new Response(json_encode($user));
     }
@@ -61,7 +63,8 @@ class authenticationController extends AbstractController {
     /**
      * @Route("/pub/login", name="login", methods={"POST"})
      */
-    public function login(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder) {
+    public function login(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder)
+    {
 
         $user = $userRepository->getOneByEmail($request->get('email'));
 
@@ -79,15 +82,16 @@ class authenticationController extends AbstractController {
 
         $jwt = JWT::encode($payload, $this->getParameter('jwt_secret'), 'HS256');
         return $this->json([
-                    'message' => 'success',
-                    'token' => $jwt,
+            'message' => 'success',
+            'token' => $jwt,
         ]);
     }
 
     /**
      * @Route("/pri/me/showProfile", name="showProfile", methods={"GET"})
      */
-    public function showProfile(Request $request, UsuarioRepository $userRepository) {
+    public function showProfile(Request $request, UsuarioRepository $userRepository)
+    {
 
         $user = $userRepository->getOneById($request->get('id'));
 
@@ -99,18 +103,19 @@ class authenticationController extends AbstractController {
         }
 
         return $this->json([
-                    'id' => $user->getId(),
-                    'name' => $user->getName(),
-                    'surname' => $user->getSurname(),
-                    'email' => $user->getEmail(),
-                    'picture' => $user->getPicture(),
+            'id' => $user->getId(),
+            'name' => $user->getName(),
+            'surname' => $user->getSurname(),
+            'email' => $user->getEmail(),
+            'picture' => $user->getPicture(),
         ]);
     }
 
     /**
      * @Route("/pri/me/deleteProfile", name="deleteProfile", methods={"DELETE"})
      */
-    public function deleteProfile(Request $request, UsuarioRepository $userRepository) {
+    public function deleteProfile(Request $request, UsuarioRepository $userRepository)
+    {
 
         $user = $userRepository->getOneByID($request->get('id'));
 
@@ -123,13 +128,15 @@ class authenticationController extends AbstractController {
 
         $userRepository->deleteOneById($request->get('id'));
         return $this->json([
-                    'message' => 'success']);
+            'message' => 'success'
+        ]);
     }
 
     /**
      * @Route("/pub/editProfile", name="editProfile", methods={"PUT"})
      */
-    public function editProfile(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder) {
+    public function editProfile(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder)
+    {
 
         $user = $userRepository->getOneByID($request->get('id'));
 
@@ -171,18 +178,19 @@ class authenticationController extends AbstractController {
         $userEdited = $userRepository->getOneById($id);
 
         return $this->json([
-                    'id' => $userEdited->getId(),
-                    'name' => $userEdited->getName(),
-                    'surname' => $userEdited->getSurname(),
-                    'email' => $userEdited->getEmail(),
-                    'picture' => $userEdited->getPicture()
+            'id' => $userEdited->getId(),
+            'name' => $userEdited->getName(),
+            'surname' => $userEdited->getSurname(),
+            'email' => $userEdited->getEmail(),
+            'picture' => $userEdited->getPicture()
         ]);
     }
 
     /**
      * @Route("/pub/showUsers", name="showUsers", methods={"GET"})
      */
-    public function showUsers(Request $request, UsuarioRepository $userRepository) {
+    public function showUsers(Request $request, UsuarioRepository $userRepository)
+    {
         $searchString = $request->get('string');
         $matchUsers = $userRepository->getByString($searchString);
 
@@ -196,20 +204,22 @@ class authenticationController extends AbstractController {
         return new JsonResponse($matchUsers);
     }
 
-    
 
-    function isPartUppercase($string) {
+
+    function isPartUppercase($string)
+    {
         return (bool) preg_match('/[A-Z]/', $string);
     }
 
-    function isPartLowercase($string) {
+    function isPartLowercase($string)
+    {
         return (bool) preg_match('/[a-z]/', $string);
     }
 
-    function emailExists($email, $userRepository) {
+    function emailExists($email, $userRepository)
+    {
         return $userRepository->findOneBy([
-                    'email' => $email,
+            'email' => $email,
         ]);
     }
-
 }

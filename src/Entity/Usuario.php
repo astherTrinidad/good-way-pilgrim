@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UsuarioRepository;
-use App\Entity\UsuarioCamino;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -45,12 +44,11 @@ class Usuario implements UserInterface
      * @ORM\Column(type="text", nullable=true)
      */
     private $picture;
-    
+
     /**
      * Un usuario tiene muchos UsuarioCaminos
      * @ORM\OneToMany(targetEntity="UsuarioCamino", mappedBy="usuario")
      */
-    
     private $userCaminos;
 
     /**
@@ -117,31 +115,33 @@ class Usuario implements UserInterface
         return $this;
     }
 
-    public function getPassword(): ?string {
+    public function getPassword(): ?string
+    {
         return $this->password;
     }
 
-    public function setPassword(string $password): self {
+    public function setPassword(string $password): self
+    {
         $this->password = $password;
-
         return $this;
     }
-    
-    function getPicture(): ?string {
+
+    public function getPicture(): ?string
+    {
         return $this->picture;
     }
-  
-    function setPicture($picture): void {
-        $this->picture = $picture;
-    }
 
+    public function setPicture(string $picture): self
+    {
+        $this->picture = $picture;
+        return $this;
+    }
 
     /**
      * @return UsuarioCamino[]
      */
     public function getUserCaminos()
     {
-
         return $this->userCaminos;
     }
 
@@ -151,7 +151,20 @@ class Usuario implements UserInterface
         return $this;
     }
 
-    public function getBackpacks(): ?Mochila
+    /*public function addBrand(Brand $brand): self
+    {
+        if (!$this->brands->contains($brand)) {
+            $this->brands[] = $brand;
+            $brand->setBrands($this);
+        }
+
+        return $this;
+    }*/
+
+    /**
+     * @return Mochila[]
+     */
+    public function getBackpacks()
     {
         return $this->backpacks;
     }
@@ -162,7 +175,10 @@ class Usuario implements UserInterface
         return $this;
     }
 
-    public function getAchievementUsers(): ?LogroUsuario
+    /**
+     * @return LogroUsuario[]
+     */
+    public function getAchievementUsers()
     {
         return $this->achievementUsers;
     }
@@ -173,12 +189,15 @@ class Usuario implements UserInterface
         return $this;
     }
 
-    public function getUserCaminoEtapas(): ?UsuarioCamino
+    /**
+     * @return UsuarioCaminoEtapa[]
+     */
+    public function getUserCaminoEtapas()
     {
         return $this->userCaminoEtapas;
     }
 
-    public function setUserCaminoEtapas(UsuarioCamino $userCaminoEtapas): self
+    public function setUserCaminoEtapas(UsuarioCaminoEtapa $userCaminoEtapas): self
     {
         $this->userCaminoEtapas = $userCaminoEtapas;
         return $this;
@@ -200,7 +219,6 @@ class Usuario implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
 
     public function getRoles()
     {

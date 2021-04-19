@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\LogroUsuarioRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -20,7 +21,7 @@ class LogroUsuario
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $date;
 
@@ -44,7 +45,7 @@ class LogroUsuario
         return $this->id;
     }
 
-    public function getDate(): ?string
+    public function getDate(): ?DateTime
     {
         return $this->date;
     }

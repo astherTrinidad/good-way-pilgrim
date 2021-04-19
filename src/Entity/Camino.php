@@ -147,7 +147,10 @@ class Camino
         return $this;
     }
 
-    public function getUserCaminos(): ?UsuarioCamino
+    /**
+     * @return UsuarioCamino[]
+     */
+    public function getUserCaminos()
     {
         return $this->userCaminos;
     }
@@ -158,7 +161,10 @@ class Camino
         return $this;
     }
 
-    public function getCaminoEtapas(): ?CaminoEtapa
+    /**
+     * @return CaminoEtapa[]
+     */
+    public function getCaminoEtapas()
     {
         return $this->caminoEtapas;
     }
@@ -169,7 +175,10 @@ class Camino
         return $this;
     }
 
-    public function getBackpacks(): ?Mochila
+    /**
+     * @return Mochila[]
+     */
+    public function getBackpacks()
     {
         return $this->backpacks;
     }

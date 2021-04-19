@@ -68,7 +68,10 @@ class Logro
         return $this;
     }
 
-    public function getAchievementUsers(): ?LogroUsuario
+    /**
+     * @return LogroUsuario[]
+     */
+    public function getAchievementUsers()
     {
         return $this->achievementUsers;
     }
