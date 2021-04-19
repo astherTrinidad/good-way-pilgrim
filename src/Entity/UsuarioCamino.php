@@ -19,7 +19,7 @@ class UsuarioCamino
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $startDate;
 
