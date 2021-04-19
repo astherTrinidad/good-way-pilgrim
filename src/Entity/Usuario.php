@@ -39,12 +39,18 @@ class Usuario implements UserInterface
     /**
      * @ORM\Column(type="string")
      */
-    private $pass;
+    private $password;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $picture;
+    
     /**
      * Un usuario tiene muchos UsuarioCaminos
      * @ORM\OneToMany(targetEntity="UsuarioCamino", mappedBy="usuario")
      */
+    
     private $userCaminos;
 
     /**
@@ -111,22 +117,31 @@ class Usuario implements UserInterface
         return $this;
     }
 
-    public function getPass(): ?string
-    {
-        return $this->pass;
+    public function getPassword(): ?string {
+        return $this->password;
     }
 
-    public function setPass(string $pass): self
-    {
-        $this->pass = $pass;
+    public function setPassword(string $password): self {
+        $this->password = $password;
+
         return $this;
     }
+    
+    function getPicture(): ?string {
+        return $this->picture;
+    }
+  
+    function setPicture($picture): void {
+        $this->picture = $picture;
+    }
+
 
     /**
      * @return UsuarioCamino[]
      */
     public function getUserCaminos()
     {
+
         return $this->userCaminos;
     }
 
@@ -186,10 +201,6 @@ class Usuario implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->pass;
-    }
 
     public function getRoles()
     {

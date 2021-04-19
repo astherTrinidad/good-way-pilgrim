@@ -32,14 +32,14 @@ class UsuarioCamino
     /**
      * Muchos UsuarioCamino son realizados por un usuario. 
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="usuarioCaminos")
-     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 
     /**
      * Muchas UsuarioCamino estan en un camino. 
      * @ORM\ManyToOne(targetEntity="Camino", inversedBy="usuarioCaminos")
-     * @ORM\JoinColumn(name="id_camino", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_camino", referencedColumnName="id", onDelete="CASCADE")
      */
     private $camino;
 

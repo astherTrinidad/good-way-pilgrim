@@ -27,14 +27,14 @@ class CaminoEtapa
     /**
      * Muchas CaminoEtapa estan un camino. 
      * @ORM\ManyToOne(targetEntity="Camino", inversedBy="caminoEtapas")
-     * @ORM\JoinColumn(name="id_camino", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_camino", referencedColumnName="id", onDelete="CASCADE")
      */
     private $camino;
 
     /**
      * Muchas CaminoEtapa estan en una etapa. 
      * @ORM\ManyToOne(targetEntity="Etapa", inversedBy="caminoEtapas")
-     * @ORM\JoinColumn(name="id_etapa", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_etapa", referencedColumnName="id", onDelete="CASCADE")
      */
     private $etapa;
 
