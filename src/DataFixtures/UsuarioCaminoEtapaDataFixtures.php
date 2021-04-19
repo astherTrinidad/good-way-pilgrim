@@ -14,21 +14,85 @@ class UsuarioCaminoEtapaDataFixtures extends Fixture implements DependentFixture
 
     public function load(ObjectManager $manager)
     {
-        //Irene
-        $usuarioCaminoEtapa = new UsuarioCaminoEtapa();
-        $usuarioCaminoEtapa->setStatus("");
-        $usuarioCaminoEtapa->setUser($this->getReference(UserDataFixtures::USUARIO . 2));
-        $usuarioCaminoEtapa->setCaminoEtapa($this->getReference(CaminoDataFixtures::CAMINO . 1));
-        $manager->persist($usuarioCaminoEtapa);
-        $manager->flush();
+        //Irene camino Francés        
+        for ($j = 0; $j < 33; $j++) {
+            if ($j == 4) {
+                $usuarioCaminoEtapa = new UsuarioCaminoEtapa();
+                $usuarioCaminoEtapa->setStatus("Active");
+                $usuarioCaminoEtapa->setUser($this->getReference(UserDataFixtures::USUARIO . 2));
+                $usuarioCaminoEtapa->setCaminoEtapa($this->getReference(CaminoEtapaDataFixtures::CAMINO_ETAPA_FRANCES . $j));
+                $manager->persist($usuarioCaminoEtapa);
+                $manager->flush();
+                break;
+            } else {
+                $usuarioCaminoEtapa = new UsuarioCaminoEtapa();
+                $usuarioCaminoEtapa->setStatus("Completed");
+                $usuarioCaminoEtapa->setUser($this->getReference(UserDataFixtures::USUARIO . 2));
+                $usuarioCaminoEtapa->setCaminoEtapa($this->getReference(CaminoEtapaDataFixtures::CAMINO_ETAPA_FRANCES . $j));
+                $manager->persist($usuarioCaminoEtapa);
+                $manager->flush();
+            }
+        }
 
-        //Javi        
-        $usuarioCaminoEtapa1 = new UsuarioCaminoEtapa();
-        $usuarioCaminoEtapa1->setStatus("");
-        $usuarioCaminoEtapa1->setUser($this->getReference(UserDataFixtures::USUARIO . 2));
-        $usuarioCaminoEtapa1->setCaminoEtapa($this->getReference(CaminoDataFixtures::CAMINO . 1));
-        $manager->persist($usuarioCaminoEtapa1);
-        $manager->flush();
+        //Irene camino Primitivo
+        for ($j = 0; $j < 14; $j++) {
+            $usuarioCaminoEtapa = new UsuarioCaminoEtapa();
+            $usuarioCaminoEtapa->setStatus("Completed");
+            $usuarioCaminoEtapa->setUser($this->getReference(UserDataFixtures::USUARIO . 2));
+            $usuarioCaminoEtapa->setCaminoEtapa($this->getReference(CaminoEtapaDataFixtures::CAMINO_ETAPA_PRIMITIVO . $j));
+            $manager->persist($usuarioCaminoEtapa);
+            $manager->flush();
+        }
+
+        //Asther camino primitivo
+        for ($j = 0; $j < 14; $j++) {
+            $usuarioCaminoEtapa = new UsuarioCaminoEtapa();
+            $usuarioCaminoEtapa->setStatus("Completed");
+            $usuarioCaminoEtapa->setUser($this->getReference(UserDataFixtures::USUARIO . 3));
+            $usuarioCaminoEtapa->setCaminoEtapa($this->getReference(CaminoEtapaDataFixtures::CAMINO_ETAPA_PRIMITIVO . $j));
+            $manager->persist($usuarioCaminoEtapa);
+            $manager->flush();
+        }
+
+        //Sara camino francés
+        for ($j = 0; $j < 33; $j++) {
+            $usuarioCaminoEtapa = new UsuarioCaminoEtapa();
+            $usuarioCaminoEtapa->setStatus("Completed");
+            $usuarioCaminoEtapa->setUser($this->getReference(UserDataFixtures::USUARIO . 4));
+            $usuarioCaminoEtapa->setCaminoEtapa($this->getReference(CaminoEtapaDataFixtures::CAMINO_ETAPA_FRANCES . $j));
+            $manager->persist($usuarioCaminoEtapa);
+            $manager->flush();
+        }
+
+        //Javi camino francés       
+        for ($j = 0; $j < 33; $j++) {
+            $usuarioCaminoEtapa = new UsuarioCaminoEtapa();
+            $usuarioCaminoEtapa->setStatus("Completed");
+            $usuarioCaminoEtapa->setUser($this->getReference(UserDataFixtures::USUARIO . 5));
+            $usuarioCaminoEtapa->setCaminoEtapa($this->getReference(CaminoEtapaDataFixtures::CAMINO_ETAPA_FRANCES . $j));
+            $manager->persist($usuarioCaminoEtapa);
+            $manager->flush();
+        }
+
+        //Javi camino Primitivo
+        for ($j = 0; $j < 14; $j++) {
+            if ($j == 12) {
+                $usuarioCaminoEtapa = new UsuarioCaminoEtapa();
+                $usuarioCaminoEtapa->setStatus("Active");
+                $usuarioCaminoEtapa->setUser($this->getReference(UserDataFixtures::USUARIO . 5));
+                $usuarioCaminoEtapa->setCaminoEtapa($this->getReference(CaminoEtapaDataFixtures::CAMINO_ETAPA_PRIMITIVO . $j));
+                $manager->persist($usuarioCaminoEtapa);
+                $manager->flush();
+                break;
+            } else {
+                $usuarioCaminoEtapa = new UsuarioCaminoEtapa();
+                $usuarioCaminoEtapa->setStatus("Completed");
+                $usuarioCaminoEtapa->setUser($this->getReference(UserDataFixtures::USUARIO . 5));
+                $usuarioCaminoEtapa->setCaminoEtapa($this->getReference(CaminoEtapaDataFixtures::CAMINO_ETAPA_PRIMITIVO . $j));
+                $manager->persist($usuarioCaminoEtapa);
+                $manager->flush();
+            }
+        }
     }
 
     public function getDependencies()

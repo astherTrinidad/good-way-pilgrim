@@ -60,8 +60,8 @@ class UsuarioCaminoDataFixtures extends Fixture implements DependentFixtureInter
         $manager->flush();
 
         $usuarioCamino5 = new UsuarioCamino();
-        $usuarioCamino5->setStartDate("2020-12-01");
-        $usuarioCamino5->setFinishDate("2021-01-15");
+        $usuarioCamino5->setStartDate("2021-04-01");
+        $usuarioCamino5->setFinishDate("");
         $usuarioCamino5->setUser($this->getReference(UserDataFixtures::USUARIO . 5));
         $usuarioCamino5->setCamino($this->getReference(CaminoDataFixtures::CAMINO . 2));
         $manager->persist($usuarioCamino5);
