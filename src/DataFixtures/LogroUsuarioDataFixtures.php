@@ -18,9 +18,7 @@ class LogroUsuarioDataFixtures extends Fixture implements DependentFixtureInterf
 
     public function load(ObjectManager $manager)
     {
-        /*$dateNew = date('2020-05-01');*/
-
-        //patriciaS
+        //patricia
         $logroUsuario = new LogroUsuario();
         $logroUsuario->setDate(self::DATE1);
         $logroUsuario->setUser($this->getReference(UserDataFixtures::USUARIO . 1));

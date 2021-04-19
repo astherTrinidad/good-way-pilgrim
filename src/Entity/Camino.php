@@ -72,6 +72,7 @@ class Camino
     {
         $this->backpacks = new ArrayCollection();
         $this->caminoEtapas = new ArrayCollection();
+        $this->userCaminos = new ArrayCollection();
     }
 
 
@@ -146,9 +147,15 @@ class Camino
         return $this;
     }
 
-    public function getUserCaminos(): ?int
+    public function getUserCaminos(): ?UsuarioCamino
     {
         return $this->userCaminos;
+    }
+
+    public function setUserCaminos(UsuarioCamino $userCaminos): self
+    {
+        $this->userCaminos = $userCaminos;
+        return $this;
     }
 
     public function getCaminoEtapas(): ?CaminoEtapa
