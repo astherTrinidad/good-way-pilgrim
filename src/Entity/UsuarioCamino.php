@@ -8,15 +8,15 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=UsuarioCaminoRepository::class)
  */
-class UsuarioCamino 
-{    
+class UsuarioCamino
+{
 
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;    
+    private $id;
 
     /**
      * @ORM\Column(type="date")
@@ -24,7 +24,7 @@ class UsuarioCamino
     private $startDate;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $finishDate;
 
@@ -43,41 +43,54 @@ class UsuarioCamino
     private $camino;
 
 
-    public function getId(): ?int 
+    public function getId(): ?int
     {
         return $this->id;
-    }       
+    }
 
-    public function getStartDate(): ?date 
+    public function getStartDate(): ?string
     {
         return $this->startDate;
     }
 
-    public function setStartDate(date $startDate): self 
+    public function setStartDate(string $startDate): self
     {
-        $this->startDate = $startDate;
+        $fecha = new \DateTime($startDate);
+        $this->startDate = $fecha;
         return $this;
     }
 
-    public function getFinishDate(): ?date 
+    public function getFinishDate(): ?string
     {
         return $this->finishDate;
     }
 
-    public function setFinishDate(date $finishDate): self 
+    public function setFinishDate(string $finishDate): self
     {
-        $this->finishDate = $finishDate;
+        $fecha = new \DateTime($finishDate);
+        $this->finishDate = $fecha;
         return $this;
     }
 
-    public function getUser(): ?int 
+    public function getUser(): ?Usuario
     {
         return $this->user;
     }
 
-    public function getCamino(): ?int 
+    public function setUser(Usuario $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    public function getCamino(): ?Camino
     {
         return $this->camino;
     }
 
+    public function setCamino(Camino $camino): self
+    {
+        $this->camino = $camino;
+        return $this;
+    }
 }

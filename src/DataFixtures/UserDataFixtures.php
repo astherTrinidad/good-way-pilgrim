@@ -10,6 +10,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserDataFixtures extends Fixture
 //Incluir encoder como atributo
 {    
+    public const USUARIO = "user-";
+
     private $encoder;
 
     public function __construct(UserPasswordEncoderInterface $encoder) {
@@ -25,6 +27,7 @@ class UserDataFixtures extends Fixture
         $user->setPass($this->encoder->encodePassword($user, "passPatricia"));  
         $manager->persist($user);
         $manager->flush();
+        $this->setReference(self::USUARIO . 1,$user);  
 
         $user1 = new Usuario();       
         $user1->setName("Irene");
@@ -33,6 +36,7 @@ class UserDataFixtures extends Fixture
         $user1->setPass($this->encoder->encodePassword($user, "passIrene"));  
         $manager->persist($user1);
         $manager->flush();
+        $this->setReference(self::USUARIO . 2,$user1); 
 
         $user2 = new Usuario();       
         $user2->setName("Asther");
@@ -41,6 +45,7 @@ class UserDataFixtures extends Fixture
         $user2->setPass($this->encoder->encodePassword($user, "passAsther"));  
         $manager->persist($user2);
         $manager->flush();
+        $this->setReference(self::USUARIO . 3,$user2); 
 
         $user3 = new Usuario();       
         $user3->setName("Sara");
@@ -49,6 +54,7 @@ class UserDataFixtures extends Fixture
         $user3->setPass($this->encoder->encodePassword($user, "passSara"));  
         $manager->persist($user3);
         $manager->flush();
+        $this->setReference(self::USUARIO . 4,$user3); 
 
         $user4 = new Usuario();       
         $user4->setName("Javi");
@@ -57,6 +63,7 @@ class UserDataFixtures extends Fixture
         $user4->setPass($this->encoder->encodePassword($user, "passJavi"));   
         $manager->persist($user4);
         $manager->flush();  
+        $this->setReference(self::USUARIO . 5,$user4); 
                
     }
 }
