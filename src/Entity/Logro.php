@@ -76,9 +76,9 @@ class Logro
         return $this->achievementUsers;
     }
 
-    public function setAchievementUsers(LogroUsuario $achievementUsers): self
+    public function addAchievementUsers(LogroUsuario $achievementUsers): self
     {
-        $this->achievementUsers = $achievementUsers;
+        $this->achievementUsers->add($achievementUsers);
         return $this;
     }
 }

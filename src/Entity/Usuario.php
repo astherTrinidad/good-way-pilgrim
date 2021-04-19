@@ -140,26 +140,16 @@ class Usuario implements UserInterface
     /**
      * @return UsuarioCamino[]
      */
-    public function getUserCaminos()
+    public function getUserCaminos() //: ArrayCollection //es igual que lo de arriba
     {
         return $this->userCaminos;
     }
 
-    public function setUserCaminos(UsuarioCamino $userCaminos): self
+    public function addUserCaminos(UsuarioCamino $userCaminos): self
     {
-        $this->userCaminos->add = $userCaminos;
+        $this->userCaminos->add($userCaminos);
         return $this;
     }
-
-    /*public function addBrand(Brand $brand): self
-    {
-        if (!$this->brands->contains($brand)) {
-            $this->brands[] = $brand;
-            $brand->setBrands($this);
-        }
-
-        return $this;
-    }*/
 
     /**
      * @return Mochila[]
@@ -169,9 +159,9 @@ class Usuario implements UserInterface
         return $this->backpacks;
     }
 
-    public function setBackpacks(Mochila $backpacks): self
+    public function addBackpacks(Mochila $backpacks): self
     {
-        $this->backpacks = $backpacks;
+        $this->backpacks->add($backpacks);
         return $this;
     }
 
@@ -183,9 +173,9 @@ class Usuario implements UserInterface
         return $this->achievementUsers;
     }
 
-    public function setAchievementUsers(LogroUsuario $achievementUsers): self
+    public function addAchievementUsers(LogroUsuario $achievementUsers): self
     {
-        $this->achievementUsers = $achievementUsers;
+        $this->achievementUsers->add($achievementUsers);
         return $this;
     }
 
@@ -197,9 +187,9 @@ class Usuario implements UserInterface
         return $this->userCaminoEtapas;
     }
 
-    public function setUserCaminoEtapas(UsuarioCaminoEtapa $userCaminoEtapas): self
+    public function addUserCaminoEtapas(UsuarioCaminoEtapa $userCaminoEtapas): self
     {
-        $this->userCaminoEtapas = $userCaminoEtapas;
+        $this->userCaminoEtapas->add($userCaminoEtapas);
         return $this;
     }
 

@@ -109,9 +109,9 @@ class Etapa
         return $this->caminoEtapas;
     }
 
-    public function setCaminoEtapas(CaminoEtapa $caminoEtapas): self
+    public function addCaminoEtapas(CaminoEtapa $caminoEtapas): self
     {
-        $this->caminoEtapas = $caminoEtapas;
+        $this->caminoEtapas->add($caminoEtapas);
         return $this;
     }
 }

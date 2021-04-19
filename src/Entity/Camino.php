@@ -155,9 +155,9 @@ class Camino
         return $this->userCaminos;
     }
 
-    public function setUserCaminos(UsuarioCamino $userCaminos): self
+    public function addUserCaminos(UsuarioCamino $userCaminos): self
     {
-        $this->userCaminos = $userCaminos;
+        $this->userCaminos->add($userCaminos);
         return $this;
     }
 
@@ -169,9 +169,9 @@ class Camino
         return $this->caminoEtapas;
     }
 
-    public function setCaminoEtapas(CaminoEtapa $caminoEtapas): self
+    public function addCaminoEtapas(CaminoEtapa $caminoEtapas): self
     {
-        $this->caminoEtapas = $caminoEtapas;
+        $this->caminoEtapas->add($caminoEtapas);
         return $this;
     }
 
@@ -183,9 +183,9 @@ class Camino
         return $this->backpacks;
     }
 
-    public function setBackpacks(Mochila $backpacks): self
+    public function addBackpacks(Mochila $backpacks): self
     {
-        $this->backpacks = $backpacks;
+        $this->backpacks->add($backpacks);
         return $this;
     }
 }

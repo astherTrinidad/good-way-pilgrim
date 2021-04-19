@@ -97,9 +97,9 @@ class CaminoEtapa
         return $this->userCaminoEtapas;
     }
 
-    public function setUserCaminoEtapas(UsuarioCaminoEtapa $userCaminoEtapas): self
+    public function addUserCaminoEtapas(UsuarioCaminoEtapa $userCaminoEtapas): self
     {
-        $this->userCaminoEtapas = $userCaminoEtapas;
+        $this->userCaminoEtapas->add($userCaminoEtapas);
         return $this;
     }
 }
