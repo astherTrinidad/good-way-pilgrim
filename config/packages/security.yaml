@@ -1,13 +1,24 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        user_provider:
+            entity:
+                class: App\Entity\Usuario
+                property: email
     firewalls:
-        main:
-                    pattern: ^/api
+        identity:
+                    pattern: ^/pri/me
                     guard:
                         authenticators:
                                 - App\Security\JwtAuthenticator
+                                - App\Security\IdentityAuthenticator
+                        entry_point: App\Security\JwtAuthenticator
+        main:
+                    pattern: ^/pri
+                    guard:
+                        authenticators:
+                                - App\Security\JwtAuthenticator
+        
 #        dev:
 #            pattern: ^/(_(profiler|wdt)|css|images|js)/
 #            security: false

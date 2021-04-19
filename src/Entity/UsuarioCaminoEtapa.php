@@ -26,14 +26,14 @@ class UsuarioCaminoEtapa
     /**
      * Muchos UsuarioCaminoEtapa son realizados por un usuario. 
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="usuarioCaminoEtapas")
-     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 
     /**
      * Muchos UsuarioCaminoEtapa son realizados por un caminoEtapa. 
      * @ORM\ManyToOne(targetEntity="CaminoEtapa", inversedBy="usuarioCaminoEtapas")
-     * @ORM\JoinColumn(name="id_caminoEtapa", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_caminoEtapa", referencedColumnName="id", onDelete="CASCADE")
      */
     private $caminoEtapa;
 

@@ -27,14 +27,14 @@ class LogroUsuario
     /**
      * Muchos LogroUsuario tienen un logro. 
      * @ORM\ManyToOne(targetEntity="Logro", inversedBy="logroUsuarios")
-     * @ORM\JoinColumn(name="id_logro", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_logro", referencedColumnName="id", onDelete="CASCADE")
      */
     private $achievement;
 
     /**
      * Muchos LogroUsuario estan en un usuario. 
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="logroUsuarios")
-     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 
