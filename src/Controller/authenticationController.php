@@ -80,7 +80,7 @@ class authenticationController extends AbstractController {
         $jwt = JWT::encode($payload, $this->getParameter('jwt_secret'), 'HS256');
         return $this->json([
                     'message' => 'success',
-                    'token' => sprintf('Bearer %s', $jwt),
+                    'token' => $jwt,
         ]);
     }
 
@@ -90,7 +90,7 @@ class authenticationController extends AbstractController {
     public function showProfile(Request $request, UsuarioRepository $userRepository) {
 
         $user = $userRepository->getOneById($request->get('id'));
-        
+
         if (!$user) {
             $data = [
                 'message' => 'user not in database'
@@ -127,7 +127,7 @@ class authenticationController extends AbstractController {
     }
 
     /**
-     * @Route("/pri/me/editProfile", name="editProfile", methods={"PUT"})
+     * @Route("/pub/editProfile", name="editProfile", methods={"PUT"})
      */
     public function editProfile(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder) {
 
@@ -139,18 +139,28 @@ class authenticationController extends AbstractController {
             ];
             return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+        $newPassword = $request->get('newPassword');
+        $passwordChange = false;
+        if (strcmp($newPassword, "") != 0) {
+            if (!$encoder->isPasswordValid($user, $request->get('oldPassword'))) {
+                $data = [
+                    'message' => 'password is wrong'
+                ];
+                return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
+            }
+            $passwordChange = true;
+        }
 
         $id = $request->get('id');
-        $name = ucwords(strtolower($request->get('name')));
-        $surname = ucwords(strtolower($request->get('surname')));
-        $email = $request->get('email');
-        $password = $request->get('password');
 
         $user = new Usuario();
-        $user->setName($name);
-        $user->setSurname($surname);
-        $user->setPassword($encoder->encodePassword($user, $password));
-        $user->setEmail($email);
+        $user->setName(ucwords(strtolower($request->get('name'))));
+        $user->setSurname(ucwords(strtolower($request->get('surname'))));
+        $user->setEmail($request->get('email'));
+
+        if ($passwordChange) {
+            $user->setPassword($encoder->encodePassword($user, $newPassword));
+        }
 
         if (isset($_FILES['photo'])) {
             $picture = base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name'])));
@@ -182,18 +192,11 @@ class authenticationController extends AbstractController {
             ];
             return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        
+
         return new JsonResponse($matchUsers);
     }
 
-    /**
-     * @Route("/pri/test", name="testapi")
-     */
-    public function test() {
-        return $this->json([
-                    'message' => 'test!',
-        ]);
-    }
+    
 
     function isPartUppercase($string) {
         return (bool) preg_match('/[A-Z]/', $string);
@@ -207,27 +210,6 @@ class authenticationController extends AbstractController {
         return $userRepository->findOneBy([
                     'email' => $email,
         ]);
-    }
-
-    /**
-     * @Route("/pub/csv_download", name="csv_download", methods={"GET"})
-     */
-    public function descargarCSV(CaminoRepository $caminoRepository): Response {
-
-        $caminos = $caminoRepository->getAll();
-
-        $fp = fopen('php://output', 'w');
-
-        foreach ($caminos as $camino) {
-            $data = [utf8_decode($camino->getName()), utf8_decode($camino->getStart()), utf8_decode($camino->getFinish()), $camino->getNumEtapas(), $camino->getKm(), utf8_decode($camino->getDescription())];
-            fputcsv($fp, $data);
-        }
-
-        $response = new Response();
-        $response->headers->set('Content-Type', 'text/csv');
-        $response->headers->set('Content-Disposition', 'attachment; filename="GoodWayPilgrim_caminos.csv"');
-
-        return $response;
     }
 
 }

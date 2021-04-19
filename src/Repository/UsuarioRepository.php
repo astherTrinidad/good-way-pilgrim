@@ -60,10 +60,14 @@ class UsuarioRepository extends ServiceEntityRepository {
         $password = $user->getPassword();
 
 
-        if (isset($picture)) {
+        if (isset($picture) && isset($password)) {
             $query = "UPDATE usuario SET name='$name', surname='$surname', password='$password', picture='$picture' where id = $id ";
-        } else {
+        } else if(!isset($picture) && isset($password)){
             $query = "UPDATE usuario SET name='$name', surname='$surname', password='$password' where id = $id ";
+        }else if(isset($picture) && !isset($password)){
+            $query = "UPDATE usuario SET name='$name', surname='$surname', picture='$picture' where id = $id ";
+        }else{
+            $query = "UPDATE usuario SET name='$name', surname='$surname' where id = $id ";
         }
         $db->executeQuery($query);
     }
