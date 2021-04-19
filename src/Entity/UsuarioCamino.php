@@ -30,6 +30,11 @@ class UsuarioCamino
     private $finishDate;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $status;
+
+    /**
      * Muchos UsuarioCamino son realizados por un usuario. 
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="usuarioCaminos")
      * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="CASCADE")
@@ -76,6 +81,17 @@ class UsuarioCamino
             $this->finishDate = $fecha;
             return $this;
         }
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+        return $this;
     }
 
     public function getUser(): ?Usuario
