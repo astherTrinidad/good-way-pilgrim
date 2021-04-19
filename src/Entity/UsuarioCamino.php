@@ -19,12 +19,12 @@ class UsuarioCamino
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $startDate;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $finishDate;
 
@@ -67,9 +67,14 @@ class UsuarioCamino
 
     public function setFinishDate(string $finishDate): self
     {
-        $fecha = new \DateTime($finishDate);
-        $this->finishDate = $fecha;
-        return $this;
+        if (strcmp($finishDate, "") == 0) {
+            $this->finishDate = null;
+            return $this;
+        } else {
+            $fecha = new \DateTime($finishDate);
+            $this->finishDate = $fecha;
+            return $this;
+        }
     }
 
     public function getUser(): ?Usuario
