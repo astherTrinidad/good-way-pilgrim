@@ -215,6 +215,7 @@ class authenticationController extends AbstractController
         $user = $userRepository->getOneById($request->get('id'));
         $achievements = $achievementRepository->getThreeById($request->get('id'));
         $paths = $userPathRepository->getAllById($request->get('id'));
+        $activePath = $userPathRepository->getActivePath($request->get('id'));
 
         $data = [
             'id' => $user->getId(),
@@ -223,7 +224,8 @@ class authenticationController extends AbstractController
             'email' => $user->getEmail(),
             'picture' => $user->getPicture(),
             'achievements' => $achievements,
-            'paths' => $paths
+            'paths' => $paths,
+            'activePath' => $activePath
         ];
 
         return new JsonResponse($data);
