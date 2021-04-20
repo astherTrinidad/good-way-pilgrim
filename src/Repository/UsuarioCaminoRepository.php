@@ -19,32 +19,32 @@ class UsuarioCaminoRepository extends ServiceEntityRepository
         parent::__construct($registry, UsuarioCamino::class);
     }
 
-    // /**
-    //  * @return UsuarioCamino[] Returns an array of UsuarioCamino objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllById($id)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('u')
+            ->from(UsuarioCamino::class, 'u')
+            ->where('u.id = :id')
+            ->setParameter('id', $id);
 
-    /*
-    public function findOneBySomeField($value): ?UsuarioCamino
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $result = $qb->getQuery()->getResult();
+        $usersPathResult = $result->fetchAll();
+        $usersPaths = [];
+
+        foreach ($usersPathResult as $userPath) {
+            array_push($usersPaths, $userPath);
+        }
+        return $usersPaths;
     }
-    */
+
+    public function getActivePath($id)
+    {
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
+
+        $query = "SELECT * FROM usuario_camino WHERE id_usuario = $id AND status = 'Active'";
+        $result = $db->executeQuery($query);
+
+        return $result;
+    }
 }
