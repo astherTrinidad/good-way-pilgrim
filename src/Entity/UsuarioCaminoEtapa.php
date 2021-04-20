@@ -8,8 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=UsuarioCaminoEtapaRepository::class)
  */
-class UsuarioCaminoEtapa 
-{    
+class UsuarioCaminoEtapa
+{
 
     /**
      * @ORM\Id
@@ -26,43 +26,53 @@ class UsuarioCaminoEtapa
     /**
      * Muchos UsuarioCaminoEtapa son realizados por un usuario. 
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="usuarioCaminoEtapas")
-     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 
     /**
      * Muchos UsuarioCaminoEtapa son realizados por un caminoEtapa. 
      * @ORM\ManyToOne(targetEntity="CaminoEtapa", inversedBy="usuarioCaminoEtapas")
-     * @ORM\JoinColumn(name="id_caminoEtapa", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_caminoEtapa", referencedColumnName="id", onDelete="CASCADE")
      */
-    private $caminoEtapa;   
+    private $caminoEtapa;
 
 
-    public function getId(): ?int 
+    public function getId(): ?int
     {
         return $this->id;
-    } 
+    }
 
-    public function getStatus(): ?string 
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): self 
+    public function setStatus(string $status): self
     {
         $this->status = $status;
         return $this;
     }
 
-    public function getUser(): ?int 
+    public function getUser(): ?Usuario
     {
         return $this->user;
-    } 
+    }
 
-    public function getCaminoEtapa(): ?int 
+    public function setUser(Usuario $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    public function getCaminoEtapa(): ?CaminoEtapa
     {
         return $this->caminoEtapa;
-    } 
+    }
 
-
+    public function setCaminoEtapa(CaminoEtapa $caminoEtapa): self
+    {
+        $this->caminoEtapa = $caminoEtapa;
+        return $this;
+    }
 }

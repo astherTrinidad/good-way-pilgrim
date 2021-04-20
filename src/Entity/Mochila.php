@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=MochilaRepository::class)
  */
-class Mochila 
+class Mochila
 {
 
     /**
@@ -16,8 +16,8 @@ class Mochila
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id; 
-    
+    private $id;
+
     /**
      * @ORM\Column(type="string", length=30)
      */
@@ -26,58 +26,69 @@ class Mochila
     /**
      * @ORM\Column(type="integer")
      */
-    private $quantity;  
-    
+    private $quantity;
+
     /**
      * Muchas mochilas tienen un usuario.
-     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="backpacks")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="mochilas")
      * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
      */
     private $user;
 
     /**
      * Muchas mochilas tienen un camino. 
-     * @ORM\ManyToOne(targetEntity="Camino", inversedBy="backpacks")
+     * @ORM\ManyToOne(targetEntity="Camino", inversedBy="mochilas")
      * @ORM\JoinColumn(name="id_camino", referencedColumnName="id")
      */
-    private $camino;    
-    
-    
-    public function getId(): ?int 
+    private $camino;
+
+
+    public function getId(): ?int
     {
         return $this->id;
-    }     
+    }
 
-    public function getObject(): ?string 
+    public function getObject(): ?string
     {
         return $this->object;
     }
 
-    public function setObject(string $object): self 
+    public function setObject(string $object): self
     {
         $this->object = $object;
         return $this;
     }
 
-    public function getQuantity(): ?int 
+    public function getQuantity(): ?int
     {
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self 
+    public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
         return $this;
-    } 
+    }
 
-    public function getUser(): ?int 
+    public function getUser(): ?Usuario
     {
         return $this->user;
-    }  
+    }
 
-    public function getCamino(): ?int 
+    public function setUser(Usuario $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    public function getCamino(): ?Camino
     {
         return $this->camino;
-    }  
-    
+    }
+
+    public function setCamino(Camino $camino): self
+    {
+        $this->camino = $camino;
+        return $this;
+    }
 }

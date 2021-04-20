@@ -4,19 +4,20 @@ namespace App\Entity;
 
 use App\Repository\EtapaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=EtapaRepository::class)
  */
 class Etapa
-{   
+{
 
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;   
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
@@ -44,16 +45,10 @@ class Etapa
      */
     private $caminoEtapas;
 
-    /**
-     * Un camino tiene muchos CaminoEtapa
-     * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="camino")
-     */
-    private $caminos;
 
-   
-    public function __construct() 
-    {      
-        $this->caminoEtapas = new ArrayCollection();                
+    public function __construct()
+    {
+        $this->caminoEtapas = new ArrayCollection();
     }
 
 
@@ -106,14 +101,17 @@ class Etapa
         return $this;
     }
 
-    public function getCaminoEtapas(): ?int
+    /**
+     * @return CaminoEtapa[]
+     */
+    public function getCaminoEtapas()
     {
         return $this->caminoEtapas;
     }
 
-    public function getCaminos(): ?int
+    public function addCaminoEtapas(CaminoEtapa $caminoEtapas): self
     {
-        return $this->caminos;
+        $this->caminoEtapas->add($caminoEtapas);
+        return $this;
     }
-
 }

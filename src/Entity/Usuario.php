@@ -10,14 +10,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
  */
-class Usuario {    
-   /**
+class Usuario implements UserInterface
+{
+
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
-   /**
+
+    /**
      * @ORM\Column(type="string", length=50)
      */
     private $name;
@@ -28,14 +31,19 @@ class Usuario {
     private $surname;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, unique=true)
      */
     private $email;
 
     /**
      * @ORM\Column(type="string")
      */
-    private $pass;
+    private $password;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $picture;
 
     /**
      * Un usuario tiene muchos UsuarioCaminos
@@ -48,7 +56,7 @@ class Usuario {
      * @ORM\OneToMany(targetEntity="Mochila", mappedBy="usuario")
      */
     private $backpacks;
-    
+
     /**
      * Un usuario tiene muchos LogroUsuarios
      * @ORM\OneToMany(targetEntity="LogroUsuario", mappedBy="usuario")
@@ -61,108 +69,154 @@ class Usuario {
      */
     private $userCaminoEtapas;
 
-
-    public function __construct() 
-    {      
+    public function __construct()
+    {
         $this->userCaminos = new ArrayCollection();
         $this->backpacks = new ArrayCollection();
-        $this->userCaminoEtapas = new ArrayCollection(); 
+        $this->userCaminoEtapas = new ArrayCollection();
+        $this->achievementUsers = new ArrayCollection();
     }
-    
-    public function getId(): ?int 
+
+    public function getId(): ?int
     {
         return $this->id;
-    }   
+    }
 
-    public function getName(): ?string 
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self 
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    public function getSurname(): ?string 
+    public function getSurname(): ?string
     {
         return $this->surname;
     }
 
-    public function setSurname(string $surname): self 
+    public function setSurname(string $surname): self
     {
         $this->surname = $surname;
         return $this;
     }
 
-    public function getEmail(): ?string 
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self 
+    public function setEmail(string $email): self
     {
         $this->email = $email;
         return $this;
     }
 
-    public function getPass(): ?string 
+    public function getPassword(): ?string
     {
-        return $this->pass;
+        return $this->password;
     }
 
-    public function setPass(string $pass): self 
+    public function setPassword(string $password): self
     {
-        $this->pass = $pass;
+        $this->password = $password;
         return $this;
-    } 
+    }
 
-    public function getUserCaminos(): ?int 
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): self
+    {
+        $this->picture = $picture;
+        return $this;
+    }
+
+    /**
+     * @return UsuarioCamino[]
+     */
+    public function getUserCaminos() //: ArrayCollection //es igual que lo de arriba
     {
         return $this->userCaminos;
     }
 
-    public function getBackpacks(): ?int 
+    public function addUserCaminos(UsuarioCamino $userCaminos): self
+    {
+        $this->userCaminos->add($userCaminos);
+        return $this;
+    }
+
+    /**
+     * @return Mochila[]
+     */
+    public function getBackpacks()
     {
         return $this->backpacks;
     }
 
-    public function getAchievementUsers(): ?int 
+    public function addBackpacks(Mochila $backpacks): self
+    {
+        $this->backpacks->add($backpacks);
+        return $this;
+    }
+
+    /**
+     * @return LogroUsuario[]
+     */
+    public function getAchievementUsers()
     {
         return $this->achievementUsers;
     }
 
-    public function getUserCaminoEtapas(): ?int 
+    public function addAchievementUsers(LogroUsuario $achievementUsers): self
+    {
+        $this->achievementUsers->add($achievementUsers);
+        return $this;
+    }
+
+    /**
+     * @return UsuarioCaminoEtapa[]
+     */
+    public function getUserCaminoEtapas()
     {
         return $this->userCaminoEtapas;
+    }
+
+    public function addUserCaminoEtapas(UsuarioCaminoEtapa $userCaminoEtapas): self
+    {
+        $this->userCaminoEtapas->add($userCaminoEtapas);
+        return $this;
     }
 
     /**
      * @see UserInterface
      */
-    public function getSalt() {
+    public function getSalt()
+    {
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
      * @see UserInterface
      */
-    public function eraseCredentials() {
+    public function eraseCredentials()
+    {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
 
-    public function getPassword(): ?string {
-        return $this->pass;
+    public function getRoles()
+    {
+        return array('ROLE_USER');
     }
 
-    public function getRoles() {
-        
+    public function getUsername()
+    {
+        return $this->name;
     }
-
-    public function getUsername() {
-        return $this->nombre;
-    }
-
 }

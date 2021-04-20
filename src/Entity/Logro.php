@@ -9,9 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=LogroRepository::class)
  */
-class Logro 
-{    
-
+class Logro
+{
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -36,42 +35,50 @@ class Logro
     private $achievementUsers;
 
 
-    public function __construct() 
-    {      
-        $this->achievementUsers = new ArrayCollection();        
+    public function __construct()
+    {
+        $this->achievementUsers = new ArrayCollection();
     }
-    
 
-    public function getId(): ?int 
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string 
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self 
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    public function getDescription(): ?string 
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): self 
+    public function setDescription(string $description): self
     {
         $this->description = $description;
         return $this;
     }
 
-    public function getAchievementUsers(): ?int 
+    /**
+     * @return LogroUsuario[]
+     */
+    public function getAchievementUsers()
     {
         return $this->achievementUsers;
     }
 
+    public function addAchievementUsers(LogroUsuario $achievementUsers): self
+    {
+        $this->achievementUsers->add($achievementUsers);
+        return $this;
+    }
 }
