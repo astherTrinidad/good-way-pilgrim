@@ -22,10 +22,12 @@ class authenticationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder, UsuarioRepository $userRepository)
     {
-        $name = ucwords(strtolower($request->get('name')));
-        $surname = ucwords(strtolower($request->get('surname')));
-        $email = $request->get('email');
-        $password = $request->get('password');
+        $parameters = json_decode($request->getContent(), true);
+        
+        $name = ucwords(strtolower($parameters['name']));
+        $surname = ucwords(strtolower($parameters['surname']));
+        $email = $parameters['email'];
+        $password = $parameters['password'];
         $user = new Usuario();
         $user->setName($name);
         $user->setSurname($surname);
@@ -92,7 +94,6 @@ class authenticationController extends AbstractController
      */
     public function showProfile(Request $request, UsuarioRepository $userRepository)
     {
-
         $user = $userRepository->getOneById($request->get('id'));
 
         if (!$user) {
@@ -116,8 +117,8 @@ class authenticationController extends AbstractController
      */
     public function deleteProfile(Request $request, UsuarioRepository $userRepository)
     {
-
-        $user = $userRepository->getOneByID($request->get('id'));
+        $parameters = json_decode($request->getContent(), true);
+        $user = $userRepository->getOneByID($parameters['id']);
 
         if (!$user) {
             $data = [
@@ -126,7 +127,7 @@ class authenticationController extends AbstractController
             return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $userRepository->deleteOneById($request->get('id'));
+        $userRepository->deleteOneById($parameters['id']);
         return $this->json([
             'message' => 'success'
         ]);
@@ -137,8 +138,8 @@ class authenticationController extends AbstractController
      */
     public function editProfile(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder)
     {
-
-        $user = $userRepository->getOneByID($request->get('id'));
+        $parameters = json_decode($request->getContent(), true);
+        $user = $userRepository->getOneByID($parameters['id']);
 
         if (!$user) {
             $data = [
@@ -146,10 +147,10 @@ class authenticationController extends AbstractController
             ];
             return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $newPassword = $request->get('newPassword');
+        $newPassword = $parameters['password'];
         $passwordChange = false;
         if (strcmp($newPassword, "") != 0) {
-            if (!$encoder->isPasswordValid($user, $request->get('oldPassword'))) {
+            if (!$encoder->isPasswordValid($user, $parameters['oldPassword'])) {
                 $data = [
                     'message' => 'password is wrong'
                 ];
@@ -158,12 +159,12 @@ class authenticationController extends AbstractController
             $passwordChange = true;
         }
 
-        $id = $request->get('id');
+        $id = $parameters['id'];
 
         $user = new Usuario();
-        $user->setName(ucwords(strtolower($request->get('name'))));
-        $user->setSurname(ucwords(strtolower($request->get('surname'))));
-        $user->setEmail($request->get('email'));
+        $user->setName(ucwords(strtolower($parameters['name'])));
+        $user->setSurname(ucwords(strtolower($parameters['surname'])));
+        $user->setEmail($parameters['email']);
 
         if ($passwordChange) {
             $user->setPassword($encoder->encodePassword($user, $newPassword));
