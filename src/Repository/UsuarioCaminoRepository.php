@@ -28,7 +28,7 @@ class UsuarioCaminoRepository extends ServiceEntityRepository
             ->setParameter('id', $id);
 
         $result = $qb->getQuery()->getResult();
-        $usersPathResult = $result->fetchAll();
+        $usersPathResult = $result->fetchAllNumeric();
         $usersPaths = [];
 
         foreach ($usersPathResult as $userPath) {
