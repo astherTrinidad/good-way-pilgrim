@@ -89,14 +89,17 @@ class CaminoEtapa
         return $this;
     }
 
-    public function getUserCaminoEtapas(): ?UsuarioCaminoEtapa
+    /**
+     * @return UsuarioCaminoEtapa[]
+     */
+    public function getUserCaminoEtapas()
     {
         return $this->userCaminoEtapas;
     }
 
-    public function setUserCaminoEtapas(UsuarioCaminoEtapa $userCaminoEtapas): self
+    public function addUserCaminoEtapas(UsuarioCaminoEtapa $userCaminoEtapas): self
     {
-        $this->userCaminoEtapas = $userCaminoEtapas;
+        $this->userCaminoEtapas->add($userCaminoEtapas);
         return $this;
     }
 }

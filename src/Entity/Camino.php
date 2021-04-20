@@ -147,30 +147,45 @@ class Camino
         return $this;
     }
 
-    public function getUserCaminos(): ?UsuarioCamino
+    /**
+     * @return UsuarioCamino[]
+     */
+    public function getUserCaminos()
     {
         return $this->userCaminos;
     }
 
-    public function setUserCaminos(UsuarioCamino $userCaminos): self
+    public function addUserCaminos(UsuarioCamino $userCaminos): self
     {
-        $this->userCaminos = $userCaminos;
+        $this->userCaminos->add($userCaminos);
         return $this;
     }
 
-    public function getCaminoEtapas(): ?CaminoEtapa
+    /**
+     * @return CaminoEtapa[]
+     */
+    public function getCaminoEtapas()
     {
         return $this->caminoEtapas;
     }
 
-    public function setCaminoEtapas(CaminoEtapa $caminoEtapas): self
+    public function addCaminoEtapas(CaminoEtapa $caminoEtapas): self
     {
-        $this->caminoEtapas = $caminoEtapas;
+        $this->caminoEtapas->add($caminoEtapas);
         return $this;
     }
 
-    public function getBackpacks(): ?int
+    /**
+     * @return Mochila[]
+     */
+    public function getBackpacks()
     {
         return $this->backpacks;
+    }
+
+    public function addBackpacks(Mochila $backpacks): self
+    {
+        $this->backpacks->add($backpacks);
+        return $this;
     }
 }

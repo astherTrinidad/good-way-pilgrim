@@ -10,14 +10,14 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass=EtapaRepository::class)
  */
 class Etapa
-{   
+{
 
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;   
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=30)
@@ -43,12 +43,12 @@ class Etapa
      * Una Etapa tiene muchos caminoEtapa
      * @ORM\OneToMany(targetEntity="CaminoEtapa", mappedBy="etapa")
      */
-    private $caminoEtapas;    
+    private $caminoEtapas;
 
-   
-    public function __construct() 
-    {      
-        $this->caminoEtapas = new ArrayCollection();                
+
+    public function __construct()
+    {
+        $this->caminoEtapas = new ArrayCollection();
     }
 
 
@@ -101,17 +101,17 @@ class Etapa
         return $this;
     }
 
-    public function getCaminoEtapas(): ?CaminoEtapa
+    /**
+     * @return CaminoEtapa[]
+     */
+    public function getCaminoEtapas()
     {
         return $this->caminoEtapas;
     }
 
-    public function setCaminoEtapas(CaminoEtapa $caminoEtapas): self 
+    public function addCaminoEtapas(CaminoEtapa $caminoEtapas): self
     {
-        $this->caminoEtapas = $caminoEtapas;
+        $this->caminoEtapas->add($caminoEtapas);
         return $this;
     }
-
-    
-
 }

@@ -44,12 +44,11 @@ class Usuario implements UserInterface
      * @ORM\Column(type="text", nullable=true)
      */
     private $picture;
-    
+
     /**
      * Un usuario tiene muchos UsuarioCaminos
      * @ORM\OneToMany(targetEntity="UsuarioCamino", mappedBy="usuario")
      */
-    
     private $userCaminos;
 
     /**
@@ -116,61 +115,81 @@ class Usuario implements UserInterface
         return $this;
     }
 
-    public function getPassword(): ?string {
+    public function getPassword(): ?string
+    {
         return $this->password;
     }
 
-    public function setPassword(string $password): self {
+    public function setPassword(string $password): self
+    {
         $this->password = $password;
-
         return $this;
     }
-    
-    function getPicture(): ?string {
+
+    public function getPicture(): ?string
+    {
         return $this->picture;
     }
-  
-    function setPicture($picture): void {
+
+    public function setPicture(string $picture): self
+    {
         $this->picture = $picture;
+        return $this;
     }
 
-
-    public function getUserCaminos(): ?UsuarioCamino
+    /**
+     * @return UsuarioCamino[]
+     */
+    public function getUserCaminos() //: ArrayCollection //es igual que lo de arriba
     {
-
         return $this->userCaminos;
     }
 
-    public function setUserCaminos(UsuarioCamino $userCaminos): self
+    public function addUserCaminos(UsuarioCamino $userCaminos): self
     {
-        $this->userCaminos = $userCaminos;
+        $this->userCaminos->add($userCaminos);
         return $this;
     }
 
-    public function getBackpacks(): ?int
+    /**
+     * @return Mochila[]
+     */
+    public function getBackpacks()
     {
         return $this->backpacks;
     }
 
-    public function getAchievementUsers(): ?LogroUsuario
+    public function addBackpacks(Mochila $backpacks): self
+    {
+        $this->backpacks->add($backpacks);
+        return $this;
+    }
+
+    /**
+     * @return LogroUsuario[]
+     */
+    public function getAchievementUsers()
     {
         return $this->achievementUsers;
     }
 
-    public function setAchievementUsers(LogroUsuario $achievementUsers): self
+    public function addAchievementUsers(LogroUsuario $achievementUsers): self
     {
-        $this->achievementUsers = $achievementUsers;
+        $this->achievementUsers->add($achievementUsers);
         return $this;
     }
 
-    public function getUserCaminoEtapas(): ?UsuarioCamino
+    /**
+     * @return UsuarioCaminoEtapa[]
+     */
+    public function getUserCaminoEtapas()
     {
         return $this->userCaminoEtapas;
     }
 
-    public function setUserCaminoEtapas(UsuarioCamino $userCaminoEtapas): self
+    public function addUserCaminoEtapas(UsuarioCaminoEtapa $userCaminoEtapas): self
     {
-        $this->userCaminoEtapas = $userCaminoEtapas;
+        $this->userCaminoEtapas->add($userCaminoEtapas);
         return $this;
     }
 
@@ -190,7 +209,6 @@ class Usuario implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
 
     public function getRoles()
     {

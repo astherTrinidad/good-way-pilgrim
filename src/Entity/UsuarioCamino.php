@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UsuarioCaminoRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,14 +20,19 @@ class UsuarioCamino
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $startDate;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      */
     private $finishDate;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $status;
 
     /**
      * Muchos UsuarioCamino son realizados por un usuario. 
@@ -48,7 +54,7 @@ class UsuarioCamino
         return $this->id;
     }
 
-    public function getStartDate(): ?string
+    public function getStartDate(): ?DateTime
     {
         return $this->startDate;
     }
@@ -60,15 +66,31 @@ class UsuarioCamino
         return $this;
     }
 
-    public function getFinishDate(): ?string
+    public function getFinishDate(): ?DateTime
     {
         return $this->finishDate;
     }
 
     public function setFinishDate(string $finishDate): self
     {
-        $fecha = new \DateTime($finishDate);
-        $this->finishDate = $fecha;
+        if (strcmp($finishDate, "") == 0) {
+            $this->finishDate = null;
+            return $this;
+        } else {
+            $fecha = new \DateTime($finishDate);
+            $this->finishDate = $fecha;
+            return $this;
+        }
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
         return $this;
     }
 
