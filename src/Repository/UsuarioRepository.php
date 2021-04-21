@@ -59,7 +59,6 @@ class UsuarioRepository extends ServiceEntityRepository {
         $surname = $user->getSurname();
         $password = $user->getPassword();
 
-
         if (isset($picture) && isset($password)) {
             $query = "UPDATE usuario SET name='$name', surname='$surname', password='$password', picture='$picture' where id = $id ";
         } else if(!isset($picture) && isset($password)){
@@ -70,6 +69,7 @@ class UsuarioRepository extends ServiceEntityRepository {
             $query = "UPDATE usuario SET name='$name', surname='$surname' where id = $id ";
         }
         $db->executeQuery($query);
+        $em->clear();
     }
 
     public function getByString($string) {
