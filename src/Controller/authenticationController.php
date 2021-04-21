@@ -23,7 +23,7 @@ class authenticationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $encoder, UsuarioRepository $userRepository)
     {
         $parameters = json_decode($request->getContent(), true);
-        
+
         $name = ucwords(strtolower($parameters['name']));
         $surname = ucwords(strtolower($parameters['surname']));
         $email = $parameters['email'];
@@ -134,7 +134,7 @@ class authenticationController extends AbstractController
     }
 
     /**
-     * @Route("/pub/editProfile", name="editProfile", methods={"PUT"})
+     * @Route("/pri/me/editProfile", name="editProfile", methods={"PUT"})
      */
     public function editProfile(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder)
     {
@@ -147,7 +147,7 @@ class authenticationController extends AbstractController
             ];
             return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $newPassword = $parameters['password'];
+        $newPassword = $parameters['newPassword'];
         $passwordChange = false;
         if (strcmp($newPassword, "") != 0) {
             if (!$encoder->isPasswordValid($user, $parameters['oldPassword'])) {
@@ -176,7 +176,7 @@ class authenticationController extends AbstractController
         }
 
         $userRepository->updateOneById($id, $user);
-        $userEdited = $userRepository->getOneById($id);
+        $userEdited = $userRepository->getOneByID($parameters['id']);
 
         return $this->json([
             'id' => $userEdited->getId(),
