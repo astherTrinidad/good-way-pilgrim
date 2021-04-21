@@ -275,6 +275,8 @@ paths:
             application/json:
               schema:
                 type: array
+                items:
+                  type: "object"
                 example: [{"id":"60","name":"Javier","surname":"Carrillo"},{"id":"61","name":"Javi","surname":"Camacho"}]
 
         "422":

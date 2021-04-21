@@ -188,7 +188,7 @@ class authenticationController extends AbstractController
     }
 
     /**
-     * @Route("/pub/showUsers", name="showUsers", methods={"GET"})
+     * @Route("/pri/showUsers", name="showUsers", methods={"GET"})
      */
     public function showUsers(Request $request, UsuarioRepository $userRepository)
     {
