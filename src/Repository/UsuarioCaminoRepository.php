@@ -21,19 +21,12 @@ class UsuarioCaminoRepository extends ServiceEntityRepository
 
     public function getAllById($id)
     {
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('u')
-            ->from(UsuarioCamino::class, 'u')
-            ->where('u.id = :id')
-            ->setParameter('id', $id);
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
+        $query = "SELECT * FROM usuario_camino WHERE id_usuario = $id";
+        $result = $db->executeQuery($query);
+        $usersPaths = $result->fetchAll();
 
-        $result = $qb->getQuery()->getResult();
-        $usersPathResult = $result->fetchAllNumeric();
-        $usersPaths = [];
-
-        foreach ($usersPathResult as $userPath) {
-            array_push($usersPaths, $userPath);
-        }
         return $usersPaths;
     }
 
@@ -41,10 +34,10 @@ class UsuarioCaminoRepository extends ServiceEntityRepository
     {
         $em = $this->getEntityManager();
         $db = $em->getConnection();
-
         $query = "SELECT * FROM usuario_camino WHERE id_usuario = $id AND status = 'Active'";
         $result = $db->executeQuery($query);
+        $usersPathsActive = $result->fetchAll();
 
-        return $result;
+        return $usersPathsActive;
     }
 }

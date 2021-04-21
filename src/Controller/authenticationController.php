@@ -233,63 +233,6 @@ class authenticationController extends AbstractController
 
 
 
-
-
-
-    /**
-     * @Route("/prub", name="prub", methods={"GET"})
-     */
-    public function prub(Request $request, UsuarioRepository $userRepository)
-    {
-        $user = $userRepository->getOneById($request->get('id'));
-
-        $data = [
-            'id' => $user->getId(),
-            'name' => $user->getName(),
-            'surname' => $user->getSurname(),
-            'email' => $user->getEmail(),
-            'picture' => $user->getPicture(),
-        ];
-        return new JsonResponse($data);
-    }
-
-    /**
-     * @Route("/prub1", name="prub1", methods={"GET"})
-     */
-    public function prub1(Request $request, LogroRepository $achievementRepository)
-    {
-        $achievements = $achievementRepository->getThreeById($request->get('id'));
-
-        $data = [
-            'achievements' => $achievements,
-        ];
-        return new JsonResponse($data);
-    }
-
-
-    /**
-     * @Route("/prub2", name="prub2", methods={"GET"})
-     */
-    public function prub2(Request $request, UsuarioCaminoRepository $userPathRepository)
-    {
-        $paths = $userPathRepository->getAllById($request->get('id'));
-
-        $data = [
-            'paths' => $paths,
-        ];
-        return new JsonResponse($data);
-    }
-
-
-
-
-
-
-
-
-
-
-
     function isPartUppercase($string)
     {
         return (bool) preg_match('/[A-Z]/', $string);
