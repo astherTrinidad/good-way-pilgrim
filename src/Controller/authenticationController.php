@@ -19,13 +19,14 @@ class authenticationController extends AbstractController
 {
     private $userManager;
     private $authManager;
-    
-    function __construct(UserManager $userManager, AuthManager $authManager) {
+
+    function __construct(UserManager $userManager, AuthManager $authManager)
+    {
         $this->userManager = $userManager;
         $this->authManager = $authManager;
     }
-    
-    
+
+
     /**
      * @Route("/pub/register", name="register", methods={"POST"})
      */
@@ -38,7 +39,7 @@ class authenticationController extends AbstractController
             $data = ['message' => 'password not valid'];
             return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        
+
         if ($this->userManager->emailExists($parameters['email'])) {
             $data = ['message' => 'email is already in database'];
             return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
