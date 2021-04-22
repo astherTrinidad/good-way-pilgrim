@@ -36,8 +36,8 @@ class AuthManager {
             "email" => $email,
             "exp" => (new \DateTime())->modify("+60 minutes")->getTimestamp(),
         ];
-
-        return JWT::encode($payload, $this->getParameter('jwt_secret'), 'HS256');
+        //$this->getParameter('jwt_secret')
+        return JWT::encode($payload, 'ire', 'HS256');
     }
 
     public function checkPasswordChange($user, $password, $newPassword) {

@@ -23,32 +23,34 @@ class UserManager {
         if (isset($parameters['password'])) {
             $user->setPassword($this->encoder->encodePassword($user, $parameters['password']));
         }
-        if (isset($parameters['newPassword'])) {
+        if (strcmp($parameters['newPassword'], "") != 0) {
             $user->setPassword($this->encoder->encodePassword($user, $parameters['newPassword']));
         }
         $user->setEmail($parameters['email']);
         $user->setPicture("");
         return $user;
     }
-
+    
+    public function getUser($id) {
+        return $this->userRepository->findOneBy([
+                    'id' => $id,
+        ]);
+    }
+    
     public function emailExists($email) {
         return $this->userRepository->findOneBy([
                     'email' => $email,
         ]);
     }
 
-    public function userExists($id) {
-        return $this->userRepository->findOneBy([
-                    'id' => $id,
-        ]);
-    }
 
     public function deleteUser($id) {
         return $this->userRepository->deleteOneById($id);
     }
-    
+
     public function updateUser($id, $user) {
         return $this->userRepository->updateOneById($id, $user);
     }
+
 
 }

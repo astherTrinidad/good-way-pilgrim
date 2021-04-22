@@ -94,14 +94,8 @@ class authenticationController extends AbstractController {
     /**
      * @Route("/pri/me/deleteProfile", name="deleteProfile", methods={"DELETE"})
      */
-    public function deleteProfile(Request $request, UsuarioRepository $userRepository) {
+    public function deleteProfile(Request $request) {
         $parameters = json_decode($request->getContent(), true);
-        $user = $this->userManager->userExists($parameters['id']);
-
-        if (!$user) {
-            return new JsonResponse(['message' => 'user not in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
         $this->userManager->deleteUser($parameters['id']);
         return $this->json(['message' => 'success']);
     }
@@ -111,12 +105,8 @@ class authenticationController extends AbstractController {
      */
     public function editProfile(Request $request) {
         $parameters = json_decode($request->getContent(), true);
-        $user = $this->userManager->userExists($parameters['id']);
-
-        if (!$user) {
-            return new JsonResponse(['message' => 'user not in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-        if (!$this->authManager->checkPasswordChange($user, $parameters['oldPassword'], $parameters['newPassword'])) {
+        
+        if (!$this->authManager->checkPasswordChange($this->userManager->getUser($parameters['id']), $parameters['oldPassword'], $parameters['newPassword'])) {
             return new JsonResponse(['message' => 'Password is wrong'], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -127,9 +117,7 @@ class authenticationController extends AbstractController {
             $user->setPicture($picture);
         }
 
-        $this->userManager->updateUser($parameters['id'], $user);
-        $userEdited = $this->userManager->userExists($parameters['id']);
-
+        $userEdited = $this->userManager->updateUser($parameters['id'], $user);
         return $this->json([
                     'id' => $userEdited->getId(),
                     'name' => $userEdited->getName(),
