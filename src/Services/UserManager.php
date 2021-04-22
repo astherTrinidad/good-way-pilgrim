@@ -7,27 +7,48 @@ use App\Entity\Usuario;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserManager {
+
     private $encoder;
     private $userRepository;
+
     function __construct(UserPasswordEncoderInterface $encoder, UsuarioRepository $userRepository) {
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
     }
 
-    function createUser($parameters) {
+    public function createUser($parameters) {
         $user = new Usuario();
         $user->setName(ucwords(strtolower($parameters['name'])));
         $user->setSurname(ucwords(strtolower($parameters['surname'])));
-        $user->setPassword($this->encoder->encodePassword($user, $parameters['password']));
+        if (isset($parameters['password'])) {
+            $user->setPassword($this->encoder->encodePassword($user, $parameters['password']));
+        }
+        if (isset($parameters['newPassword'])) {
+            $user->setPassword($this->encoder->encodePassword($user, $parameters['newPassword']));
+        }
         $user->setEmail($parameters['email']);
         $user->setPicture("");
         return $user;
     }
 
-    function emailExists($email) {
+    public function emailExists($email) {
         return $this->userRepository->findOneBy([
                     'email' => $email,
         ]);
+    }
+
+    public function userExists($id) {
+        return $this->userRepository->findOneBy([
+                    'id' => $id,
+        ]);
+    }
+
+    public function deleteUser($id) {
+        return $this->userRepository->deleteOneById($id);
+    }
+    
+    public function updateUser($id, $user) {
+        return $this->userRepository->updateOneById($id, $user);
     }
 
 }
