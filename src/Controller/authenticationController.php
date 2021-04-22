@@ -2,12 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Usuario;
 use App\Services\AuthManager;
 use App\Services\UserManager;
+use App\Services\UserPathManager;
+use App\Services\AchievementManager;
 use App\Repository\UsuarioRepository;
-use App\Repository\LogroRepository;
-use App\Repository\UsuarioCaminoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,11 +18,15 @@ class authenticationController extends AbstractController
 
     private $userManager;
     private $authManager;
+    private $userPathManager;
+    private $achievementManager;
 
-    function __construct(UserManager $userManager, AuthManager $authManager)
+    function __construct(UserManager $userManager, AuthManager $authManager, UserPathManager $userPathManager, AchievementManager $achievementManager)
     {
         $this->userManager = $userManager;
         $this->authManager = $authManager;
+        $this->userPathManager = $userPathManager;
+        $this->achievementManager = $achievementManager;
     }
 
     /**
@@ -155,12 +158,12 @@ class authenticationController extends AbstractController
     /**
      * @Route("/showOtherProfile", name="showOtherProfile", methods={"GET"})
      */
-    public function showOtherProfile(Request $request, UsuarioRepository $userRepository, LogroRepository $achievementRepository, UsuarioCaminoRepository $userPathRepository)
+    public function showOtherProfile(Request $request)
     {
-        $user = $userRepository->getOneById($request->get('id'));
-        $achievements = $achievementRepository->getThreeById($request->get('id'));
-        $paths = $userPathRepository->getAllById($request->get('id'));
-        $activePath = $userPathRepository->getActivePath($request->get('id'));
+        $user = $this->userManager->getOneByIdUser($request->get('id'));
+        $achievements = $this->achievementManager->getThreeByIdUser($request->get('id'));
+        $paths = $this->userPathManager->getAllByIdUser($request->get('id'));
+        $activePath = $this->userPathManager->getActivePathUser($request->get('id'));
 
         $data = [
             'id' => $user->getId(),

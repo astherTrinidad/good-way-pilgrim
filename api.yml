@@ -306,7 +306,7 @@ paths:
           schema:
             type: integer
             example: 450
-      responses:
+      responses:git status
         "200":
           description: "User show"
           content:
