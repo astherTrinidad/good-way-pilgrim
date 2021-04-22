@@ -62,7 +62,8 @@ class authenticationController extends AbstractController {
         if (!$user || !$this->authManager->checkUserPassword($user, $parameters['password'])) {
             return new JsonResponse(['message' => 'email or password is wrong'], Response::HTTP_UNAUTHORIZED);
         }
-        $jwt = $this->authManager->generateToken($user->getEmail());
+        
+        $jwt = $this->authManager->generateToken($user->getEmail(), $this->getParameter('jwt_secret'));
         return $this->json([
                     'message' => 'success',
                     'token' => $jwt,
@@ -113,8 +114,7 @@ class authenticationController extends AbstractController {
         $user = $this->userManager->createUser($parameters);
 
         if (isset($_FILES['photo'])) {
-            $picture = base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name'])));
-            $user->setPicture($picture);
+            $user->setPicture(base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name']))));
         }
 
         $userEdited = $this->userManager->updateUser($parameters['id'], $user);

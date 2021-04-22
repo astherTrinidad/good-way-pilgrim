@@ -31,13 +31,12 @@ class AuthManager {
         return true;
     }
 
-    public function generateToken($email) {
+    public function generateToken($email, $key) {
         $payload = [
             "email" => $email,
             "exp" => (new \DateTime())->modify("+60 minutes")->getTimestamp(),
         ];
-        //$this->getParameter('jwt_secret')
-        return JWT::encode($payload, 'ire', 'HS256');
+        return JWT::encode($payload, $key, 'HS256');
     }
 
     public function checkPasswordChange($user, $password, $newPassword) {
