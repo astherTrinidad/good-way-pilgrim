@@ -3,51 +3,44 @@
 namespace App\Controller;
 
 use App\Entity\Usuario;
-use App\Entity\Camino;
-use App\Repository\CaminoRepository;
+use App\Services\AuthManager;
+use App\Services\UserManager;
 use App\Repository\UsuarioRepository;
 use App\Repository\LogroRepository;
 use App\Repository\UsuarioCaminoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Firebase\JWT\JWT;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class authenticationController extends AbstractController
 {
-
+    private $userManager;
+    private $authManager;
+    
+    function __construct(UserManager $userManager, AuthManager $authManager) {
+        $this->userManager = $userManager;
+        $this->authManager = $authManager;
+    }
+    
+    
     /**
      * @Route("/pub/register", name="register", methods={"POST"})
      */
-    public function register(Request $request, UserPasswordEncoderInterface $encoder, UsuarioRepository $userRepository)
+    public function register(Request $request)
     {
         $parameters = json_decode($request->getContent(), true);
+        $user = $this->userManager->createUser($parameters);
 
-        $name = ucwords(strtolower($parameters['name']));
-        $surname = ucwords(strtolower($parameters['surname']));
-        $email = $parameters['email'];
-        $password = $parameters['password'];
-        $user = new Usuario();
-        $user->setName($name);
-        $user->setSurname($surname);
-        $user->setPassword($encoder->encodePassword($user, $password));
-        $user->setEmail($email);
-        $user->setPicture("");
-
-        if (!$this->isPartLowercase($password) || !$this->isPartUppercase($password) || strlen($password) < 8) {
-            $data = [
-                'message' => 'password not valid'
-            ];
+        if (!$this->authManager->validatePassword($parameters['password'])) {
+            $data = ['message' => 'password not valid'];
             return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
-        if ($this->emailExists($email, $userRepository)) {
-            $data = [
-                'message' => 'email is already in database'
-            ];
+        
+        if ($this->userManager->emailExists($parameters['email'])) {
+            $data = ['message' => 'email is already in database'];
             return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -62,7 +55,6 @@ class authenticationController extends AbstractController
             'email' => $user->getEmail(),
             'picture' => $user->getPicture(),
         ]);
-        //return new Response(json_encode($user));
     }
 
     /**
@@ -230,24 +222,5 @@ class authenticationController extends AbstractController
         ];
 
         return new JsonResponse($data);
-    }
-
-
-
-    function isPartUppercase($string)
-    {
-        return (bool) preg_match('/[A-Z]/', $string);
-    }
-
-    function isPartLowercase($string)
-    {
-        return (bool) preg_match('/[a-z]/', $string);
-    }
-
-    function emailExists($email, $userRepository)
-    {
-        return $userRepository->findOneBy([
-            'email' => $email,
-        ]);
     }
 }
