@@ -6,6 +6,8 @@ use App\Entity\Usuario;
 use App\Entity\Camino;
 use App\Repository\CaminoRepository;
 use App\Repository\UsuarioRepository;
+use App\Repository\LogroRepository;
+use App\Repository\UsuarioCaminoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -58,6 +60,7 @@ class authenticationController extends AbstractController
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
             'email' => $user->getEmail(),
+            'picture' => $user->getPicture(),
         ]);
         //return new Response(json_encode($user));
     }
@@ -203,6 +206,30 @@ class authenticationController extends AbstractController
         }
 
         return new JsonResponse($matchUsers);
+    }
+
+    /**
+     * @Route("/showOtherProfile", name="showOtherProfile", methods={"GET"})
+     */
+    public function showOtherProfile(Request $request, UsuarioRepository $userRepository, LogroRepository $achievementRepository, UsuarioCaminoRepository $userPathRepository)
+    {
+        $user = $userRepository->getOneById($request->get('id'));
+        $achievements = $achievementRepository->getThreeById($request->get('id'));
+        $paths = $userPathRepository->getAllById($request->get('id'));
+        $activePath = $userPathRepository->getActivePath($request->get('id'));
+
+        $data = [
+            'id' => $user->getId(),
+            'name' => $user->getName(),
+            'surname' => $user->getSurname(),
+            'email' => $user->getEmail(),
+            'picture' => $user->getPicture(),
+            'achievements' => $achievements,
+            'paths' => $paths,
+            'activePath' => $activePath
+        ];
+
+        return new JsonResponse($data);
     }
 
 

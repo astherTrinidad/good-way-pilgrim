@@ -13,13 +13,16 @@ use App\Entity\LogroUsuario;
  * @method Logro[]    findAll()
  * @method Logro[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LogroRepository extends ServiceEntityRepository {
+class LogroRepository extends ServiceEntityRepository
+{
 
-    public function __construct(ManagerRegistry $registry) {
+    public function __construct(ManagerRegistry $registry)
+    {
         parent::__construct($registry, Logro::class);
     }
 
-    public function getById($id) {
+    public function getById($id)
+    {
         $em = $this->getEntityManager();
         $db = $em->getConnection();
 
@@ -34,4 +37,19 @@ class LogroRepository extends ServiceEntityRepository {
         return $logros;
     }
 
+    public function getThreeById($id)
+    {
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
+
+        $query = "SELECT * FROM logro_usuario WHERE id_usuario = $id ORDER BY date DESC LIMIT 3";
+        $result = $db->executeQuery($query);
+        $logrosResult = $result->fetchAll();
+        $logros = array();
+
+        foreach ($logrosResult as $logro) {
+            array_push($logros, $logro);
+        }
+        return $logros;
+    }
 }

@@ -18,29 +18,29 @@ class LogroUsuarioDataFixtures extends Fixture implements DependentFixtureInterf
 
     public function load(ObjectManager $manager)
     {
-        //patricia
+        //patricia no tiene camino no logros
+        //Irene 
         $logroUsuario = new LogroUsuario();
         $logroUsuario->setDate(self::DATE1);
-        $logroUsuario->setUser($this->getReference(UserDataFixtures::USUARIO . 1));
+        $logroUsuario->setUser($this->getReference(UserDataFixtures::USUARIO . 2));
         $logroUsuario->setAchievement($this->getReference(LogroDataFixtures::LOGRO . 7));
         $manager->persist($logroUsuario);
         $manager->flush();
 
         $logroUsuario1 = new LogroUsuario();
-        $logroUsuario1->setDate(self::DATE1);
-        $logroUsuario1->setUser($this->getReference(UserDataFixtures::USUARIO . 1));
+        $logroUsuario1->setDate(self::DATE2);
+        $logroUsuario1->setUser($this->getReference(UserDataFixtures::USUARIO . 2));
         $logroUsuario1->setAchievement($this->getReference(LogroDataFixtures::LOGRO . 3));
         $manager->persist($logroUsuario1);
         $manager->flush();
 
         $logroUsuario2 = new LogroUsuario();
         $logroUsuario2->setDate(self::DATE3);
-        $logroUsuario2->setUser($this->getReference(UserDataFixtures::USUARIO . 1));
+        $logroUsuario2->setUser($this->getReference(UserDataFixtures::USUARIO . 2));
         $logroUsuario2->setAchievement($this->getReference(LogroDataFixtures::LOGRO . 5));
         $manager->persist($logroUsuario2);
         $manager->flush();
 
-        //Irene no tiene
         //Asther
         $logroUsuario3 = new LogroUsuario();
         $logroUsuario3->setDate(self::DATE4);
@@ -50,7 +50,7 @@ class LogroUsuarioDataFixtures extends Fixture implements DependentFixtureInterf
         $manager->flush();
 
         $logroUsuario4 = new LogroUsuario();
-        $logroUsuario4->setDate(self::DATE4);
+        $logroUsuario4->setDate(self::DATE1);
         $logroUsuario4->setUser($this->getReference(UserDataFixtures::USUARIO . 3));
         $logroUsuario4->setAchievement($this->getReference(LogroDataFixtures::LOGRO . 6));
         $manager->persist($logroUsuario4);
@@ -77,6 +77,20 @@ class LogroUsuarioDataFixtures extends Fixture implements DependentFixtureInterf
         $logroUsuario7->setUser($this->getReference(UserDataFixtures::USUARIO . 5));
         $logroUsuario7->setAchievement($this->getReference(LogroDataFixtures::LOGRO . 1));
         $manager->persist($logroUsuario7);
+        $manager->flush();
+
+        $logroUsuario8 = new LogroUsuario();
+        $logroUsuario8->setDate(self::DATE1);
+        $logroUsuario8->setUser($this->getReference(UserDataFixtures::USUARIO . 5));
+        $logroUsuario8->setAchievement($this->getReference(LogroDataFixtures::LOGRO . 6));
+        $manager->persist($logroUsuario8);
+        $manager->flush();
+
+        $logroUsuario9 = new LogroUsuario();
+        $logroUsuario9->setDate(self::DATE4);
+        $logroUsuario9->setUser($this->getReference(UserDataFixtures::USUARIO . 5));
+        $logroUsuario9->setAchievement($this->getReference(LogroDataFixtures::LOGRO . 7));
+        $manager->persist($logroUsuario9);
         $manager->flush();
     }
 
