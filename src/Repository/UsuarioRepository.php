@@ -70,6 +70,8 @@ class UsuarioRepository extends ServiceEntityRepository {
         }
         $db->executeQuery($query);
         $em->clear();
+        
+        return $this->getOneById($id);
     }
 
     public function getByString($string) {
