@@ -48,7 +48,6 @@ class UserManager
         ]);
     }
 
-
     public function deleteUser($id)
     {
         return $this->userRepository->deleteOneById($id);
