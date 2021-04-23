@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repository\UsuarioRepository;
-use App\Entity\Usuario;
+use Symfony\Component\HttpFoundation\Request;
 use Firebase\JWT\JWT;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -47,6 +47,16 @@ class AuthManager {
             return true;
         }
         return true;
+    }
+
+    public function getIdFromToken(Request $request, $key) {
+        $token = $request->headers->get('Authorization');
+        $credentials = str_replace('Bearer ', '', $token);
+        $jwt = (array) JWT::decode($credentials,$key,['HS256']);
+        $user = $this->userRepository->findOneBy([
+            'email' => $jwt['email'],
+        ]);
+        return $user->getId();
     }
 
     function isPartUppercase($string) {
