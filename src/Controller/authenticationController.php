@@ -69,7 +69,8 @@ class authenticationController extends AbstractController
         if (!$user || !$this->authManager->checkUserPassword($user, $parameters['password'])) {
             return new JsonResponse(['message' => 'email or password is wrong'], Response::HTTP_UNAUTHORIZED);
         }
-        $jwt = $this->authManager->generateToken($user->getEmail());
+        
+        $jwt = $this->authManager->generateToken($user->getEmail(), $this->getParameter('jwt_secret'));
         return $this->json([
             'message' => 'success',
             'token' => $jwt,
@@ -77,17 +78,14 @@ class authenticationController extends AbstractController
     }
 
     /**
-     * @Route("/pri/me/showProfile", name="showProfile", methods={"GET"})
+     * @Route("pri/showProfile", name="showProfile", methods={"GET"})
      */
-    public function showProfile(Request $request, UsuarioRepository $userRepository)
-    {
-        $user = $userRepository->getOneById($request->get('id'));
+    public function showProfile(Request $request) {        
+        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $user = $this->userManager->getUser($request->get($id));
 
         if (!$user) {
-            $data = [
-                'message' => 'user not in database'
-            ];
-            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse(['message' => 'user not in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return $this->json([
@@ -100,34 +98,35 @@ class authenticationController extends AbstractController
     }
 
     /**
-     * @Route("/pri/me/deleteProfile", name="deleteProfile", methods={"DELETE"})
+     * @Route("/pri/deleteProfile", name="deleteProfile", methods={"DELETE"})
      */
-    public function deleteProfile(Request $request)
-    {
-        $parameters = json_decode($request->getContent(), true);
-        $this->userManager->deleteUser($parameters['id']);
+    public function deleteProfile(Request $request) {       
+        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $this->userManager->deleteUser($id);
         return $this->json(['message' => 'success']);
     }
 
     /**
-     * @Route("/editProfile", name="editProfile", methods={"PUT"})
+     * @Route("/pri/editProfile", name="editProfile", methods={"PUT"})
      */
     public function editProfile(Request $request)
     {
         $parameters = json_decode($request->getContent(), true);
 
-        if (!$this->authManager->checkPasswordChange($this->userManager->getUser($parameters['id']), $parameters['oldPassword'], $parameters['newPassword'])) {
+        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+     
+        if (!$this->authManager->checkPasswordChange($this->userManager->getUser($id), $parameters['oldPassword'], $parameters['newPassword'])) {
+
             return new JsonResponse(['message' => 'Password is wrong'], Response::HTTP_UNAUTHORIZED);
         }
 
         $user = $this->userManager->createUser($parameters);
 
         if (isset($_FILES['photo'])) {
-            $picture = base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name'])));
-            $user->setPicture($picture);
+            $user->setPicture(base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name']))));
         }
 
-        $userEdited = $this->userManager->updateUser($parameters['id'], $user);
+        $userEdited = $this->userManager->updateUser($id , $user);
         return $this->json([
             'id' => $userEdited->getId(),
             'name' => $userEdited->getName(),
@@ -140,23 +139,21 @@ class authenticationController extends AbstractController
     /**
      * @Route("/pri/showUsers", name="showUsers", methods={"GET"})
      */
-    public function showUsers(Request $request, UsuarioRepository $userRepository)
-    {
+
+    public function showUsers(Request $request) {
+
         $searchString = $request->get('string');
-        $matchUsers = $userRepository->getByString($searchString);
+        $matchUsers = $this->userManager->getUsersByString($searchString);
 
         if (empty($matchUsers)) {
-            $data = [
-                'message' => 'no results found'
-            ];
-            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse(['message' => 'no results found'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return new JsonResponse($matchUsers);
     }
 
     /**
-     * @Route("/showOtherProfile", name="showOtherProfile", methods={"GET"})
+     * @Route("/pri/showOtherProfile", name="showOtherProfile", methods={"GET"})
      */
     public function showOtherProfile(Request $request)
     {

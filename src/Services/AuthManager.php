@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repository\UsuarioRepository;
-use App\Entity\Usuario;
+use Symfony\Component\HttpFoundation\Request;
 use Firebase\JWT\JWT;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -31,13 +31,12 @@ class AuthManager {
         return true;
     }
 
-    public function generateToken($email) {
+    public function generateToken($email, $key) {
         $payload = [
             "email" => $email,
             "exp" => (new \DateTime())->modify("+60 minutes")->getTimestamp(),
         ];
-        //$this->getParameter('jwt_secret')
-        return JWT::encode($payload, 'ire', 'HS256');
+        return JWT::encode($payload, $key, 'HS256');
     }
 
     public function checkPasswordChange($user, $password, $newPassword) {
@@ -48,6 +47,16 @@ class AuthManager {
             return true;
         }
         return true;
+    }
+
+    public function getIdFromToken(Request $request, $key) {
+        $token = $request->headers->get('Authorization');
+        $credentials = str_replace('Bearer ', '', $token);
+        $jwt = (array) JWT::decode($credentials,$key,['HS256']);
+        $user = $this->userRepository->findOneBy([
+            'email' => $jwt['email'],
+        ]);
+        return $user->getId();
     }
 
     function isPartUppercase($string) {

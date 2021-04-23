@@ -48,14 +48,18 @@ class UserManager
         ]);
     }
 
-    public function deleteUser($id)
-    {
+    public function deleteUser($id) {
+
         return $this->userRepository->deleteOneById($id);
     }
 
     public function updateUser($id, $user)
     {
         return $this->userRepository->updateOneById($id, $user);
+    }
+    
+    public function getUsersByString($searchString) {
+        return $this->userRepository->getByString($searchString);
     }
 
     public function getOneByIdUser($userId)
