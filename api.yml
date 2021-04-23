@@ -294,5 +294,35 @@ paths:
       responses:
         "200":
           description: "File downloaded"
+  /pri/showOtherProfile:
+    get:
+      tags:
+      - "user"
+      summary: "Shows information of the selected user"
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 450
+      responses:git status
+        "200":
+          description: "User show"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":450,"name":"Javi","surname":"Carrillo","email":"javichu@gmail.com","picture":"","achievements":[{"id":"186","id_logro":"620","id_usuario":"450","date":"2020-02-05"},{"id":"188","id_logro":"622","id_usuario":"450","date":"2020-02-05"},{"id":"187","id_logro":"617","id_usuario":"450","date":"2019-06-23"}],"paths":[{"id":"114","id_usuario":"450","id_camino":"191","start_date":"2021-01-01","finish_date":"2021-01-15","status":"Completed"},{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}],"activePath":[{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}]}]
+
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"no results found"}
 
 
