@@ -26,9 +26,12 @@ class UserManager
         if (isset($parameters['password'])) {
             $user->setPassword($this->encoder->encodePassword($user, $parameters['password']));
         }
-        if (strcmp($parameters['newPassword'], "") != 0) {
-            $user->setPassword($this->encoder->encodePassword($user, $parameters['newPassword']));
+        if (isset($parameters['newPassword'])) {
+            if (strcmp($parameters['newPassword'], "") != 0) {
+                $user->setPassword($this->encoder->encodePassword($user, $parameters['newPassword']));
+            }
         }
+
         $user->setEmail($parameters['email']);
         $user->setPicture("");
         return $user;
