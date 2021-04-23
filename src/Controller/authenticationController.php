@@ -2,32 +2,38 @@
 
 namespace App\Controller;
 
-use App\Entity\Usuario;
 use App\Services\AuthManager;
 use App\Services\UserManager;
+use App\Services\UserPathManager;
+use App\Services\AchievementManager;
 use App\Repository\UsuarioRepository;
-use App\Repository\LogroRepository;
-use App\Repository\UsuarioCaminoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class authenticationController extends AbstractController {
+class authenticationController extends AbstractController
+{
 
     private $userManager;
     private $authManager;
+    private $userPathManager;
+    private $achievementManager;
 
-    function __construct(UserManager $userManager, AuthManager $authManager) {
+    function __construct(UserManager $userManager, AuthManager $authManager, UserPathManager $userPathManager, AchievementManager $achievementManager)
+    {
         $this->userManager = $userManager;
         $this->authManager = $authManager;
+        $this->userPathManager = $userPathManager;
+        $this->achievementManager = $achievementManager;
     }
 
     /**
      * @Route("/pub/register", name="register", methods={"POST"})
      */
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $parameters = json_decode($request->getContent(), true);
         $user = $this->userManager->createUser($parameters);
 
@@ -44,18 +50,19 @@ class authenticationController extends AbstractController {
         $em->flush();
 
         return $this->json([
-                    'id' => $user->getId(),
-                    'name' => $user->getName(),
-                    'surname' => $user->getSurname(),
-                    'email' => $user->getEmail(),
-                    'picture' => $user->getPicture(),
+            'id' => $user->getId(),
+            'name' => $user->getName(),
+            'surname' => $user->getSurname(),
+            'email' => $user->getEmail(),
+            'picture' => $user->getPicture(),
         ]);
     }
 
     /**
      * @Route("/pub/login", name="login", methods={"POST"})
      */
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $parameters = json_decode($request->getContent(), true);
         $user = $this->userManager->emailExists($parameters['email']);
 
@@ -65,8 +72,8 @@ class authenticationController extends AbstractController {
         
         $jwt = $this->authManager->generateToken($user->getEmail(), $this->getParameter('jwt_secret'));
         return $this->json([
-                    'message' => 'success',
-                    'token' => $jwt
+            'message' => 'success',
+            'token' => $jwt,
         ]);
     }
 
@@ -82,11 +89,11 @@ class authenticationController extends AbstractController {
         }
 
         return $this->json([
-                    'id' => $user->getId(),
-                    'name' => $user->getName(),
-                    'surname' => $user->getSurname(),
-                    'email' => $user->getEmail(),
-                    'picture' => $user->getPicture(),
+            'id' => $user->getId(),
+            'name' => $user->getName(),
+            'surname' => $user->getSurname(),
+            'email' => $user->getEmail(),
+            'picture' => $user->getPicture(),
         ]);
     }
 
@@ -102,11 +109,14 @@ class authenticationController extends AbstractController {
     /**
      * @Route("/pri/editProfile", name="editProfile", methods={"PUT"})
      */
-    public function editProfile(Request $request) {
+    public function editProfile(Request $request)
+    {
         $parameters = json_decode($request->getContent(), true);
+
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
      
         if (!$this->authManager->checkPasswordChange($this->userManager->getUser($id), $parameters['oldPassword'], $parameters['newPassword'])) {
+
             return new JsonResponse(['message' => 'Password is wrong'], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -118,18 +128,20 @@ class authenticationController extends AbstractController {
 
         $userEdited = $this->userManager->updateUser($id , $user);
         return $this->json([
-                    'id' => $userEdited->getId(),
-                    'name' => $userEdited->getName(),
-                    'surname' => $userEdited->getSurname(),
-                    'email' => $userEdited->getEmail(),
-                    'picture' => $userEdited->getPicture()
+            'id' => $userEdited->getId(),
+            'name' => $userEdited->getName(),
+            'surname' => $userEdited->getSurname(),
+            'email' => $userEdited->getEmail(),
+            'picture' => $userEdited->getPicture()
         ]);
     }
 
     /**
      * @Route("/pri/showUsers", name="showUsers", methods={"GET"})
      */
+
     public function showUsers(Request $request) {
+
         $searchString = $request->get('string');
         $matchUsers = $this->userManager->getUsersByString($searchString);
 
@@ -143,11 +155,12 @@ class authenticationController extends AbstractController {
     /**
      * @Route("/pri/showOtherProfile", name="showOtherProfile", methods={"GET"})
      */
-    public function showOtherProfile(Request $request, UsuarioRepository $userRepository, LogroRepository $achievementRepository, UsuarioCaminoRepository $userPathRepository) {
-        $user = $userRepository->getOneById($request->get('id'));
-        $achievements = $achievementRepository->getThreeById($request->get('id'));
-        $paths = $userPathRepository->getAllById($request->get('id'));
-        $activePath = $userPathRepository->getActivePath($request->get('id'));
+    public function showOtherProfile(Request $request)
+    {
+        $user = $this->userManager->getOneByIdUser($request->get('id'));
+        $achievements = $this->achievementManager->getThreeByIdUser($request->get('id'));
+        $paths = $this->userPathManager->getAllByIdUser($request->get('id'));
+        $activePath = $this->userPathManager->getActivePathUser($request->get('id'));
 
         $data = [
             'id' => $user->getId(),
@@ -162,5 +175,4 @@ class authenticationController extends AbstractController {
 
         return new JsonResponse($data);
     }
-
 }
