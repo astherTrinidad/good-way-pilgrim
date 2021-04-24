@@ -38,7 +38,7 @@ class authenticationController extends AbstractController
         $user = $this->userManager->createUser($parameters);
 
         if (!$this->authManager->validatePassword($parameters['password'])) {
-            return new JsonResponse(['message' => 'password not valid'], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse(['message' => 'password not valid'], Response::HTTP_UNAUTHORIZED);
         }
 
         if ($this->userManager->emailExists($parameters['email'])) {
@@ -82,20 +82,25 @@ class authenticationController extends AbstractController
      */
     public function showProfile(Request $request) {        
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));    
-        $user = $this->userManager->getUser($id);
+        $user = $this->userManager->getUser($id);       
+        $achievements = $this->achievementManager->getThreeByIdUser($id);
+        $paths = $this->userPathManager->getAllByIdUser($id);
+        $activePath = $this->userPathManager->getActivePathUser($id);
 
-        if (!$user) {
-            return new JsonResponse(['message' => 'user not in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        return $this->json([
+        $data = [
             'id' => $user->getId(),
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
             'email' => $user->getEmail(),
             'picture' => $user->getPicture(),
-        ]);
+            'achievements' => $achievements,
+            'paths' => $paths,
+            'activePath' => $activePath
+        ];
+
+        return new JsonResponse($data);
     }
+    
 
     /**
      * @Route("/pri/deleteProfile", name="deleteProfile", methods={"DELETE"})
@@ -159,7 +164,7 @@ class authenticationController extends AbstractController
     {
         $user = $this->userManager->getOneByIdUser($request->get('id'));
         $achievements = $this->achievementManager->getThreeByIdUser($request->get('id'));
-        $paths = $this->userPathManager->getAllByIdUser($request->get('id'));
+        $paths = $this->userPathManager->getAllByIdUser($request->get(id));
         $activePath = $this->userPathManager->getActivePathUser($request->get('id'));
 
         $data = [
