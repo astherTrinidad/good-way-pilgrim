@@ -31,14 +31,14 @@ class Mochila
     /**
      * Muchas mochilas tienen un usuario.
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="mochilas")
-     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="cascade")
      */
     private $user;
 
     /**
      * Muchas mochilas tienen un camino. 
      * @ORM\ManyToOne(targetEntity="Camino", inversedBy="mochilas")
-     * @ORM\JoinColumn(name="id_camino", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_camino", referencedColumnName="id", onDelete="cascade")
      */
     private $camino;
 

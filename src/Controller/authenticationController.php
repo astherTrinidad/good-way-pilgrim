@@ -2,33 +2,35 @@
 
 namespace App\Controller;
 
-use App\Entity\Usuario;
 use App\Services\AuthManager;
 use App\Services\UserManager;
+use App\Services\UserPathManager;
+use App\Services\AchievementManager;
 use App\Repository\UsuarioRepository;
-use App\Repository\LogroRepository;
-use App\Repository\UsuarioCaminoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Firebase\JWT\JWT;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
-
 class authenticationController extends AbstractController
 {
+
     private $userManager;
     private $authManager;
-    
-    function __construct(UserManager $userManager, AuthManager $authManager) {
+    private $userPathManager;
+    private $achievementManager;
+
+    function __construct(UserManager $userManager, AuthManager $authManager, UserPathManager $userPathManager, AchievementManager $achievementManager)
+    {
         $this->userManager = $userManager;
         $this->authManager = $authManager;
+        $this->userPathManager = $userPathManager;
+        $this->achievementManager = $achievementManager;
     }
-    
-    
+
     /**
      * @Route("/pub/register", name="register", methods={"POST"})
      */
@@ -38,13 +40,11 @@ class authenticationController extends AbstractController
         $user = $this->userManager->createUser($parameters);
 
         if (!$this->authManager->validatePassword($parameters['password'])) {
-            $data = ['message' => 'password not valid'];
-            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse(['message' => 'password not valid'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        
+
         if ($this->userManager->emailExists($parameters['email'])) {
-            $data = ['message' => 'email is already in database'];
-            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse(['message' => 'email is already in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -63,24 +63,16 @@ class authenticationController extends AbstractController
     /**
      * @Route("/pub/login", name="login", methods={"POST"})
      */
-    public function login(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder)
+    public function login(Request $request)
     {
         $parameters = json_decode($request->getContent(), true);
-        $user = $userRepository->getOneByEmail($parameters['email']);
+        $user = $this->userManager->emailExists($parameters['email']);
 
-        //Claúsula de guarda
-        if (!$user || !$encoder->isPasswordValid($user, $parameters['password'])) {
-            $data = [
-                'message' => 'email or password is wrong'
-            ];
-            return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
+        if (!$user || !$this->authManager->checkUserPassword($user, $parameters['password'])) {
+            return new JsonResponse(['message' => 'email or password is wrong'], Response::HTTP_UNAUTHORIZED);
         }
-        $payload = [
-            "email" => $user->getEmail(),
-            "exp" => (new \DateTime())->modify("+60 minutes")->getTimestamp(),
-        ];
-
-        $jwt = JWT::encode($payload, $this->getParameter('jwt_secret'), 'HS256');
+        
+        $jwt = $this->authManager->generateToken($user->getEmail(), $this->getParameter('jwt_secret'));
         return $this->json([
             'message' => 'success',
             'token' => $jwt,
@@ -88,16 +80,13 @@ class authenticationController extends AbstractController
     }
 
     /**
-     * @Route("/pri/me/showProfile", name="showProfile", methods={"GET"})
+     * @Route("pri/showProfile", name="showProfile", methods={"GET"})
      */
-    public function showProfile(Request $request, UsuarioRepository $userRepository)
-    {
-        $user = $userRepository->getOneById($request->get('id'));
+    public function showProfile(Request $request) {        
+        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $user = $this->userManager->getUser($id);
         if (!$user) {
-            $data = [
-                'message' => 'user not in database'
-            ];
-            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse(['message' => 'user not in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return $this->json([
@@ -110,71 +99,35 @@ class authenticationController extends AbstractController
     }
 
     /**
-     * @Route("/pri/me/deleteProfile", name="deleteProfile", methods={"DELETE"})
+     * @Route("/pri/deleteProfile", name="deleteProfile", methods={"DELETE"})
      */
-    public function deleteProfile(Request $request, UsuarioRepository $userRepository)
-    {
-        $parameters = json_decode($request->getContent(), true);
-        $user = $userRepository->getOneByID($parameters['id']);
-
-        if (!$user) {
-            $data = [
-                'message' => 'user not in database'
-            ];
-            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        $userRepository->deleteOneById($parameters['id']);
-        return $this->json([
-            'message' => 'success'
-        ]);
+    public function deleteProfile(Request $request) {       
+        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $this->userManager->deleteUser($id);
+        return $this->json(['message' => 'success']);
     }
 
     /**
-     * @Route("/pri/me/editProfile", name="editProfile", methods={"PUT"})
+     * @Route("/pri/editProfile", name="editProfile", methods={"PUT"})
      */
-    public function editProfile(Request $request, UsuarioRepository $userRepository, UserPasswordEncoderInterface $encoder)
+    public function editProfile(Request $request)
     {
         $parameters = json_decode($request->getContent(), true);
-        $user = $userRepository->getOneByID($parameters['id']);
 
-        if (!$user) {
-            $data = [
-                'message' => 'user not in database'
-            ];
-            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-        $newPassword = $parameters['newPassword'];
-        $passwordChange = false;
-        if (strcmp($newPassword, "") != 0) {
-            if (!$encoder->isPasswordValid($user, $parameters['oldPassword'])) {
-                $data = [
-                    'message' => 'password is wrong'
-                ];
-                return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
-            }
-            $passwordChange = true;
+        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+     
+        if (!$this->authManager->checkPasswordChange($this->userManager->getUser($id), $parameters['oldPassword'], $parameters['newPassword'])) {
+
+            return new JsonResponse(['message' => 'Password is wrong'], Response::HTTP_UNAUTHORIZED);
         }
 
-        $id = $parameters['id'];
-
-        $user = new Usuario();
-        $user->setName(ucwords(strtolower($parameters['name'])));
-        $user->setSurname(ucwords(strtolower($parameters['surname'])));
-        $user->setEmail($parameters['email']);
-
-        if ($passwordChange) {
-            $user->setPassword($encoder->encodePassword($user, $newPassword));
-        }
+        $user = $this->userManager->createUser($parameters);
 
         if (isset($_FILES['photo'])) {
-            $picture = base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name'])));
-            $user->setPicture($picture);
+            $user->setPicture(base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name']))));
         }
 
-        $userRepository->updateOneById($id, $user);
-        $userEdited = $userRepository->getOneByID($parameters['id']);
-
+        $userEdited = $this->userManager->updateUser($id , $user);
         return $this->json([
             'id' => $userEdited->getId(),
             'name' => $userEdited->getName(),
@@ -187,30 +140,28 @@ class authenticationController extends AbstractController
     /**
      * @Route("/pri/showUsers", name="showUsers", methods={"GET"})
      */
-    public function showUsers(Request $request, UsuarioRepository $userRepository)
-    {
+
+    public function showUsers(Request $request) {
+
         $searchString = $request->get('string');
-        $matchUsers = $userRepository->getByString($searchString);
+        $matchUsers = $this->userManager->getUsersByString($searchString);
 
         if (empty($matchUsers)) {
-            $data = [
-                'message' => 'no results found'
-            ];
-            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse(['message' => 'no results found'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return new JsonResponse($matchUsers);
     }
 
     /**
-     * @Route("/showOtherProfile", name="showOtherProfile", methods={"GET"})
+     * @Route("/pri/showOtherProfile", name="showOtherProfile", methods={"GET"})
      */
-    public function showOtherProfile(Request $request, UsuarioRepository $userRepository, LogroRepository $achievementRepository, UsuarioCaminoRepository $userPathRepository)
+    public function showOtherProfile(Request $request)
     {
-        $user = $userRepository->getOneById($request->get('id'));
-        $achievements = $achievementRepository->getThreeById($request->get('id'));
-        $paths = $userPathRepository->getAllById($request->get('id'));
-        $activePath = $userPathRepository->getActivePath($request->get('id'));
+        $user = $this->userManager->getOneByIdUser($request->get('id'));
+        $achievements = $this->achievementManager->getThreeByIdUser($request->get('id'));
+        $paths = $this->userPathManager->getAllByIdUser($request->get('id'));
+        $activePath = $this->userPathManager->getActivePathUser($request->get('id'));
 
         $data = [
             'id' => $user->getId(),

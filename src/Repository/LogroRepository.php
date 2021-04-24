@@ -41,15 +41,10 @@ class LogroRepository extends ServiceEntityRepository
     {
         $em = $this->getEntityManager();
         $db = $em->getConnection();
-
         $query = "SELECT * FROM logro_usuario WHERE id_usuario = $id ORDER BY date DESC LIMIT 3";
         $result = $db->executeQuery($query);
-        $logrosResult = $result->fetchAll();
-        $logros = array();
+        $achievement = $result->fetchAll();
 
-        foreach ($logrosResult as $logro) {
-            array_push($logros, $logro);
-        }
-        return $logros;
+        return $achievement;
     }
 }
