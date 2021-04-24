@@ -40,7 +40,7 @@ class authenticationController extends AbstractController
         $user = $this->userManager->createUser($parameters);
 
         if (!$this->authManager->validatePassword($parameters['password'])) {
-            return new JsonResponse(['message' => 'password not valid'], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse(['message' => 'password not valid'], Response::HTTP_UNAUTHORIZED);
         }
 
         if ($this->userManager->emailExists($parameters['email'])) {
@@ -83,20 +83,34 @@ class authenticationController extends AbstractController
      * @Route("pri/showProfile", name="showProfile", methods={"GET"})
      */
     public function showProfile(Request $request) {        
+<<<<<<< HEAD
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $user = $this->userManager->getUser($id);
         if (!$user) {
             return new JsonResponse(['message' => 'user not in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+=======
+        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));    
+        $user = $this->userManager->getUser($id);       
+        $achievements = $this->achievementManager->getThreeByIdUser($id);
+        $paths = $this->userPathManager->getAllByIdUser($id);
+        $activePath = $this->userPathManager->getActivePathUser($id);
+>>>>>>> 50eb837d268fefc84d9b624ffc85e8f473a131d1
 
-        return $this->json([
+        $data = [
             'id' => $user->getId(),
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
             'email' => $user->getEmail(),
             'picture' => $user->getPicture(),
-        ]);
+            'achievements' => $achievements,
+            'paths' => $paths,
+            'activePath' => $activePath
+        ];
+
+        return new JsonResponse($data);
     }
+    
 
     /**
      * @Route("/pri/deleteProfile", name="deleteProfile", methods={"DELETE"})
@@ -160,7 +174,7 @@ class authenticationController extends AbstractController
     {
         $user = $this->userManager->getOneByIdUser($request->get('id'));
         $achievements = $this->achievementManager->getThreeByIdUser($request->get('id'));
-        $paths = $this->userPathManager->getAllByIdUser($request->get('id'));
+        $paths = $this->userPathManager->getAllByIdUser($request->get(id));
         $activePath = $this->userPathManager->getActivePathUser($request->get('id'));
 
         $data = [

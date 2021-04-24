@@ -31,6 +31,7 @@ class UserManager
                 $user->setPassword($this->encoder->encodePassword($user, $parameters['newPassword']));
             }
         }
+
         $user->setEmail($parameters['email']);
         $user->setPicture("");
         return $user;
