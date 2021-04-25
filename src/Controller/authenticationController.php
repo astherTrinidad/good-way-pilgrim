@@ -69,7 +69,7 @@ class authenticationController extends AbstractController
         if (!$user || !$this->authManager->checkUserPassword($user, $parameters['password'])) {
             return new JsonResponse(['message' => 'email or password is wrong'], Response::HTTP_UNAUTHORIZED);
         }
-        
+
         $jwt = $this->authManager->generateToken($user->getEmail(), $this->getParameter('jwt_secret'));
         return $this->json([
             'message' => 'success',
@@ -80,9 +80,10 @@ class authenticationController extends AbstractController
     /**
      * @Route("pri/showProfile", name="showProfile", methods={"GET"})
      */
-    public function showProfile(Request $request) {        
-        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));    
-        $user = $this->userManager->getUser($id);       
+    public function showProfile(Request $request)
+    {
+        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $user = $this->userManager->getUser($id);
         $achievements = $this->achievementManager->getThreeByIdUser($id);
         $paths = $this->userPathManager->getAllByIdUser($id);
         $activePath = $this->userPathManager->getActivePathUser($id);
@@ -100,12 +101,13 @@ class authenticationController extends AbstractController
 
         return new JsonResponse($data);
     }
-    
+
 
     /**
      * @Route("/pri/deleteProfile", name="deleteProfile", methods={"DELETE"})
      */
-    public function deleteProfile(Request $request) {       
+    public function deleteProfile(Request $request)
+    {
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $this->userManager->deleteUser($id);
         return $this->json(['message' => 'success']);
@@ -119,7 +121,7 @@ class authenticationController extends AbstractController
         $parameters = json_decode($request->getContent(), true);
 
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-     
+
         if (!$this->authManager->checkPasswordChange($this->userManager->getUser($id), $parameters['oldPassword'], $parameters['newPassword'])) {
 
             return new JsonResponse(['message' => 'Password is wrong'], Response::HTTP_UNAUTHORIZED);
@@ -131,7 +133,7 @@ class authenticationController extends AbstractController
             $user->setPicture(base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name']))));
         }
 
-        $userEdited = $this->userManager->updateUser($id , $user);
+        $userEdited = $this->userManager->updateUser($id, $user);
         return $this->json([
             'id' => $userEdited->getId(),
             'name' => $userEdited->getName(),
@@ -145,7 +147,8 @@ class authenticationController extends AbstractController
      * @Route("/pri/showUsers", name="showUsers", methods={"GET"})
      */
 
-    public function showUsers(Request $request) {
+    public function showUsers(Request $request)
+    {
 
         $searchString = $request->get('string');
         $matchUsers = $this->userManager->getUsersByString($searchString);
@@ -164,7 +167,7 @@ class authenticationController extends AbstractController
     {
         $user = $this->userManager->getOneByIdUser($request->get('id'));
         $achievements = $this->achievementManager->getThreeByIdUser($request->get('id'));
-        $paths = $this->userPathManager->getAllByIdUser($request->get(id));
+        $paths = $this->userPathManager->getAllByIdUser($request->get('id'));
         $activePath = $this->userPathManager->getActivePathUser($request->get('id'));
 
         $data = [
