@@ -20,31 +20,17 @@ class LogroRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Logro::class);
     }
-
-    public function getById($id)
+    
+    public function getAll()
     {
         $em = $this->getEntityManager();
         $db = $em->getConnection();
-
-        $query = "SELECT * FROM logro_usuario";
-        $result = $db->executeQuery($query);
-        $logrosResult = $result->fetchAll();
-        $logros = array();
-
-        foreach ($logrosResult as $logro) {
-            array_push($logros, $logro);
-        }
-        return $logros;
-    }
-
-    public function getThreeById($id)
-    {
-        $em = $this->getEntityManager();
-        $db = $em->getConnection();
-        $query = "SELECT * FROM logro_usuario WHERE id_usuario = $id ORDER BY date DESC LIMIT 3";
+        $query = "SELECT * FROM logro";
         $result = $db->executeQuery($query);
         $achievement = $result->fetchAll();
 
         return $achievement;
     }
+    
+    
 }

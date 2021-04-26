@@ -43,10 +43,7 @@ class authenticationController extends AbstractController
         if ($this->userManager->emailExists($parameters['email'])) {
             return new JsonResponse(['message' => 'email is already in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        //$this->userManager->saveUser($user);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
+        $this->userManager->saveUser($user);
 
         return $this->json([
             'id' => $user->getId(),
@@ -77,7 +74,7 @@ class authenticationController extends AbstractController
     }
 
     /**
-     * @Route("pri/showProfile", name="showProfile", methods={"GET"})
+     * @Route("/pri/showProfile", name="showProfile", methods={"GET"})
      */
     public function showProfile(Request $request)
     {
@@ -162,7 +159,7 @@ class authenticationController extends AbstractController
     }
 
     /**
-     * @Route("/pri/showOtherProfile", name="showOtherProfile", methods={"GET"})
+     * @Route("/pub/showOtherProfile", name="showOtherProfile", methods={"GET"})
      */
     public function showOtherProfile(Request $request)
     {

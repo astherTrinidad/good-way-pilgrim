@@ -40,6 +40,6 @@ class UsuarioCaminoRepository extends ServiceEntityRepository
         if(count($usersPathsActive) == 0){
             return null;
         }
-        return $usersPathsActive;
+        return $usersPathsActive[0];
     }
 }

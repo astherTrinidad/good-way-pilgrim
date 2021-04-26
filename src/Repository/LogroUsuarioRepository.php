@@ -12,39 +12,46 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method LogroUsuario[]    findAll()
  * @method LogroUsuario[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LogroUsuarioRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class LogroUsuarioRepository extends ServiceEntityRepository {
+
+    public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, LogroUsuario::class);
     }
 
-    // /**
-    //  * @return LogroUsuario[] Returns an array of LogroUsuario objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    public function getById($id) {
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
 
-    /*
-    public function findOneBySomeField($value): ?LogroUsuario
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = "SELECT * FROM logro_usuario where id_usuario = $id";
+        $result = $db->executeQuery($query);
+        $logrosResult = $result->fetchAll();
+        $logros = array();
+
+        foreach ($logrosResult as $logro) {
+            array_push($logros, $logro);
+        }
+        return $logros;
     }
-    */
+
+    public function getThreeById($id) {
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
+        $query = "SELECT * FROM logro_usuario WHERE id_usuario = $id ORDER BY date DESC LIMIT 3";
+        $result = $db->executeQuery($query);
+        $achievement = $result->fetchAll();
+
+        return $achievement;
+    }
+    
+    public function addAchievement($id_logro, $id_user, $date){
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
+        $query = "INSERT INTO logro_usuario (id_logro, id_usuario, date) VALUES($id_logro, $id_user, $date)";
+        return $db->executeQuery($query);
+    }
+    
+    public function deleteAchievement($id_logro, $id_user){
+        
+    }
+
 }
