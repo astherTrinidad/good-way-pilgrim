@@ -83,19 +83,11 @@ class authenticationController extends AbstractController
      * @Route("pri/showProfile", name="showProfile", methods={"GET"})
      */
     public function showProfile(Request $request) {        
-<<<<<<< HEAD
-        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-        $user = $this->userManager->getUser($id);
-        if (!$user) {
-            return new JsonResponse(['message' => 'user not in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-=======
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));    
         $user = $this->userManager->getUser($id);       
         $achievements = $this->achievementManager->getThreeByIdUser($id);
         $paths = $this->userPathManager->getAllByIdUser($id);
         $activePath = $this->userPathManager->getActivePathUser($id);
->>>>>>> 50eb837d268fefc84d9b624ffc85e8f473a131d1
 
         $data = [
             'id' => $user->getId(),
