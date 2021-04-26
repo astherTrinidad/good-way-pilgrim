@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Logro;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\LogroUsuario;
 
 /**
  * @method Logro|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,16 +14,17 @@ use App\Entity\LogroUsuario;
  */
 class LogroRepository extends ServiceEntityRepository
 {
-
-    public function __construct(ManagerRegistry $registry)
+    private $em;
+    
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
     {
-        parent::__construct($registry, Logro::class);
+        parent::__construct($registry, Logro::class);        
+        $this->em = $em;
     }
     
     public function getAll()
-    {
-        $em = $this->getEntityManager();
-        $db = $em->getConnection();
+    {        
+        $db = $this->em->getConnection();
         $query = "SELECT * FROM logro";
         $result = $db->executeQuery($query);
         $achievement = $result->fetchAll();

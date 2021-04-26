@@ -14,8 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UsuarioRepository extends ServiceEntityRepository {
 
-    public function __construct(ManagerRegistry $registry) {
-        parent::__construct($registry, Usuario::class);
+    private $em;
+    
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em) {
+        parent::__construct($registry, Usuario::class);        
+        $this->em = $em;
     }
 
     public function getOneByEmail($email) {
@@ -43,16 +46,14 @@ class UsuarioRepository extends ServiceEntityRepository {
 
     public function deleteOneById($id) {
 
-        $em = $this->getEntityManager();
-        $db = $em->getConnection();
+        $db = $this->em->getConnection();
         $query = "DELETE FROM usuario where id = $id ";
         $db->executeQuery($query);
     }
 
     public function updateOneById($id, $user) {
 
-        $em = $this->getEntityManager();
-        $db = $em->getConnection();
+        $db = $this->em->getConnection();
 
         $picture = $user->getPicture();
         $name = $user->getName();
@@ -75,8 +76,7 @@ class UsuarioRepository extends ServiceEntityRepository {
     }
 
     public function getByString($string) {
-        $em = $this->getEntityManager();
-        $db = $em->getConnection();
+        $db = $this->em->getConnection();
 
         $query = "SELECT id, name, surname FROM usuario";
         $result = $db->executeQuery($query);

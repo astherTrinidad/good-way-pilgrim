@@ -14,15 +14,17 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UsuarioCaminoRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $em;
+    
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
     {
-        parent::__construct($registry, UsuarioCamino::class);
+        parent::__construct($registry, UsuarioCamino::class);        
+        $this->em = $em;
     }
 
     public function getAllById($id)
     {
-        $em = $this->getEntityManager();
-        $db = $em->getConnection();
+        $db = $this->em->getConnection();
         $query = "SELECT * FROM usuario_camino WHERE id_usuario = $id";
         $result = $db->executeQuery($query);
         $usersPaths = $result->fetchAll();
@@ -32,8 +34,7 @@ class UsuarioCaminoRepository extends ServiceEntityRepository
 
     public function getActivePath($id)
     {
-        $em = $this->getEntityManager();
-        $db = $em->getConnection();
+        $db = $this->em->getConnection();
         $query = "SELECT * FROM usuario_camino WHERE id_usuario = $id AND status = 'Active'";
         $result = $db->executeQuery($query);
         $usersPathsActive = $result->fetchAll();

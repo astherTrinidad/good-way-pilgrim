@@ -24,7 +24,6 @@ class logrosController extends AbstractController {
      * @Route("/pub/AllAchievements", name="logrosSummary", methods={"GET"})
      */
     public function AllAchievements(): Response {
-
         $achievements = $this->achievementManager->getAll();
         $data = ['achievements' => $achievements];
         return new JsonResponse($data);
@@ -47,8 +46,7 @@ class logrosController extends AbstractController {
     public function addAchievement(Request $request): Response {
         $parameters = json_decode($request->getContent(), true);
         $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-        $id_logro = $parameters['id'];
-        $this->achievementManager->addAchievement($id_logro, $id_user, "2018-12-30");
+        $this->achievementManager->addAchievement($parameters['id'], $id_user, $parameters['date']);
         return $this->json(['message' => 'success']);
     }
     
@@ -56,10 +54,10 @@ class logrosController extends AbstractController {
      * @Route("/pri/deleteAchievement", name="deleteAchievement", methods={"DELETE"})
      */
     public function deleteAchievement(Request $request): Response {
-        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-        $achievements = $this->achievementManager->getUserAchievements($id);
-        $data = ['achievements' => $achievements];
-        return new JsonResponse($data);
+        $parameters = json_decode($request->getContent(), true);
+        $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $this->achievementManager->deleteAchievement($parameters['id'], $id_user);
+        return $this->json(['message' => 'success']);
     }
 
 }
