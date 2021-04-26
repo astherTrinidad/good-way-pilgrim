@@ -6,7 +6,6 @@ use App\Services\AuthManager;
 use App\Services\UserManager;
 use App\Services\UserPathManager;
 use App\Services\AchievementManager;
-use App\Repository\UsuarioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,7 +43,7 @@ class authenticationController extends AbstractController
         if ($this->userManager->emailExists($parameters['email'])) {
             return new JsonResponse(['message' => 'email is already in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
+        //$this->userManager->saveUser($user);
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
@@ -104,16 +103,6 @@ class authenticationController extends AbstractController
 
 
     /**
-     * @Route("/pri/deleteProfile", name="deleteProfile", methods={"DELETE"})
-     */
-    public function deleteProfile(Request $request)
-    {
-        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-        $this->userManager->deleteUser($id);
-        return $this->json(['message' => 'success']);
-    }
-
-    /**
      * @Route("/pri/editProfile", name="editProfile", methods={"PUT"})
      */
     public function editProfile(Request $request)
@@ -143,6 +132,18 @@ class authenticationController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/pri/deleteProfile", name="deleteProfile", methods={"DELETE"})
+     */
+    public function deleteProfile(Request $request)
+    {
+        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $this->userManager->deleteUser($id);
+        return $this->json(['message' => 'success']);
+    }
+    
+    
     /**
      * @Route("/pri/showUsers", name="showUsers", methods={"GET"})
      */
