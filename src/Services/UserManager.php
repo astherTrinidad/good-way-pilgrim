@@ -36,6 +36,13 @@ class UserManager
         $user->setPicture("");
         return $user;
     }
+    
+//    public function saveUser($user)
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//        $em->persist($user);
+//        $em->flush();
+//    }
 
     public function getUser($id)
     {

@@ -37,7 +37,9 @@ class UsuarioCaminoRepository extends ServiceEntityRepository
         $query = "SELECT * FROM usuario_camino WHERE id_usuario = $id AND status = 'Active'";
         $result = $db->executeQuery($query);
         $usersPathsActive = $result->fetchAll();
-
+        if(count($usersPathsActive) == 0){
+            return null;
+        }
         return $usersPathsActive;
     }
 }
