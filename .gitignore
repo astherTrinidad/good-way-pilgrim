@@ -15,4 +15,8 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 nbproject
+<<<<<<< HEAD
 src/Image/
+=======
+/src/Image/
+>>>>>>> aadda79e0503b60807ecc454cee960085f967a80
