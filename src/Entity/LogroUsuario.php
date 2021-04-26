@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\LogroUsuarioRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * @ORM\Entity(repositoryClass=LogroUsuarioRepository::class)
  */
-class LogroUsuario 
-{    
+class LogroUsuario
+{
 
     /**
      * @ORM\Id
@@ -17,7 +19,7 @@ class LogroUsuario
      * @ORM\Column(type="integer")
      */
     private $id;
-    
+
     /**
      * @ORM\Column(type="date")
      */
@@ -26,42 +28,54 @@ class LogroUsuario
     /**
      * Muchos LogroUsuario tienen un logro. 
      * @ORM\ManyToOne(targetEntity="Logro", inversedBy="logroUsuarios")
-     * @ORM\JoinColumn(name="id_logro", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_logro", referencedColumnName="id", onDelete="CASCADE")
      */
     private $achievement;
 
     /**
      * Muchos LogroUsuario estan en un usuario. 
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="logroUsuarios")
-     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 
 
-    public function getId(): ?int 
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDate(): ?date 
+    public function getDate(): ?DateTime
     {
         return $this->date;
     }
 
-    public function setDate(date $date): self 
+    public function setDate(string $date): self
     {
-        $this->date = $date;
+        $fecha = new \DateTime($date);
+        $this->date = $fecha;
         return $this;
     }
 
-    public function getAchievement(): ?int 
+    public function getAchievement(): ?Logro
     {
         return $this->achievement;
     }
 
-    public function getUser(): ?int 
+    public function setAchievement(Logro $achievement): self
+    {
+        $this->achievement = $achievement;
+        return $this;
+    }
+
+    public function getUser(): ?Usuario
     {
         return $this->user;
     }
 
+    public function setUser(Usuario $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
 }

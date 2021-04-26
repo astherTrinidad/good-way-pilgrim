@@ -1,0 +1,320 @@
+openapi: "3.0.0"
+info:
+  description: "Métodos disponibles API GoodWayPilgrim"
+  version: "1.0.0"
+  title: "API GoodWayPilgrim"
+paths:
+  /pub/register:
+    post:
+      tags:
+      - "user"
+      summary: "Adds a new user"
+      parameters:
+        - name: user
+          in: query
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: User name
+                example: "Irene"
+              surname:
+                type: string
+                description: User surname
+                example: "Sánchez"
+              email:
+                type: string
+                description: User email
+                example: "irene@example.com"
+              password:
+                type: string
+                description: User password
+                example: "Password1"
+      responses:
+        "200":
+          description: "New user created"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: User id
+                    example: 1
+                  name:
+                    type: string
+                    description: User name
+                    example: "Irene"
+                  surname:
+                    type: string
+                    description: User surname
+                    example: "Sánchez"
+                  email:
+                    type: string
+                    description: User email
+                    example: "irene@example.com"
+                  password:
+                    type: string
+                    description: User password
+                    example: "Password1"
+                example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'password': 'Password1'}
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"password not valid"}
+  /pub/login:
+    post:
+      tags:
+      - "user"
+      summary: "Log in GoodWayPilgrim"
+      parameters:
+        - name: identification
+          in: query
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: User email
+                example: "irene@example.com"
+              password:
+                type: string
+                description: User password
+                example: "Password1"
+      responses:
+        "200":
+          description: "Email and password are correct"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: message
+                    example: "success"
+                  token:
+                    type: string
+                    description: personal token
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                example: {'message': 'success','token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'}
+        "401":
+          description: "Unauthorized"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"email or password is wrong"}
+  /pri/me/showProfile:
+    get:
+      tags:
+      - "user"
+      summary: "Shows personal profile by ID"
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 100
+      responses:
+        "200":
+          description: "Shows profile"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: User id
+                    example: 1
+                  name:
+                    type: string
+                    description: User name
+                    example: "Irene"
+                  surname:
+                    type: string
+                    description: User surname
+                    example: "Sánchez"
+                  email:
+                    type: string
+                    description: User email
+                    example: "irene@example.com"
+                  picture:
+                    type: string
+                    description: Profile picture
+                    example: null
+                example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'picture': 'null'}
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"user not in database"}
+  /pri/me/editProfile:
+    put:
+      tags:
+      - "user"
+      summary: "Edits the personal profile"
+      parameters:
+        - name: user
+          in: query
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: User name
+                example: "Irene"
+              surname:
+                type: string
+                description: User surname
+                example: "Sánchez"
+              email:
+                type: string
+                description: User email
+                example: "irene@example.com"
+              password:
+                type: string
+                description: User password
+                example: "Password1"
+      responses:
+        "200":
+          description: "Shows profile"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: User id
+                    example: 1
+                  name:
+                    type: string
+                    description: User name
+                    example: "Irene"
+                  surname:
+                    type: string
+                    description: User surname
+                    example: "Sánchez"
+                  email:
+                    type: string
+                    description: User email
+                    example: "irene@example.com"
+                  picture:
+                    type: string
+                    description: Profile picture
+                    example: null
+                example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'picture': 'null'}
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"user not in database"}
+  /pri/me/deleteProfile:
+    delete:
+      tags:
+      - "user"
+      summary: "Deletes user by ID"
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 100
+      responses:
+        "200":
+          description: "User deleted"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"user not in database"}
+  /pri/showUsers:
+    get:
+      tags:
+      - "user"
+      summary: "Show users whose name matches with the string given"
+      parameters:
+        - name: string
+          in: query
+          required: true
+          schema:
+            type: string
+            example: 'javi'
+      responses:
+        "200":
+          description: "Users found"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":"60","name":"Javier","surname":"Carrillo"},{"id":"61","name":"Javi","surname":"Camacho"}]
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"no results found"}
+  /pri/csv_download:
+    get:
+      tags:
+      - "camino"
+      summary: "Downloads csv file with caminos' data"
+      responses:
+        "200":
+          description: "File downloaded"
+  /pri/showOtherProfile:
+    get:
+      tags:
+      - "user"
+      summary: "Shows information of the selected user"
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            example: 450
+      responses:
+        "200":
+          description: "User show"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":450,"name":"Javi","surname":"Carrillo","email":"javichu@gmail.com","picture":"","achievements":[{"id":"186","id_logro":"620","id_usuario":"450","date":"2020-02-05"},{"id":"188","id_logro":"622","id_usuario":"450","date":"2020-02-05"},{"id":"187","id_logro":"617","id_usuario":"450","date":"2019-06-23"}],"paths":[{"id":"114","id_usuario":"450","id_camino":"191","start_date":"2021-01-01","finish_date":"2021-01-15","status":"Completed"},{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}],"activePath":[{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}]}]
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"no results found"}
+

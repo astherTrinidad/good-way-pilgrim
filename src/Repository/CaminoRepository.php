@@ -18,6 +18,10 @@ class CaminoRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Camino::class);
     }
+    
+    public function getAll(){
+        return $this->findAll();
+    }
 
     // /**
     //  * @return Camino[] Returns an array of Camino objects

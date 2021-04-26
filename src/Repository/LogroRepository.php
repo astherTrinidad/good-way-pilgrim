@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Logro;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\LogroUsuario;
 
 /**
  * @method Logro|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,37 +15,36 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class LogroRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Logro::class);
     }
 
-    // /**
-    //  * @return Logro[] Returns an array of Logro objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getById($id)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
 
-    /*
-    public function findOneBySomeField($value): ?Logro
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = "SELECT * FROM logro_usuario";
+        $result = $db->executeQuery($query);
+        $logrosResult = $result->fetchAll();
+        $logros = array();
+
+        foreach ($logrosResult as $logro) {
+            array_push($logros, $logro);
+        }
+        return $logros;
     }
-    */
+
+    public function getThreeById($id)
+    {
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
+        $query = "SELECT * FROM logro_usuario WHERE id_usuario = $id ORDER BY date DESC LIMIT 3";
+        $result = $db->executeQuery($query);
+        $achievement = $result->fetchAll();
+
+        return $achievement;
+    }
 }
