@@ -21,12 +21,11 @@ class logrosController extends AbstractController {
     }
 
     /**
-     * @Route("/pub/AllAchievements", name="logrosSummary", methods={"GET"})
+     * @Route("/pri/AllAchievements", name="logrosSummary", methods={"GET"})
      */
     public function AllAchievements(): Response {
         $achievements = $this->achievementManager->getAll();
-        $data = ['achievements' => $achievements];
-        return new JsonResponse($data);
+        return new JsonResponse($achievements);
     }
     
     
@@ -36,8 +35,7 @@ class logrosController extends AbstractController {
     public function MyAchievements(Request $request): Response {
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $achievements = $this->achievementManager->getUserAchievements($id);
-        $data = ['achievements' => $achievements];
-        return new JsonResponse($data);
+        return new JsonResponse($achievements);
     }
     
     /**

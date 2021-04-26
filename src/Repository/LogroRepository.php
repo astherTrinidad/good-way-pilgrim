@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Logro;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @method Logro|null find($id, $lockMode = null, $lockVersion = null)
