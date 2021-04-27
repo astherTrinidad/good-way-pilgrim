@@ -13,10 +13,12 @@ class imageController
     /**
      * @Route("/pub/csv_download", name="csv_download", methods={"GET"})
      */
-    public static function imageUser($id) //crear usuario
+    public static function imageUser($imageBase64) //crear usuario
     {
         $direction = __DIR__ . "'/../../app/resources/";
+
         $extension = "";
-        $file = $direction . uniqid() . "." . $extension;
+        $fileName = $direction . uniqid() . "." . $extension;
+        return "prub";
     }
 }
