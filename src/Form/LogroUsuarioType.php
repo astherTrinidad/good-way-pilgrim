@@ -13,8 +13,8 @@ class LogroUsuarioType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('id_logro', IntegerType::class, array('required' => true))
-                ->add('id_usuario', IntegerType::class, array('required' => true))
+                ->add('achievement', IntegerType::class, array('required' => true))->add('achievement', IntegerType::class, array('required' => true))
+                ->add('user', IntegerType::class, array('required' => true))
                 ->add('date', DateType::class, array('required' => true));               
     }
 

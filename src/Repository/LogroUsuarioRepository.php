@@ -21,12 +21,7 @@ class LogroUsuarioRepository extends ServiceEntityRepository {
         $query = "SELECT * FROM logro_usuario where id_usuario = $id";
         $result = $db->executeQuery($query);
         $logrosResult = $result->fetchAll();
-        $logros = array();
-
-        foreach ($logrosResult as $logro) {
-            array_push($logros, $logro);
-        }
-        return $logros;
+        return $logrosResult;
     }
 
     public function getThreeById($id) {
@@ -34,7 +29,6 @@ class LogroUsuarioRepository extends ServiceEntityRepository {
         $query = "SELECT * FROM logro_usuario WHERE id_usuario = $id ORDER BY date DESC LIMIT 3";
         $result = $db->executeQuery($query);
         $achievement = $result->fetchAll();
-
         return $achievement;
     }
     

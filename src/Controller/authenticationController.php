@@ -163,20 +163,23 @@ class authenticationController extends AbstractController
      */
     public function showOtherProfile(Request $request)
     {
-        $user = $this->userManager->getOneByIdUser($request->get('id'));
+        $user = $this->userManager->getOneByIdUser($request->get('id'));        
+        $allAchievements = $this->achievementManager->getUserAchievements($request->get('id'));
         $achievements = $this->achievementManager->getThreeByIdUser($request->get('id'));
         $paths = $this->userPathManager->getAllByIdUser($request->get('id'));
         $activePath = $this->userPathManager->getActivePathUser($request->get('id'));
+        $km = $this->userPathManager->getKm($request->get('id'));
 
         $data = [
             'id' => $user->getId(),
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
-            'email' => $user->getEmail(),
             'picture' => $user->getPicture(),
+            'totalAchievements' => count($allAchievements),
             'achievements' => $achievements,
-            'paths' => $paths,
-            'activePath' => $activePath
+            'paths' => count($paths),
+            'activePath' => $activePath,
+            'km' => $km
         ];
 
         return new JsonResponse($data);

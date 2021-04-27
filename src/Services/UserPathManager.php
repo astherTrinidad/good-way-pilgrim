@@ -23,4 +23,9 @@ class UserPathManager
     {
         return $this->userPathRepository->getActivePath($userId);
     }
+    
+    public function getKm($userId)
+    {
+        return $this->userPathRepository->getKm($userId);
+    }
 }

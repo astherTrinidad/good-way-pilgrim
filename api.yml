@@ -258,14 +258,14 @@ paths:
             example: 450
       responses:
         "200":
-          description: "User show"
+          description: "Shows name, surname and picture, number of achievements and 3 of them in detail, number of paths, active path and total km"
           content:
             application/json:
               schema:
                 type: array
                 items:
                   type: "object"
-                example: [{"id":450,"name":"Javi","surname":"Carrillo","email":"javichu@gmail.com","picture":"","achievements":[{"id":"186","id_logro":"620","id_usuario":"450","date":"2020-02-05"},{"id":"188","id_logro":"622","id_usuario":"450","date":"2020-02-05"},{"id":"187","id_logro":"617","id_usuario":"450","date":"2019-06-23"}],"paths":[{"id":"114","id_usuario":"450","id_camino":"191","start_date":"2021-01-01","finish_date":"2021-01-15","status":"Completed"},{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}],"activePath":{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}}]
+                example: [{"id":109,"name":"Asther","surname":"Trinidad Mora","picture":"Image\/asther.jpg","totalAchievements":2,"achievements":[{"id":"33","id_logro":"55","id_usuario":"109","date":"2020-02-05"},{"id":"32","id_logro":"50","id_usuario":"109","date":"2018-12-30"}],"paths":2,"activePath":null,"km":"307.8"}]
   /pri/csv_download:
     get:
       tags:

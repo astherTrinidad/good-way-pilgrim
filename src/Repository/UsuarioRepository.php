@@ -71,7 +71,7 @@ class UsuarioRepository extends ServiceEntityRepository {
             $query = "UPDATE usuario SET name='$name', surname='$surname' where id = $id ";
         }
         $db->executeQuery($query);
-        $em->clear();
+        $this->em->clear();
         
         return $this->getOneById($id);
     }

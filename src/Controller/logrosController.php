@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Services\AuthManager;
 use App\Services\AchievementManager;
 use App\Form\LogroUsuarioType;
-use App\Entity\Logro;
+use App\Entity\LogroUsuario;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,16 +43,19 @@ class logrosController extends AbstractController {
      * @Route("/pri/addAchievement", name="addAchievement", methods={"PUT"})
      */
     public function addAchievement(Request $request): Response {
-        $logro = new Logro();
-        $form = $this->createForm(LogroUsuarioType::class);
-        $form->handleRequest($request, $logro);
-        if($form->isSubmitted() && $form->isValid()) {
-            return new JsonResponse(['message' => 'invalid data'], Response::HTTP_BAD_REQUEST);
-        } else {
+        $data = json_decode($request->getContent(), true);
+        
+        $logro = new LogroUsuario();
+        $form = $this->createForm(LogroUsuarioType::class, $logro);
+        $form->submit($data);
+        
+        if($form->isSubmitted() && $form->isValid()) {            
             $parameters = json_decode($request->getContent(), true);
             $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-            $this->achievementManager->addAchievement($parameters['id_logro'], $id_user, $parameters['date']);
+            $this->achievementManager->addAchievement($parameters['achievement'], $id_user, $parameters['date']);
             return $this->json(['message' => 'success']);
+        } else {
+            return new JsonResponse(['message' => 'invalid data'], Response::HTTP_BAD_REQUEST);
         }  
         
     }
