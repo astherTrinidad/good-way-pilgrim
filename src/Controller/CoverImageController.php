@@ -16,7 +16,7 @@ class imageController
     public static function imageUser($id) //crear usuario
     {
         $direction = __DIR__ . "'/../../app/resources/";
-        $extension =
-            $file = $direction . uniqid() . "." . $extension;
+        $extension = "";
+        $file = $direction . uniqid() . "." . $extension;
     }
 }
