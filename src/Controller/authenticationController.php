@@ -159,7 +159,7 @@ class authenticationController extends AbstractController
     }
 
     /**
-     * @Route("/pub/showOtherProfile", name="showOtherProfile", methods={"GET"})
+     * @Route("/pri/showOtherProfile", name="showOtherProfile", methods={"GET"})
      */
     public function showOtherProfile(Request $request)
     {

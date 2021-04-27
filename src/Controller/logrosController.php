@@ -43,19 +43,20 @@ class logrosController extends AbstractController {
      * @Route("/pri/addAchievement", name="addAchievement", methods={"PUT"})
      */
     public function addAchievement(Request $request): Response {
-        $data = json_decode($request->getContent(), true);
-        
+        $data = json_decode($request->getContent(), true);        
+        $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $user = $this->authManager->getUserFromToken($request, $this->getParameter('jwt_secret'));
         $logro = new LogroUsuario();
+        $logro->setUser($user);
         $form = $this->createForm(LogroUsuarioType::class, $logro);
-        $form->submit($data);
-        
+        $form->submit($request);
+ 
         if($form->isSubmitted() && $form->isValid()) {            
             $parameters = json_decode($request->getContent(), true);
-            $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
             $this->achievementManager->addAchievement($parameters['achievement'], $id_user, $parameters['date']);
             return $this->json(['message' => 'success']);
         } else {
-            return new JsonResponse(['message' => 'invalid data'], Response::HTTP_BAD_REQUEST);
+            return new JsonResponse(['message' => $form->getErrors(true)], Response::HTTP_BAD_REQUEST);
         }  
         
     }
@@ -63,10 +64,9 @@ class logrosController extends AbstractController {
     /**
      * @Route("/pri/deleteAchievement", name="deleteAchievement", methods={"DELETE"})
      */
-    public function deleteAchievement(Request $request): Response {
-        $parameters = json_decode($request->getContent(), true);
+    public function deleteAchievements(Request $request): Response {
         $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-        $this->achievementManager->deleteAchievement($parameters['id'], $id_user);
+        $this->achievementManager->deleteAchievements($id_user);
         return $this->json(['message' => 'success']);
     }
 

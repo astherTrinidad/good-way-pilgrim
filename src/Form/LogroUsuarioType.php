@@ -6,16 +6,27 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Entity\Logro;
+use App\Entity\LogroUsuario;
 
 class LogroUsuarioType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('achievement', IntegerType::class, array('required' => true))->add('achievement', IntegerType::class, array('required' => true))
-                ->add('user', IntegerType::class, array('required' => true))
-                ->add('date', DateType::class, array('required' => true));               
+                ->add('achievement', EntityType::class,
+                        ['class' => Logro::class])
+                ->add('date', DateType::class);               
+    }
+    public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setDefaults(array(
+            'csrf_protection'       => false,
+            'data_class'            => LogroUsuario::class
+        ));
+    }
+
+    public function getBlockPrefix() {
+        return '';
     }
 
 }

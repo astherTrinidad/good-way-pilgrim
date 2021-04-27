@@ -37,8 +37,8 @@ class AchievementManager
         return $this->achievementUserRepository->addAchievement($id_logro, $id_user, $date);
     }
     
-    public function deleteAchievement($id_logro, $id_user)
+    public function deleteAchievement($id_user)
     {
-        return $this->achievementUserRepository->deleteAchievement($id_logro, $id_user);
+        return $this->achievementUserRepository->deleteAchievement($id_user);
     }
 }

@@ -328,17 +328,11 @@ paths:
               schema:
                 type: string
                 example: {"message":"success"}
-  /pri/deleteAchievement:
+  /pri/deleteAchievements:
     get:
       tags:
       - "logros"
-      summary: "Deletes user achivement by id"      
-      parameters:
-        - name: id_logro
-          in: query
-          required: true
-          schema:
-            type: string
+      summary: "Resets user achievements"
       responses:
         "200":
           description: "Achivement deleted"
