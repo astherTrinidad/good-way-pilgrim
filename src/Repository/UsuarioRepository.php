@@ -79,7 +79,7 @@ class UsuarioRepository extends ServiceEntityRepository {
     public function getByString($string) {
         $db = $this->em->getConnection();
 
-        $query = "SELECT id, name, surname FROM usuario";
+        $query = "SELECT id, name, surname, picture FROM usuario";
         $result = $db->executeQuery($query);
         $users = $result->fetchAll();
         $matchUsers = array();

@@ -236,7 +236,7 @@ paths:
                 type: array
                 items:
                   type: "object"
-                example: [{"id":"60","name":"Javier","surname":"Carrillo"},{"id":"61","name":"Javi","surname":"Camacho"}]
+                example: [{"id":"60","name":"Javier","surname":"Carrillo", "picture":null},{"id":"61","name":"Javi","surname":"Camacho", "picture":null}]
         "422":
           description: "Invalid input"
           content:
