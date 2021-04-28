@@ -108,8 +108,8 @@ class authenticationController extends AbstractController
 
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
 
-        if (!$this->authManager->checkPasswordChange($this->userManager->getUser($id), $parameters['oldPassword'], $parameters['newPassword'])) {
-
+        if (!$this->authManager->checkPasswordChange($this->userManager->getUser($id), $parameters['oldPassword'], $parameters['newPassword'])
+                || !$this->authManager->checkUserPassword($this->userManager->getUser($id), $parameters['oldPassword'])) {
             return new JsonResponse(['message' => 'Password is wrong'], Response::HTTP_UNAUTHORIZED);
         }
 
