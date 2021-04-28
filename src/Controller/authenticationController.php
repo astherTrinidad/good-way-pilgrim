@@ -176,7 +176,7 @@ class authenticationController extends AbstractController
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
             'email' => $user->getEmail(),
-            'picture' => $user->getPicture(),
+            'picture' => CoverImageController::showImageUser($user->getPicture()),
             'achievements' => $achievements,
             'paths' => $paths,
             'activePath' => $activePath
