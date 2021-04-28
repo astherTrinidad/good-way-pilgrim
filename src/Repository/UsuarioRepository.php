@@ -12,13 +12,16 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Usuario[]    findAll()
  * @method Usuario[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UsuarioRepository extends ServiceEntityRepository {
+class UsuarioRepository extends ServiceEntityRepository
+{
 
-    public function __construct(ManagerRegistry $registry) {
+    public function __construct(ManagerRegistry $registry)
+    {
         parent::__construct($registry, Usuario::class);
     }
 
-    public function getOneByEmail($email) {
+    public function getOneByEmail($email)
+    {
 
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('u')->from(Usuario::class, 'u')->where('u.email = :email')->setParameter('email', $email);
@@ -27,10 +30,10 @@ class UsuarioRepository extends ServiceEntityRepository {
             return false;
         }
         return $user[0];
-
     }
 
-    public function getOneById($id) {
+    public function getOneById($id)
+    {
 
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('u')->from(Usuario::class, 'u')->where('u.id = :id')->setParameter('id', $id);
@@ -41,7 +44,8 @@ class UsuarioRepository extends ServiceEntityRepository {
         return $user[0];
     }
 
-    public function deleteOneById($id) {
+    public function deleteOneById($id)
+    {
 
         $em = $this->getEntityManager();
         $db = $em->getConnection();
@@ -49,7 +53,8 @@ class UsuarioRepository extends ServiceEntityRepository {
         $db->executeQuery($query);
     }
 
-    public function updateOneById($id, $user) {
+    public function updateOneById($id, $user)
+    {
 
         $em = $this->getEntityManager();
         $db = $em->getConnection();
@@ -61,20 +66,21 @@ class UsuarioRepository extends ServiceEntityRepository {
 
         if (isset($picture) && isset($password)) {
             $query = "UPDATE usuario SET name='$name', surname='$surname', password='$password', picture='$picture' where id = $id ";
-        } else if(!isset($picture) && isset($password)){
+        } else if (!isset($picture) && isset($password)) {
             $query = "UPDATE usuario SET name='$name', surname='$surname', password='$password' where id = $id ";
-        }else if(isset($picture) && !isset($password)){
+        } else if (isset($picture) && !isset($password)) {
             $query = "UPDATE usuario SET name='$name', surname='$surname', picture='$picture' where id = $id ";
-        }else{
+        } else {
             $query = "UPDATE usuario SET name='$name', surname='$surname' where id = $id ";
         }
         $db->executeQuery($query);
         $em->clear();
-        
+
         return $this->getOneById($id);
     }
 
-    public function getByString($string) {
+    public function getByString($string)
+    {
         $em = $this->getEntityManager();
         $db = $em->getConnection();
 
@@ -83,58 +89,65 @@ class UsuarioRepository extends ServiceEntityRepository {
         $users = $result->fetchAll();
         $matchUsers = array();
         $stringFormatted = str_replace(" ", "", $this->stringPlainFormat(strtolower($string)));
-        
+
         foreach ($users as $user) {
             $stringDB = $user["name"] . $user["surname"];
             $stringDBFormatted = str_replace(" ", "", $this->stringPlainFormat(strtolower($stringDB)));
-            if (strcmp($stringDBFormatted, $stringFormatted) == 0
-                    || $this->likeMatch('%'.$stringFormatted.'%',$stringDBFormatted)) {
+            if (
+                strcmp($stringDBFormatted, $stringFormatted) == 0
+                || $this->likeMatch('%' . $stringFormatted . '%', $stringDBFormatted)
+            ) {
                 array_push($matchUsers, $user);
             }
         }
         return $matchUsers;
     }
 
-    public function likeMatch($pattern, $subject) {
+    public function likeMatch($pattern, $subject)
+    {
         $pattern = str_replace('%', '.*', preg_quote($pattern, '/'));
         return (bool) preg_match("/^{$pattern}$/i", $subject);
     }
 
-    public function stringPlainFormat($string) {
+    public function stringPlainFormat($string)
+    {
 
         $string = str_replace(
-                array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
-                array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
-                $string
+            array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+            array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+            $string
         );
 
         $string = str_replace(
-                array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
-                array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
-                $string);
+            array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+            array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+            $string
+        );
 
         $string = str_replace(
-                array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
-                array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
-                $string);
+            array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+            array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+            $string
+        );
 
         $string = str_replace(
-                array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
-                array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
-                $string);
+            array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+            array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+            $string
+        );
 
         $string = str_replace(
-                array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
-                array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
-                $string);
+            array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+            array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+            $string
+        );
 
         $string = str_replace(
-                array('ñ', 'Ñ', 'ç', 'Ç'),
-                array('n', 'N', 'c', 'C'),
-                $string
+            array('ñ', 'Ñ', 'ç', 'Ç'),
+            array('n', 'N', 'c', 'C'),
+            $string
         );
 
         return $string;
     }
-
 }

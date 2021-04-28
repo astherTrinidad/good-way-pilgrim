@@ -6,7 +6,6 @@ use App\Services\AuthManager;
 use App\Services\UserManager;
 use App\Services\UserPathManager;
 use App\Services\AchievementManager;
-use App\Repository\UsuarioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +19,8 @@ class authenticationController extends AbstractController
     private $authManager;
     private $userPathManager;
     private $achievementManager;
+
+
 
     function __construct(UserManager $userManager, AuthManager $authManager, UserPathManager $userPathManager, AchievementManager $achievementManager)
     {
@@ -93,7 +94,7 @@ class authenticationController extends AbstractController
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
             'email' => $user->getEmail(),
-            'picture' => $user->getPicture(),
+            'picture' => CoverImageController::showImageUser($user->getPicture()),
             'achievements' => $achievements,
             'paths' => $paths,
             'activePath' => $activePath

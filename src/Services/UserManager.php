@@ -34,7 +34,7 @@ class UserManager
         }
 
         $user->setEmail($parameters['email']);
-        $user->setPicture(CoverImageController::imageUser($parameters['picture']));
+        $user->setPicture(CoverImageController::saveImageUser($parameters['picture']));
         return $user;
     }
 

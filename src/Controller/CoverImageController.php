@@ -2,23 +2,30 @@
 
 namespace App\Controller;
 
-use App\Entity\Usuario;
 
-
-class imageController
+class CoverImageController
 {
 
-    private $imageUser;
-
-    /**
-     * @Route("/pub/csv_download", name="csv_download", methods={"GET"})
-     */
-    public static function imageUser($imageBase64) //crear usuario
+    public static function saveImageUser($imageBase64)
     {
-        $direction = __DIR__ . "'/../../app/resources/";
+        $direction = __DIR__ . '/../../app/resources';
+        $extension = explode("/", mime_content_type($imageBase64));
+        $extensionFile = $extension[1];
+        $fileName = uniqid() . "." . $extensionFile;
+        $folder = $direction . "/" . $fileName;
+        $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imageBase64));
+        file_put_contents($folder, $data);
 
-        $extension = "";
-        $fileName = $direction . uniqid() . "." . $extension;
-        return "prub";
+        return $folder;
+    }
+
+    public static function showImageUser($urlPicture)
+    {
+        $path = $urlPicture;
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        return $base64;
     }
 }
