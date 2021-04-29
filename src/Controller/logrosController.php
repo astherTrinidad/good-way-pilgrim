@@ -43,13 +43,13 @@ class logrosController extends AbstractController {
      * @Route("/pri/addAchievement", name="addAchievement", methods={"PUT"})
      */
     public function addAchievement(Request $request): Response {
-        $data = json_decode($request->getContent(), true);        
+              
         $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $user = $this->authManager->getUserFromToken($request, $this->getParameter('jwt_secret'));
         $logro = new LogroUsuario();
         $logro->setUser($user);
         $form = $this->createForm(LogroUsuarioType::class, $logro);
-        $form->submit($request);
+        $form->submit($request->getContent());
  
         if($form->isSubmitted() && $form->isValid()) {            
             $parameters = json_decode($request->getContent(), true);
