@@ -88,13 +88,17 @@ class authenticationController extends AbstractController
         $achievements = $this->achievementManager->getThreeByIdUser($id);
         $paths = $this->userPathManager->getAllByIdUser($id);
         $activePath = $this->userPathManager->getActivePathUser($id);
+        $picture = $user->getPicture();
+        if (strcmp($picture, "") !== 0) {
+            $picture = CoverImageController::showImageUser($user->getPicture());
+        }
 
         $data = [
             'id' => $user->getId(),
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
             'email' => $user->getEmail(),
-            'picture' => CoverImageController::showImageUser($user->getPicture()),
+            'picture' => $picture,
             'achievements' => $achievements,
             'paths' => $paths,
             'activePath' => $activePath
@@ -166,13 +170,21 @@ class authenticationController extends AbstractController
         $achievements = $this->achievementManager->getThreeByIdUser($request->get('id'));
         $paths = $this->userPathManager->getAllByIdUser($request->get('id'));
         $activePath = $this->userPathManager->getActivePathUser($request->get('id'));
+        $picture = $user->getPicture();
+        if (strcmp($picture, "") !== 0) {
+            $picture = CoverImageController::showImageUser($user->getPicture());
+        }
+
+        if (strcmp($user->getPicture(), "") !== 0) {
+            $picture = CoverImageController::showImageUser($user->getPicture());
+        }
 
         $data = [
             'id' => $user->getId(),
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
             'email' => $user->getEmail(),
-            'picture' => CoverImageController::showImageUser($user->getPicture()),
+            'picture' => $picture,
             'achievements' => $achievements,
             'paths' => $paths,
             'activePath' => $activePath

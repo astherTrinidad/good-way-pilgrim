@@ -33,8 +33,14 @@ class UserManager
             }
         }
 
+        if (isset($parameters['picture'])) {
+            $user->setPicture(CoverImageController::saveImageUser($parameters['picture']));
+        } else {
+            $user->setPicture("");
+        }
+
         $user->setEmail($parameters['email']);
-        $user->setPicture(CoverImageController::saveImageUser($parameters['picture']));
+
         return $user;
     }
 
@@ -71,5 +77,10 @@ class UserManager
     public function getOneByIdUser($userId)
     {
         return $this->userRepository->getOneById($userId);
+    }
+
+    public function getPictureUser($userId)
+    {
+        return $this->userRepository->getPicture($userId);
     }
 }

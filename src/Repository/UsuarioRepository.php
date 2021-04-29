@@ -150,4 +150,14 @@ class UsuarioRepository extends ServiceEntityRepository
 
         return $string;
     }
+
+    public function getPicture($id)
+    {
+        $em = $this->getEntityManager();
+        $db = $em->getConnection();
+        $query = "SELECT picture FROM usuario WHERE id = $id";
+        $result = $db->executeQuery($query);
+
+        return $result;
+    }
 }
