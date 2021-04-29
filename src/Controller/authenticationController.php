@@ -175,10 +175,6 @@ class authenticationController extends AbstractController
             $picture = CoverImageController::showImageUser($user->getPicture());
         }
 
-        if (strcmp($user->getPicture(), "") !== 0) {
-            $picture = CoverImageController::showImageUser($user->getPicture());
-        }
-
         $data = [
             'id' => $user->getId(),
             'name' => $user->getName(),
