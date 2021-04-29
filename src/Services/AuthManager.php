@@ -59,6 +59,16 @@ class AuthManager {
         return $user->getId();
     }
 
+    public function getUserFromToken(Request $request, $key) {
+        $token = $request->headers->get('Authorization');
+        $credentials = str_replace('Bearer ', '', $token);
+        $jwt = (array) JWT::decode($credentials,$key,['HS256']);
+        $user = $this->userRepository->findOneBy([
+            'email' => $jwt['email'],
+        ]);
+        return $user;
+    }
+    
     function isPartUppercase($string) {
         return (bool) preg_match('/[A-Z]/', $string);
     }

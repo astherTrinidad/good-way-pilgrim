@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Usuario;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @method Usuario|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,9 +16,12 @@ use Doctrine\Persistence\ManagerRegistry;
 class UsuarioRepository extends ServiceEntityRepository
 {
 
-    public function __construct(ManagerRegistry $registry)
+    private $em;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
     {
         parent::__construct($registry, Usuario::class);
+        $this->em = $em;
     }
 
     public function getOneByEmail($email)
@@ -47,8 +51,7 @@ class UsuarioRepository extends ServiceEntityRepository
     public function deleteOneById($id)
     {
 
-        $em = $this->getEntityManager();
-        $db = $em->getConnection();
+        $db = $this->em->getConnection();
         $query = "DELETE FROM usuario where id = $id ";
         $db->executeQuery($query);
     }
@@ -56,8 +59,7 @@ class UsuarioRepository extends ServiceEntityRepository
     public function updateOneById($id, $user)
     {
 
-        $em = $this->getEntityManager();
-        $db = $em->getConnection();
+        $db = $this->em->getConnection();
 
         $picture = $user->getPicture();
         $name = $user->getName();
@@ -74,17 +76,16 @@ class UsuarioRepository extends ServiceEntityRepository
             $query = "UPDATE usuario SET name='$name', surname='$surname' where id = $id ";
         }
         $db->executeQuery($query);
-        $em->clear();
+        $this->em->clear();
 
         return $this->getOneById($id);
     }
 
     public function getByString($string)
     {
-        $em = $this->getEntityManager();
-        $db = $em->getConnection();
+        $db = $this->em->getConnection();
 
-        $query = "SELECT id, name, surname FROM usuario";
+        $query = "SELECT id, name, surname, picture FROM usuario";
         $result = $db->executeQuery($query);
         $users = $result->fetchAll();
         $matchUsers = array();

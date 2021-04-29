@@ -61,13 +61,20 @@ paths:
                     description: User password
                     example: "Password1"
                 example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'password': 'Password1'}
-        "422":
+        "401":
           description: "Invalid input"
           content:
             application/json:
               schema:
                 type: string
                 example: {"message":"password not valid"}
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"email is already in database"}
   /pub/login:
     post:
       tags:
@@ -112,55 +119,22 @@ paths:
               schema:
                 type: string
                 example: {"message":"email or password is wrong"}
-  /pri/me/showProfile:
+  /pri/showProfile:
     get:
       tags:
       - "user"
       summary: "Shows personal profile by ID"
-      parameters:
-        - name: id
-          in: query
-          required: true
-          schema:
-            type: integer
-            example: 100
       responses:
         "200":
-          description: "Shows profile"
+          description: "Shows user resume"
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: User id
-                    example: 1
-                  name:
-                    type: string
-                    description: User name
-                    example: "Irene"
-                  surname:
-                    type: string
-                    description: User surname
-                    example: "Sánchez"
-                  email:
-                    type: string
-                    description: User email
-                    example: "irene@example.com"
-                  picture:
-                    type: string
-                    description: Profile picture
-                    example: null
-                example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'picture': 'null'}
-        "422":
-          description: "Invalid input"
-          content:
-            application/json:
-              schema:
-                type: string
-                example: {"message":"user not in database"}
-  /pri/me/editProfile:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":450,"name":"Javi","surname":"Carrillo","email":"javichu@gmail.com","picture":"","achievements":[{"id":"186","id_logro":"620","id_usuario":"450","date":"2020-02-05"},{"id":"188","id_logro":"622","id_usuario":"450","date":"2020-02-05"},{"id":"187","id_logro":"617","id_usuario":"450","date":"2019-06-23"}],"paths":[{"id":"114","id_usuario":"450","id_camino":"191","start_date":"2021-01-01","finish_date":"2021-01-15","status":"Completed"},{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}],"activePath":{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}}]
+  /pri/editProfile:
     put:
       tags:
       - "user"
@@ -184,10 +158,14 @@ paths:
                 type: string
                 description: User email
                 example: "irene@example.com"
-              password:
+              oldPassword:
                 type: string
-                description: User password
+                description: Current password
                 example: "Password1"
+              newPassword:
+                type: string
+                description: New password
+                example: "passUser"
       responses:
         "200":
           description: "Shows profile"
@@ -217,25 +195,18 @@ paths:
                     description: Profile picture
                     example: null
                 example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'picture': 'null'}
-        "422":
+        "401":
           description: "Invalid input"
           content:
             application/json:
               schema:
                 type: string
-                example: {"message":"user not in database"}
-  /pri/me/deleteProfile:
+                example: {"message":"Password is wrong"}
+  /pri/deleteProfile:
     delete:
       tags:
       - "user"
       summary: "Deletes user by ID"
-      parameters:
-        - name: id
-          in: query
-          required: true
-          schema:
-            type: integer
-            example: 100
       responses:
         "200":
           description: "User deleted"
@@ -244,13 +215,6 @@ paths:
               schema:
                 type: string
                 example: {"message":"success"}
-        "422":
-          description: "Invalid input"
-          content:
-            application/json:
-              schema:
-                type: string
-                example: {"message":"user not in database"}
   /pri/showUsers:
     get:
       tags:
@@ -272,7 +236,7 @@ paths:
                 type: array
                 items:
                   type: "object"
-                example: [{"id":"60","name":"Javier","surname":"Carrillo"},{"id":"61","name":"Javi","surname":"Camacho"}]
+                example: [{"id":"60","name":"Javier","surname":"Carrillo", "picture":null},{"id":"61","name":"Javi","surname":"Camacho", "picture":null}]
         "422":
           description: "Invalid input"
           content:
@@ -280,14 +244,6 @@ paths:
               schema:
                 type: string
                 example: {"message":"no results found"}
-  /pri/csv_download:
-    get:
-      tags:
-      - "camino"
-      summary: "Downloads csv file with caminos' data"
-      responses:
-        "200":
-          description: "File downloaded"
   /pri/showOtherProfile:
     get:
       tags:
@@ -302,19 +258,88 @@ paths:
             example: 450
       responses:
         "200":
-          description: "User show"
+          description: "Shows name, surname and picture, number of achievements and 3 of them in detail, number of paths, active path and total km"
           content:
             application/json:
               schema:
                 type: array
                 items:
                   type: "object"
-                example: [{"id":450,"name":"Javi","surname":"Carrillo","email":"javichu@gmail.com","picture":"","achievements":[{"id":"186","id_logro":"620","id_usuario":"450","date":"2020-02-05"},{"id":"188","id_logro":"622","id_usuario":"450","date":"2020-02-05"},{"id":"187","id_logro":"617","id_usuario":"450","date":"2019-06-23"}],"paths":[{"id":"114","id_usuario":"450","id_camino":"191","start_date":"2021-01-01","finish_date":"2021-01-15","status":"Completed"},{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}],"activePath":[{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}]}]
-        "422":
-          description: "Invalid input"
+                example: [{"id":109,"name":"Asther","surname":"Trinidad Mora","picture":"Image\/asther.jpg","totalAchievements":2,"achievements":[{"id":"33","id_logro":"55","id_usuario":"109","date":"2020-02-05"},{"id":"32","id_logro":"50","id_usuario":"109","date":"2018-12-30"}],"paths":2,"activePath":null,"km":"307.8"}]
+  /pri/csv_download:
+    get:
+      tags:
+      - "camino"
+      summary: "Downloads csv file with caminos' data"
+      responses:
+        "200":
+          description: "File downloaded"
+  /pri/AllAchievements:
+    get:
+      tags:
+      - "logros"
+      summary: "Shows all available achievements"
+      responses:
+        "200":
+          description: "Shows all"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":"36","name":"Primeros pasos","description":"10km. recorridos"},{"id":"37","name":"Un paseo","description":"20km. recorridos"},{"id":"38","name":"El aventurero","description":"Duermes al aire libre"}]
+  /pri/MyAchievements:
+    get:
+      tags:
+      - "logros"
+      summary: "Shows user's achievements"
+      responses:
+        "200":
+          description: "Shows achievements that the user has completed"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":"19","id_logro":"36","id_usuario":"76","date":"2018-12-30"},{"id":"20","id_logro":"41","id_usuario":"76","date":"2020-02-05"}]
+  /pri/addAchievement:
+    get:
+      tags:
+      - "logros"
+      summary: "Adds user achivement by id"      
+      parameters:
+        - name: id_logro
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: date
+      responses:
+        "200":
+          description: "Achivement added"
           content:
             application/json:
               schema:
                 type: string
-                example: {"message":"no results found"}
+                example: {"message":"success"}
+  /pri/deleteAchievements:
+    get:
+      tags:
+      - "logros"
+      summary: "Resets user achievements"
+      responses:
+        "200":
+          description: "Achivement deleted"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+  
 
