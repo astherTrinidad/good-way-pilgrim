@@ -49,7 +49,7 @@ class logrosController extends AbstractController {
     }
 
     /**
-     * @Route("/pri/deleteAchievement", name="deleteAchievement", methods={"DELETE"})
+     * @Route("/pri/deleteAchievements", name="deleteAchievement", methods={"DELETE"})
      */
     public function deleteAchievements(Request $request): Response {
         $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
