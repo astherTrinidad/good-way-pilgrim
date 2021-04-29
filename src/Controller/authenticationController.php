@@ -130,10 +130,6 @@ class authenticationController extends AbstractController
 
         $user = $this->userManager->createUser($parameters);
 
-        if (isset($_FILES['photo'])) {
-            $user->setPicture(base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name']))));
-        }
-
         $userEdited = $this->userManager->updateUser($id, $user);
         return $this->json([
             'id' => $userEdited->getId(),
