@@ -47,7 +47,7 @@ class UserManager
 
         return $user;
     }
-    
+
     public function saveUser($user)
     {
         $this->em->persist($user);
@@ -87,10 +87,5 @@ class UserManager
     public function getOneByIdUser($userId)
     {
         return $this->userRepository->getOneById($userId);
-    }
-
-    public function getPictureUser($userId)
-    {
-        return $this->userRepository->getPicture($userId);
     }
 }
