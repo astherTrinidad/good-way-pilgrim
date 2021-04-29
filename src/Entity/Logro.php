@@ -27,6 +27,11 @@ class Logro
      * @ORM\Column(type="string", length=500)
      */
     private $description;
+    
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $slug;
 
     /**
      * Un logro tiene muchos logroUsuarios
@@ -67,8 +72,18 @@ class Logro
         $this->description = $description;
         return $this;
     }
+    
+    function getSlug() : ?string{
+        return $this->slug;
+    }
+    
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+        return $this;
+    }
 
-    /**
+            /**
      * @return LogroUsuario[]
      */
     public function getAchievementUsers()

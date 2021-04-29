@@ -22,6 +22,8 @@ class authenticationController extends AbstractController
     private $userPathManager;
     private $achievementManager;
 
+
+
     function __construct(UserManager $userManager, AuthManager $authManager, UserPathManager $userPathManager, AchievementManager $achievementManager)
     {
         $this->userManager = $userManager;
@@ -85,13 +87,17 @@ class authenticationController extends AbstractController
         $achievements = $this->achievementManager->getThreeByIdUser($id);
         $paths = $this->userPathManager->getAllByIdUser($id);
         $activePath = $this->userPathManager->getActivePathUser($id);
+        $picture = $user->getPicture();
+        if (strcmp($picture, "") !== 0) {
+            $picture = CoverImageController::showImageUser($user->getPicture());
+        }
 
         $data = [
             'id' => $user->getId(),
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
             'email' => $user->getEmail(),
-            'picture' => $user->getPicture(),
+            'picture' => $picture,
             'achievements' => $achievements,
             'paths' => $paths,
             'activePath' => $activePath
@@ -110,16 +116,14 @@ class authenticationController extends AbstractController
 
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
 
-        if (!$this->authManager->checkPasswordChange($this->userManager->getUser($id), $parameters['oldPassword'], $parameters['newPassword'])
-                || !$this->authManager->checkUserPassword($this->userManager->getUser($id), $parameters['oldPassword'])) {
+        if (
+            !$this->authManager->checkPasswordChange($this->userManager->getUser($id), $parameters['oldPassword'], $parameters['newPassword'])
+            || !$this->authManager->checkUserPassword($this->userManager->getUser($id), $parameters['oldPassword'])
+        ) {
             return new JsonResponse(['message' => 'Password is wrong'], Response::HTTP_UNAUTHORIZED);
         }
 
         $user = $this->userManager->createUser($parameters);
-
-        if (isset($_FILES['photo'])) {
-            $user->setPicture(base64_encode(addslashes(file_get_contents($_FILES['photo']['tmp_name']))));
-        }
 
         $userEdited = $this->userManager->updateUser($id, $user);
         return $this->json([
@@ -141,8 +145,8 @@ class authenticationController extends AbstractController
         $this->userManager->deleteUser($id);
         return $this->json(['message' => 'success']);
     }
-    
-    
+
+
     /**
      * @Route("/pri/showUsers", name="showUsers", methods={"GET"})
      */
@@ -165,18 +169,22 @@ class authenticationController extends AbstractController
      */
     public function showOtherProfile(Request $request)
     {
-        $user = $this->userManager->getOneByIdUser($request->get('id'));        
+        $user = $this->userManager->getOneByIdUser($request->get('id'));
         $allAchievements = $this->achievementManager->getUserAchievements($request->get('id'));
         $achievements = $this->achievementManager->getThreeByIdUser($request->get('id'));
         $paths = $this->userPathManager->getAllByIdUser($request->get('id'));
         $activePath = $this->userPathManager->getActivePathUser($request->get('id'));
+        $picture = $user->getPicture();
+        if (strcmp($picture, "") !== 0) {
+            $picture = CoverImageController::showImageUser($user->getPicture());
+        }
         $km = $this->userPathManager->getKm($request->get('id'));
 
         $data = [
             'id' => $user->getId(),
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
-            'picture' => $user->getPicture(),
+            'picture' => $picture,
             'totalAchievements' => count($allAchievements),
             'achievements' => $achievements,
             'paths' => count($paths),
