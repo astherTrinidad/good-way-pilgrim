@@ -31,7 +31,7 @@ class Usuario implements UserInterface
     private $surname;
 
     /**
-     * @ORM\Column(type="string", length=30, unique=true)
+     * @ORM\Column(type="string", length=40, unique=true)
      */
     private $email;
 
