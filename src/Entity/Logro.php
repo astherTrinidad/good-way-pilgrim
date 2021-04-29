@@ -79,7 +79,7 @@ class Logro
     
     public function setSlug(string $slug): self
     {
-        $this->name = $slug;
+        $this->slug = $slug;
         return $this;
     }
 
