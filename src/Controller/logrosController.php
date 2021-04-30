@@ -44,6 +44,7 @@ class logrosController extends AbstractController
      * @Route("/pri/addAchievement", name="addAchievement", methods={"PUT"})
      */
     public function addAchievement(Request $request): Response {
+        $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $parameters = json_decode($request->getContent(), true);
         $this->achievementManager->addAchievement($parameters['achievement'], $id_user, $parameters['date']);
         return $this->json(['message' => 'success']);
