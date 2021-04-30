@@ -18,7 +18,8 @@ class logrosController extends AbstractController
     private $achievementManager;
     private $authManager;
 
-    function __construct(AchievementManager $achievementManager, AuthManager $authManager) {
+    function __construct(AchievementManager $achievementManager, AuthManager $authManager)
+    {
         $this->achievementManager = $achievementManager;
         $this->authManager = $authManager;
     }
@@ -26,7 +27,8 @@ class logrosController extends AbstractController
     /**
      * @Route("/pri/AllAchievements", name="logrosSummary", methods={"GET"})
      */
-    public function AllAchievements(): Response {
+    public function AllAchievements(): Response
+    {
         $achievements = $this->achievementManager->getAll();
         return new JsonResponse($achievements);
     }
@@ -34,7 +36,8 @@ class logrosController extends AbstractController
     /**
      * @Route("/pri/MyAchievements", name="myAchievements", methods={"GET"})
      */
-    public function MyAchievements(Request $request): Response {
+    public function MyAchievements(Request $request): Response
+    {
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $achievements = $this->achievementManager->getUserAchievements($id);
         return new JsonResponse($achievements);
@@ -44,6 +47,7 @@ class logrosController extends AbstractController
      * @Route("/pri/addAchievement", name="addAchievement", methods={"PUT"})
      */
     public function addAchievement(Request $request): Response {
+
         $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $parameters = json_decode($request->getContent(), true);
         $this->achievementManager->addAchievement($parameters['achievement'], $id_user, $parameters['date']);
@@ -54,6 +58,7 @@ class logrosController extends AbstractController
      * @Route("/pri/deleteAchievements", name="deleteAchievement", methods={"DELETE"})
      */
     public function deleteAchievements(Request $request): Response {
+
         $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $this->achievementManager->deleteAchievements($id_user);
         return $this->json(['message' => 'success']);

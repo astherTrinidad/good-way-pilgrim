@@ -124,12 +124,16 @@ class authenticationController extends AbstractController
         $user = $this->userManager->createUser($parameters);
 
         $userEdited = $this->userManager->updateUser($id, $user);
+        $picture = $userEdited->getPicture();
+        if (strcmp($picture, "") !== 0) {
+            $picture = CoverImageController::showImageUser($userEdited->getPicture());
+        }
         return $this->json([
             'id' => $userEdited->getId(),
             'name' => $userEdited->getName(),
             'surname' => $userEdited->getSurname(),
             'email' => $userEdited->getEmail(),
-            'picture' => $userEdited->getPicture()
+            'picture' => $picture
         ]);
     }
 
