@@ -12,14 +12,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\LogroUsuario;
 use App\Form\LogroUsuarioType;
 
-class logrosController extends AbstractController
-{
+class logrosController extends AbstractController {
 
     private $achievementManager;
     private $authManager;
 
-    function __construct(AchievementManager $achievementManager, AuthManager $authManager)
-    {
+    function __construct(AchievementManager $achievementManager, AuthManager $authManager) {
         $this->achievementManager = $achievementManager;
         $this->authManager = $authManager;
     }
@@ -27,8 +25,7 @@ class logrosController extends AbstractController
     /**
      * @Route("/pri/AllAchievements", name="logrosSummary", methods={"GET"})
      */
-    public function AllAchievements(): Response
-    {
+    public function AllAchievements(): Response {
         $achievements = $this->achievementManager->getAll();
         return new JsonResponse($achievements);
     }
@@ -36,8 +33,7 @@ class logrosController extends AbstractController
     /**
      * @Route("/pri/MyAchievements", name="myAchievements", methods={"GET"})
      */
-    public function MyAchievements(Request $request): Response
-    {
+    public function MyAchievements(Request $request): Response {
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $achievements = $this->achievementManager->getUserAchievements($id);
         return new JsonResponse($achievements);
@@ -48,23 +44,25 @@ class logrosController extends AbstractController
      */
     public function addAchievement(Request $request): Response {
         $parameters = json_decode($request->getContent(), true);
-        
+
         $user = $this->authManager->getUserFromToken($request, $this->getParameter('jwt_secret'));
-        
+
         $logroUsuario = new LogroUsuario();
         $logroUsuario->setUser($user);
-        
+
         $form = $this->createForm(LogroUsuarioType::class, $logroUsuario, ['csrf_protection' => false]);
         $form->submit($parameters);
- 
-        if(!$form->isSubmitted() || !$form->isValid()) {               
-            return new JsonResponse(['message' => 'error'], Response::HTTP_BAD_REQUEST);
-        }
-        
-        $idUser = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-        $this->achievementManager->addAchievement($parameters['achievement'], $idUser, $parameters['date']);
-        return $this->json(['message' => 'success']);
 
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $idUser = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $result = $this->achievementManager->addAchievement($parameters['achievement'], $idUser, $parameters['date']);
+        if (!$result) {
+            return $this->json(['message' => 'You have already this achievement']);
+        }
+        return $this->json(['message' => 'success']);
     }
 
     /**
@@ -76,4 +74,5 @@ class logrosController extends AbstractController
         $this->achievementManager->deleteAchievements($id_user);
         return $this->json(['message' => 'success']);
     }
+
 }
