@@ -26,7 +26,7 @@ class UserDataFixtures extends Fixture
         $user->setSurname("Herranz Maeso");
         $user->setEmail("phmaeso10@gmail.com");
         $user->setPassword($this->encoder->encodePassword($user, "passPatricia"));
-        $user->setPicture(UserDataFixtures::uploadImage("patri.jpg"));
+        $user->setPicture("/application/src/Controller/../../app/resources/patri.jpg");
         $manager->persist($user);
         $manager->flush();
         $this->setReference(self::USUARIO . 1, $user);
@@ -36,7 +36,7 @@ class UserDataFixtures extends Fixture
         $user1->setSurname("Sánchez");
         $user1->setEmail("irene.sanchez@hotmail.com");
         $user1->setPassword($this->encoder->encodePassword($user, "passIrene"));
-        $user1->setPicture(UserDataFixtures::uploadImage("irene.jpg"));
+        $user1->setPicture("/application/src/Controller/../../app/resources/irene.jpg");
         $manager->persist($user1);
         $manager->flush();
         $this->setReference(self::USUARIO . 2, $user1);
@@ -46,7 +46,7 @@ class UserDataFixtures extends Fixture
         $user2->setSurname("Trinidad Mora");
         $user2->setEmail("asthercita@gmail.com");
         $user2->setPassword($this->encoder->encodePassword($user, "passAsther"));
-        $user2->setPicture(UserDataFixtures::uploadImage("asther.jpg"));
+        $user2->setPicture("/application/src/Controller/../../app/resources/asther.jpg");
         $manager->persist($user2);
         $manager->flush();
         $this->setReference(self::USUARIO . 3, $user2);
@@ -56,7 +56,7 @@ class UserDataFixtures extends Fixture
         $user3->setSurname("Ardila");
         $user3->setEmail("ardila@hotmail.com");
         $user3->setPassword($this->encoder->encodePassword($user, "passSara"));
-        $user3->setPicture(UserDataFixtures::uploadImage("sara.jpg"));
+        $user3->setPicture("/application/src/Controller/../../app/resources/sara.jpg");
         $manager->persist($user3);
         $manager->flush();
         $this->setReference(self::USUARIO . 4, $user3);
@@ -66,16 +66,9 @@ class UserDataFixtures extends Fixture
         $user4->setSurname("Carrillo");
         $user4->setEmail("javichu@gmail.com");
         $user4->setPassword($this->encoder->encodePassword($user, "passJavi"));
-        $user4->setPicture(UserDataFixtures::uploadImage("javi.jpg"));
+        $user4->setPicture("/application/src/Controller/../../app/resources/javi.jpg");
         $manager->persist($user4);
         $manager->flush();
         $this->setReference(self::USUARIO . 5, $user4);
-    }
-
-    public static function uploadImage($Image)
-    {
-        $url = 'Image/' . $Image;
-
-        return $url;
     }
 }

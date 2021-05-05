@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repository\UsuarioRepository;
 use App\Entity\Usuario;
+use App\Controller\CoverImageController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -36,11 +37,17 @@ class UserManager
             }
         }
 
+        if (isset($parameters['picture'])) {
+            $user->setPicture(CoverImageController::saveImageUser($parameters['picture']));
+        } else {
+            $user->setPicture("");
+        }
+
         $user->setEmail($parameters['email']);
-        $user->setPicture("");
+
         return $user;
     }
-    
+
     public function saveUser($user)
     {
         $this->em->persist($user);
@@ -61,7 +68,8 @@ class UserManager
         ]);
     }
 
-    public function deleteUser($id) {
+    public function deleteUser($id)
+    {
 
         return $this->userRepository->deleteOneById($id);
     }
@@ -70,8 +78,9 @@ class UserManager
     {
         return $this->userRepository->updateOneById($id, $user);
     }
-    
-    public function getUsersByString($searchString) {
+
+    public function getUsersByString($searchString)
+    {
         return $this->userRepository->getByString($searchString);
     }
 

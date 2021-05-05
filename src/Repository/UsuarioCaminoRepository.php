@@ -43,6 +43,7 @@ class UsuarioCaminoRepository extends ServiceEntityRepository
             return null;
         }
         return $usersPathsActive[0];
+
     }
     
     public function getKm($id)
