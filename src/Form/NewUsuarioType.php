@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use App\Entity\Usuario;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class NewUsuarioType extends AbstractType {
 
@@ -20,7 +21,8 @@ class NewUsuarioType extends AbstractType {
                 ->add('password', TextType::class, [
                     'constraints' => [
                         new NotBlank(),
-                        new Length(['min' => 8])]])
+                        new Length(['min' => 8]),
+                        new Regex('/[a-z][A-Z]/')]])
         ;
     }
 

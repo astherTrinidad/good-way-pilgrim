@@ -43,10 +43,6 @@ class authenticationController extends AbstractController {
         }
         
         $user = $this->userManager->createUser($parameters);
-        if (!$this->authManager->validatePassword($parameters['password'])) {
-            return new JsonResponse(['message' => 'password not valid'], Response::HTTP_UNAUTHORIZED);
-        }
-
         if ($this->userManager->emailExists($parameters['email'])) {
             return new JsonResponse(['message' => 'email is already in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
