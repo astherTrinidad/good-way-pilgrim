@@ -36,6 +36,7 @@ class AchievementManager {
     }
 
     public function deleteAchievements($id_user) {
+
         return $this->achievementUserRepository->deleteAchievements($id_user);
     }
 
