@@ -45,35 +45,16 @@ class logrosController extends AbstractController
      */
     public function addAchievement(Request $request): Response {
         $parameters = json_decode($request->getContent(), true);
-        $this->achievementManager->addAchievement($parameters['achievement'], $id_user, $parameters['date']);
+        $this->achievementManager->addAchievement($parameters['achievement'], 3, $parameters['date']);
         return $this->json(['message' => 'success']);
     }
 
     /**
      * @Route("/pri/deleteAchievements", name="deleteAchievement", methods={"DELETE"})
      */
-<<<<<<< HEAD
-    public function logrosSummary(Request $request, LogroRepository $logroRepository): Response
-    {
-
-        $logros = $logroRepository->getById($request->get('id'));
-
-        if (!$logros) {
-            $data = [
-                'message' => 'no results found'
-            ];
-            return new JsonResponse($data, Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-        if (count($logros) < 4) {
-            return new JsonResponse($logros);
-        } else {
-            return new JsonResponse(array_slice($logros, 0, 3));
-        }
-=======
     public function deleteAchievements(Request $request): Response {
         $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $this->achievementManager->deleteAchievements($id_user);
         return $this->json(['message' => 'success']);
->>>>>>> 0760acc6b3c6f755c9e189660ec662f174f43a31
     }
 }
