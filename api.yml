@@ -166,6 +166,10 @@ paths:
                 type: string
                 description: New password
                 example: "passUser"
+              picture:
+                type: string
+                description: New profile picture
+                example: ""
       responses:
         "200":
           description: "Shows profile"
@@ -265,7 +269,7 @@ paths:
                 type: array
                 items:
                   type: "object"
-                example: [{"id":109,"name":"Asther","surname":"Trinidad Mora","picture":"Image\/asther.jpg","totalAchievements":2,"achievements":[{"id":"33","id_logro":"55","id_usuario":"109","date":"2020-02-05"},{"id":"32","id_logro":"50","id_usuario":"109","date":"2018-12-30"}],"paths":2,"activePath":null,"km":"307.8"}]
+                example: [{"id":109,"name":"Asther","surname":"Trinidad Mora","picture":"asther.jpg","totalAchievements":2,"achievements":[{"id":"33","id_logro":"55","id_usuario":"109","date":"2020-02-05"},{"id":"32","id_logro":"50","id_usuario":"109","date":"2018-12-30"}],"paths":2,"activePath":null,"km":"307.8"}]
   /pri/csv_download:
     get:
       tags:
@@ -319,7 +323,7 @@ paths:
           in: query
           required: true
           schema:
-            type: date
+            type: string
       responses:
         "200":
           description: "Achivement added"
