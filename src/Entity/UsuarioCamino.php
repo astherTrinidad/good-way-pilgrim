@@ -20,7 +20,7 @@ class UsuarioCamino
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=false)
      */
     private $startDate;
 
@@ -30,21 +30,21 @@ class UsuarioCamino
     private $finishDate;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false)
      */
     private $status;
 
     /**
      * Muchos UsuarioCamino son realizados por un usuario. 
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="usuarioCaminos")
-     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     private $user;
 
     /**
      * Muchas UsuarioCamino estan en un camino. 
      * @ORM\ManyToOne(targetEntity="Camino", inversedBy="usuarioCaminos")
-     * @ORM\JoinColumn(name="id_camino", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\JoinColumn(name="id_camino", referencedColumnName="id", onDelete="CASCADE", nullable=false)
      */
     private $camino;
 

@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Form\NewUsuarioType;
+use App\Form\UsuarioType;
+use App\Entity\Usuario;
 
 class authenticationController extends AbstractController {
 
@@ -31,17 +34,20 @@ class authenticationController extends AbstractController {
      */
     public function register(Request $request) {
         $parameters = json_decode($request->getContent(), true);
-        $user = $this->userManager->createUser($parameters);
-
-        if (!$this->authManager->validatePassword($parameters['password'])) {
-            return new JsonResponse(['message' => 'password not valid'], Response::HTTP_UNAUTHORIZED);
+        
+        $form = $this->createForm(NewUsuarioType::class, new Usuario(), ['csrf_protection' => false]);
+        $form->submit($parameters);
+ 
+        if(!$form->isSubmitted() || !$form->isValid()) {               
+            return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
         }
-
+        
+        $user = $this->userManager->createUser($parameters);
         if ($this->userManager->emailExists($parameters['email'])) {
             return new JsonResponse(['message' => 'email is already in database'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+        
         $this->userManager->saveUser($user);
-
         return $this->json([
                     'id' => $user->getId(),
                     'name' => $user->getName(),
@@ -56,8 +62,15 @@ class authenticationController extends AbstractController {
      */
     public function login(Request $request) {
         $parameters = json_decode($request->getContent(), true);
+        
+        $form = $this->createForm(UsuarioType::class, new Usuario(), ['csrf_protection' => false]);
+        $form->submit($parameters);
+ 
+        if(!$form->isSubmitted() || !$form->isValid()) {               
+            return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
+        }      
+        
         $user = $this->userManager->emailExists($parameters['email']);
-
         if (!$user || !$this->authManager->checkUserPassword($user, $parameters['password'])) {
             return new JsonResponse(['message' => 'email or password is wrong'], Response::HTTP_UNAUTHORIZED);
         }
