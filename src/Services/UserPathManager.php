@@ -19,13 +19,17 @@ class UserPathManager
         return $this->userPathRepository->getHistory($userId);
     }
 
-    public function getActivePathUser($userId)
+    public function getActivePath($userId)
     {
         return $this->userPathRepository->getActivePath($userId);
     }
     
-    public function getKm($userId)
-    {
-        return $this->userPathRepository->getKm($userId);
+    public function getEtapasRealizadas($userId, $caminoId)    {
+        return $this->userPathRepository->getEtapasRealizadas($userId, $caminoId);
     }
+    
+//    public function getKm($userId)
+//    {
+//        return $this->userPathRepository->getKm($userId);
+//    }
 }

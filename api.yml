@@ -219,14 +219,6 @@ paths:
               schema:
                 type: string
                 example: {"message":"success"}
-  /pri/csv_download:
-    get:
-      tags:
-      - "camino"
-      summary: "Downloads csv file with caminos' data"
-      responses:
-        "200":
-          description: "File downloaded"
   /pri/AllAchievements:
     get:
       tags:
@@ -258,7 +250,7 @@ paths:
                   type: "object"
                 example: [{"id":"19","id_logro":"36","id_usuario":"76","date":"2018-12-30"},{"id":"20","id_logro":"41","id_usuario":"76","date":"2020-02-05"}]
   /pri/addAchievement:
-    get:
+    put:
       tags:
       - "logros"
       summary: "Adds user achivement by id"      
@@ -282,7 +274,7 @@ paths:
                 type: string
                 example: {"message":"success"}
   /pri/deleteAchievement:
-    get:
+    delete:
       tags:
       - "logros"
       summary: "Deletes user achivement by id"      
@@ -301,7 +293,7 @@ paths:
                 type: string
                 example: {"message":"success"}
   /pri/deleteAchievements:
-    get:
+    delete:
       tags:
       - "logros"
       summary: "Resets user achievements"
@@ -313,5 +305,125 @@ paths:
               schema:
                 type: string
                 example: {"message":"success"}
+  /pri/allPaths:
+    get:
+      tags:
+      - "camino"
+      summary: "Returns all paths data"
+      responses:
+        "200":
+          description: "Returns an array with an object for each path"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":"41","name":"Camino Franc\u00e9s","num_etapas":"33","description":"El Camino Franc\u00e9s es el Camino de Santiago de mayor relevancia hist\u00f3rica...","start":"Saint Jean de Pied de Port","finish":"Santiago de Compostela","km":"766.2", "etapas":[]},{"id":"42","name":"Camino Primitivo","num_etapas":"14","description":"El Camino Primitivo es el Camino de Santiago que desde Oviedo...","start":"Oviedo","finish":"Santiago de Compostela","km":"307.8", "etapas":[]}] 
+ 
+  /pri/myPaths:
+    get:
+      tags:
+      - "camino"
+      summary: "Returns user paths data"
+      responses:
+        "200":
+          description: "Returns an array with an object for each path"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":"47","name":"Camino Primitivo","status":"Completed","etapas":"14"}] 
+  /pri/getActivePath:
+    get:
+      tags:
+      - "camino"
+      summary: "Returns user active path if it exists"
+      responses:
+        "200":
+          description: "Returns an an object with all the info about user active path including etapas"
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  type: "object"
+                example: {"id": "46", "name": "Camino Francés", "num_etapas": "33", "description": "...", "start": "Saint Jean de Pied de Port",  "finish": "Santiago de Compostela", "etapas": [
+        {
+            "id": "988",
+            "km": "24.2",
+            "description": "...",
+            "start": "Saint Jean Pied de Port",
+            "finish": "Roncesvalles"
+        },
+        {
+            "id": "989",
+            "km": "21.4",
+            "description": "...",
+            "start": "Roncesvalles",
+            "finish": "Zubiri"
+        }]}
+
+  /pri/getEtapasRealizadas:
+    get:
+      tags:
+      - "camino"
+      summary: "Devuelve las etapas realizadas por un un usuario en un camino concreto"     
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: "Returns an array of etapas"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [
+    {
+        "id": "988",
+        "km": "24.2",
+        "description": "...",
+        "start": "Saint Jean Pied de Port",
+        "finish": "Roncesvalles"
+    },
+    {
+        "id": "989",
+        "km": "21.4",
+        "description": "...",
+        "start": "Roncesvalles",
+        "finish": "Zubiri"
+    },
+    {
+        "id": "990",
+        "km": "20.4",
+        "description": "...",
+        "start": "Zubiri",
+        "finish": "Pamplona"
+    },
+    {
+        "id": "991",
+        "km": "23.9",
+        "description": "...",
+        "start": "Pamplona",
+        "finish": "Puente de la Reina"
+    }
+]
+
+  /pri/csv_download:
+    get:
+      tags:
+      - "camino"
+      summary: "Downloads csv file with caminos' data"
+      responses:
+        "200":
+          description: "File downloaded"
   
 

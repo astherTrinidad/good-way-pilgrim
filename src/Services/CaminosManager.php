@@ -26,4 +26,8 @@ class CaminosManager {
         return $this->caminoRepository->getAll();
     }
 
+    public function getEtapas($idCamino) {
+        return $this->caminoRepository->getEtapas($idCamino);
+    }
+
 }
