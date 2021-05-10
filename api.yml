@@ -219,57 +219,6 @@ paths:
               schema:
                 type: string
                 example: {"message":"success"}
-  /pri/showUsers:
-    get:
-      tags:
-      - "user"
-      summary: "Show users whose name matches with the string given"
-      parameters:
-        - name: string
-          in: query
-          required: true
-          schema:
-            type: string
-            example: 'javi'
-      responses:
-        "200":
-          description: "Users found"
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: "object"
-                example: [{"id":"60","name":"Javier","surname":"Carrillo", "picture":null},{"id":"61","name":"Javi","surname":"Camacho", "picture":null}]
-        "422":
-          description: "Invalid input"
-          content:
-            application/json:
-              schema:
-                type: string
-                example: {"message":"no results found"}
-  /pri/showOtherProfile:
-    get:
-      tags:
-      - "user"
-      summary: "Shows information of the selected user"
-      parameters:
-        - name: id
-          in: query
-          required: true
-          schema:
-            type: integer
-            example: 450
-      responses:
-        "200":
-          description: "Shows name, surname and picture, number of achievements and 3 of them in detail, number of paths, active path and total km"
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: "object"
-                example: [{"id":109,"name":"Asther","surname":"Trinidad Mora","picture":"asther.jpg","totalAchievements":2,"achievements":[{"id":"33","id_logro":"55","id_usuario":"109","date":"2020-02-05"},{"id":"32","id_logro":"50","id_usuario":"109","date":"2018-12-30"}],"paths":2,"activePath":null,"km":"307.8"}]
   /pri/csv_download:
     get:
       tags:
@@ -327,6 +276,25 @@ paths:
       responses:
         "200":
           description: "Achivement added"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+  /pri/deleteAchievement:
+    get:
+      tags:
+      - "logros"
+      summary: "Deletes user achivement by id"      
+      parameters:
+        - name: id_logro
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Achivement removed"
           content:
             application/json:
               schema:

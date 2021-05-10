@@ -27,17 +27,23 @@ class AchievementManager {
         return $this->achievementUserRepository->getThreeById($userId);
     }
 
-    public function addAchievement($id_logro, $id_user, $date) {
-        if (!$this->achievementUserRepository->check($id_logro, $id_user)) {
-            $this->achievementUserRepository->addAchievement($id_logro, $id_user, $date);
+    public function addAchievement($logroId, $userId, $date) {
+        if (!$this->achievementUserRepository->check($logroId, $userId)) {
+            $this->achievementUserRepository->addAchievement($logroId, $userId, $date);
             return true;
         }
         return false;
     }
 
-    public function deleteAchievements($id_user) {
+    public function deleteAchievement($userId, $logroId) {
+        if ($this->achievementUserRepository->check($logroId, $userId)) {
+            return $this->achievementUserRepository->deleteAchievement($userId, $logroId);
+        }
+        return false;
+    }
 
-        return $this->achievementUserRepository->deleteAchievements($id_user);
+    public function deleteAchievements($userId) {
+        return $this->achievementUserRepository->deleteAchievements($userId);
     }
 
 }
