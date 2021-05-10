@@ -95,6 +95,11 @@ class caminosController extends AbstractController {
         if (!$form->isSubmitted() || !$form->isValid()) {
             return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
         }
+        if($this->userPathManager->getActivePath($user->getId())){
+            return new JsonResponse(['message' => 'User already has an active path'], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        $this->userPathManager->addActivePath($user->getId(), $parameters['camino'], $parameters['start_date']);        
+        return $this->json(['message' => 'success']);
     }
 
     /**

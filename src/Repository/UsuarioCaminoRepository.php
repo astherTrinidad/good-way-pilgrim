@@ -39,6 +39,9 @@ class UsuarioCaminoRepository extends ServiceEntityRepository {
         $query = "SELECT c.* FROM camino c, usuario_camino uc WHERE id_usuario = $idUser AND status = 'Active'";
         $result = $db->executeQuery($query);
         $usersPathsActive = $result->fetchAll();
+        if(count($usersPathsActive)==0){
+            return null;
+        }
         return $usersPathsActive[0];
     }
 
@@ -53,6 +56,12 @@ class UsuarioCaminoRepository extends ServiceEntityRepository {
         $result = $db->executeQuery($query);
         $etapasRealizadas = $result->fetchAll();
         return $etapasRealizadas;
+    }
+    
+    public function addActivePath($idUser, $idCamino, $date) {
+        $db = $this->em->getConnection();
+        $query = "INSERT INTO usuario_camino(id_usuario, id_camino, start_date, finish_date, status) values($idUser, $idCamino, \"$date\",null, \"Active\")";
+        $db->executeQuery($query);
     }
 
 //    public function getKm($idUser) {

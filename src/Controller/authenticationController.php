@@ -139,8 +139,8 @@ class authenticationController extends AbstractController {
      * @Route("/pri/deleteProfile", name="deleteProfile", methods={"DELETE"})
      */
     public function deleteProfile(Request $request) {
-        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-        $this->userManager->deleteUser($id);
+        $idUser = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $this->userManager->deleteUser($idUser);
         return $this->json(['message' => 'success']);
     }
 
