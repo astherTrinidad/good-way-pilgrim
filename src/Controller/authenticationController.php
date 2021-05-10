@@ -89,22 +89,19 @@ class authenticationController extends AbstractController {
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $user = $this->userManager->getUser($id);
         $achievements = $this->achievementManager->getThreeByIdUser($id);
-        $paths = $this->userPathManager->getAllByIdUser($id);
-        $activePath = $this->userPathManager->getActivePathUser($id);
+        $paths = $this->userPathManager->getHistory($id);  
         $picture = $user->getPicture();
         if (strcmp($picture, "") !== 0) {
             $picture = CoverImageController::showImageUser($user->getPicture());
         }
 
         $data = [
-            'id' => $user->getId(),
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
             'email' => $user->getEmail(),
             'picture' => $picture,
             'achievements' => $achievements,
-            'paths' => $paths,
-            'activePath' => $activePath
+            'paths' => count($paths)
         ];
 
         return new JsonResponse($data);

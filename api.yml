@@ -130,10 +130,10 @@ paths:
           content:
             application/json:
               schema:
-                type: array
+                type: object
                 items:
                   type: "object"
-                example: [{"id":450,"name":"Javi","surname":"Carrillo","email":"javichu@gmail.com","picture":"","achievements":[{"id":"186","id_logro":"620","id_usuario":"450","date":"2020-02-05"},{"id":"188","id_logro":"622","id_usuario":"450","date":"2020-02-05"},{"id":"187","id_logro":"617","id_usuario":"450","date":"2019-06-23"}],"paths":[{"id":"114","id_usuario":"450","id_camino":"191","start_date":"2021-01-01","finish_date":"2021-01-15","status":"Completed"},{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}],"activePath":{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}}]
+                example: {"name":"Irene","surname":"S\u00e1nchez","email":"irene.sanchez@hotmail.com","picture":"","achievements":[{"name":"El glot\u00f3n","description":"Te das un homenaje de comida t\u00edpica","slug":"el-gloton"},{"name":"El sociable","description":"Haces nuevos amigos","slug":"el-sociable"},{"name":"El peregrino","description":"50km. recorridos","slug":"el-peregrino"}],"paths":2,"km":"419.3"}
   /pri/editProfile:
     put:
       tags:

@@ -14,9 +14,9 @@ class UserPathManager
         $this->userPathRepository = $userPathRepository;
     }
 
-    public function getAllByIdUser($userId)
+    public function getHistory($userId)
     {
-        return $this->userPathRepository->getAllById($userId);
+        return $this->userPathRepository->getHistory($userId);
     }
 
     public function getActivePathUser($userId)
