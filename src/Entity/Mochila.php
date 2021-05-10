@@ -19,26 +19,26 @@ class Mochila
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=false)
      */
     private $object;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $quantity;
 
     /**
      * Muchas mochilas tienen un usuario.
      * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="mochilas")
-     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="cascade")
+     * @ORM\JoinColumn(name="id_usuario", referencedColumnName="id", onDelete="cascade", nullable=false)
      */
     private $user;
 
     /**
      * Muchas mochilas tienen un camino. 
      * @ORM\ManyToOne(targetEntity="Camino", inversedBy="mochilas")
-     * @ORM\JoinColumn(name="id_camino", referencedColumnName="id", onDelete="cascade")
+     * @ORM\JoinColumn(name="id_camino", referencedColumnName="id", onDelete="cascade", nullable=false)
      */
     private $camino;
 

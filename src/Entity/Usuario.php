@@ -21,22 +21,22 @@ class Usuario implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=false)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=false)
      */
     private $surname;
 
     /**
-     * @ORM\Column(type="string", length=30, unique=true)
+     * @ORM\Column(type="string", length=255, unique=true, nullable=false)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false)
      */
     private $password;
 
