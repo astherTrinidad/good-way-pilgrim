@@ -43,5 +43,17 @@ class LogroUsuarioRepository extends ServiceEntityRepository {
         $query = "DELETE FROM logro_usuario WHERE id_usuario = $id_user";
         return $db->executeQuery($query);
     }
+    
+    public function check($id_logro,$id_user){        
+        $db = $this->em->getConnection();        
+        $query = "SELECT * FROM logro_usuario where id_usuario = $id_user && id_logro=$id_logro";
+        $result = $db->executeQuery($query);
+        $achievement = $result->fetchAll();
+        if(count($achievement)!=0){
+            return true;
+        }
+        return false;
+    }
+
 
 }

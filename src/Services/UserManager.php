@@ -26,8 +26,8 @@ class UserManager
     public function createUser($parameters)
     {
         $user = new Usuario();
-        $user->setName(ucwords(strtolower($parameters['name'])));
-        $user->setSurname(ucwords(strtolower($parameters['surname'])));
+        $user->setName(htmlspecialchars(ucwords(strtolower($parameters['name']))));
+        $user->setSurname(htmlspecialchars(ucwords(strtolower($parameters['surname']))));
         if (isset($parameters['password'])) {
             $user->setPassword($this->encoder->encodePassword($user, $parameters['password']));
         }
