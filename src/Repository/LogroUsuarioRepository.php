@@ -32,21 +32,27 @@ class LogroUsuarioRepository extends ServiceEntityRepository {
         return $achievement;
     }
     
-    public function addAchievement($id_logro, $id_user, $date){
+    public function addAchievement($logroId, $userId, $date){
         $db = $this->em->getConnection();
-        $query = "INSERT INTO logro_usuario (id_logro, id_usuario, date) VALUES($id_logro, $id_user, '$date')";
+        $query = "INSERT INTO logro_usuario (id_logro, id_usuario, date) VALUES($logroId, $userId, '$date')";
         return $db->executeQuery($query);
     }
     
-    public function deleteAchievements($id_user){        
+    public function deleteAchievement($userId, $logroId){
         $db = $this->em->getConnection();
-        $query = "DELETE FROM logro_usuario WHERE id_usuario = $id_user";
+        $query = "DELETE FROM logro_usuario WHERE id_usuario = $userId AND id_logro= $logroId";
         return $db->executeQuery($query);
     }
     
-    public function check($id_logro,$id_user){        
+    public function deleteAchievements($userId){        
+        $db = $this->em->getConnection();
+        $query = "DELETE FROM logro_usuario WHERE id_usuario = $userId";
+        return $db->executeQuery($query);
+    }
+    
+    public function check($logroId,$userId){        
         $db = $this->em->getConnection();        
-        $query = "SELECT * FROM logro_usuario where id_usuario = $id_user && id_logro=$id_logro";
+        $query = "SELECT * FROM logro_usuario where id_usuario = $userId && id_logro=$logroId";
         $result = $db->executeQuery($query);
         $achievement = $result->fetchAll();
         if(count($achievement)!=0){

@@ -79,11 +79,6 @@ class UserManager
         return $this->userRepository->updateOneById($id, $user);
     }
 
-    public function getUsersByString($searchString)
-    {
-        return $this->userRepository->getByString($searchString);
-    }
-
     public function getOneByIdUser($userId)
     {
         return $this->userRepository->getOneById($userId);

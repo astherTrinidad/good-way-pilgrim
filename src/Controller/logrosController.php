@@ -64,9 +64,21 @@ class logrosController extends AbstractController {
         }
         return $this->json(['message' => 'success']);
     }
-
+    
+    
     /**
-     * @Route("/pri/deleteAchievements", name="deleteAchievement", methods={"DELETE"})
+     * @Route("/pri/deleteAchievement", name="deleteAchievement", methods={"DELETE"})
+     */
+    public function deleteAchievement(Request $request): Response {
+
+        $id_user = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));        
+        $parameters = json_decode($request->getContent(), true);
+        $this->achievementManager->deleteAchievement($id_user, $parameters['achievement']);
+        return $this->json(['message' => 'success']);
+    }   
+    
+    /**
+     * @Route("/pri/deleteAchievements", name="deleteAchievements", methods={"DELETE"})
      */
     public function deleteAchievements(Request $request): Response {
 

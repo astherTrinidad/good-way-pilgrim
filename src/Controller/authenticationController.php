@@ -147,49 +147,6 @@ class authenticationController extends AbstractController {
         return $this->json(['message' => 'success']);
     }
 
-    /**
-     * @Route("/pri/showUsers", name="showUsers", methods={"GET"})
-     */
-    public function showUsers(Request $request) {
 
-        $searchString = $request->get('string');
-        $matchUsers = $this->userManager->getUsersByString($searchString);
-
-        if (empty($matchUsers)) {
-            return new JsonResponse(['message' => 'no results found'], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        return new JsonResponse($matchUsers);
-    }
-
-    /**
-     * @Route("/pri/showOtherProfile", name="showOtherProfile", methods={"GET"})
-     */
-    public function showOtherProfile(Request $request) {
-        $user = $this->userManager->getOneByIdUser($request->get('id'));
-        $allAchievements = $this->achievementManager->getUserAchievements($request->get('id'));
-        $achievements = $this->achievementManager->getThreeByIdUser($request->get('id'));
-        $paths = $this->userPathManager->getAllByIdUser($request->get('id'));
-        $activePath = $this->userPathManager->getActivePathUser($request->get('id'));
-        $picture = $user->getPicture();
-        if (strcmp($picture, "") !== 0) {
-            $picture = CoverImageController::showImageUser($user->getPicture());
-        }
-        $km = $this->userPathManager->getKm($request->get('id'));
-
-        $data = [
-            'id' => $user->getId(),
-            'name' => $user->getName(),
-            'surname' => $user->getSurname(),
-            'picture' => $picture,
-            'totalAchievements' => count($allAchievements),
-            'achievements' => $achievements,
-            'paths' => count($paths),
-            'activePath' => $activePath,
-            'km' => $km
-        ];
-
-        return new JsonResponse($data);
-    }
 
 }
