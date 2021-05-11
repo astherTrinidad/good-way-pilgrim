@@ -468,7 +468,6 @@ paths:
               schema:
                 type: string
                 example: {"message":"Incorrect data recived"}
-
         "422":
           description: "Invalid input"
           content:
@@ -476,7 +475,96 @@ paths:
               schema:
                 type: string
                 example: {"message":"User already has an active path"}
-
+  /pri/archivePath:
+    put:
+      tags:
+      - "camino"
+      summary: "Archives a path. User can reactivate it later"     
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Path archived"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+  /pri/finishPath:
+    post:
+      tags:
+      - "camino"
+      summary: "Marks a path as finished"     
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: finish_date
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Path finished"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+  /pri/reactivatePath:
+    put:
+      tags:
+      - "camino"
+      summary: "If there isn't an active path it reactivates the one given"     
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Path reactivated"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+        "422":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"User already has an active path"}                
   /pri/csv_download:
     get:
       tags:

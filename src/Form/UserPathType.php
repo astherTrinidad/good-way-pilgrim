@@ -17,7 +17,8 @@ class UserPathType extends AbstractType
         $builder
             ->add('camino', EntityType::class, [
                 'class' => Camino::class, 'constraints' => [new NotBlank()]])
-            ->add('start_date', TextType::class);
+            ->add('start_date', TextType::class)
+            ->add('finish_date', TextType::class);
     }
     public function setDefaultOptions(OptionsResolverInterface $resolver){
         $resolver->setDefaults(

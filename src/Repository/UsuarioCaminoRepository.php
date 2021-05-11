@@ -63,6 +63,24 @@ class UsuarioCaminoRepository extends ServiceEntityRepository {
         $query = "INSERT INTO usuario_camino(id_usuario, id_camino, start_date, finish_date, status) values($idUser, $idCamino, \"$date\",null, \"Active\")";
         $db->executeQuery($query);
     }
+    
+    public function archivePath($idUser, $idCamino) {
+        $db = $this->em->getConnection();
+        $query = "UPDATE usuario_camino set status = 'Archived' where id_usuario = $idUser and id_camino = $idCamino";
+        $db->executeQuery($query);
+    }
+    
+    public function finishPath($idUser, $idCamino, $date) {
+        $db = $this->em->getConnection();
+        $query = "UPDATE usuario_camino set status = 'Completed', finish_date = \"$date\" where id_usuario = $idUser and id_camino = $idCamino";
+        $db->executeQuery($query);
+    }
+    
+    public function reactivatePath($idUser, $idCamino) {
+        $db = $this->em->getConnection();
+        $query = "UPDATE usuario_camino set status = 'Active' where id_usuario = $idUser and id_camino = $idCamino";
+        $db->executeQuery($query);
+    }
 
     public function getKm($idUser) {
         $db = $this->em->getConnection();
