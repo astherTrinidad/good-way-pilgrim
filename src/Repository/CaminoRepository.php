@@ -31,6 +31,15 @@ class CaminoRepository extends ServiceEntityRepository {
 
         return $caminos;
     }
+    
+    public function getEtapas($idCamino) {
+        $db = $this->em->getConnection();
+        $query = "select e.* from camino_etapa ce , etapa e where ce.id_etapa = e.id and ce.id_camino = $idCamino;";
+        $result = $db->executeQuery($query);
+        $caminos = $result->fetchAll();
+
+        return $caminos;
+    }
 
     // /**
     //  * @return Camino[] Returns an array of Camino objects

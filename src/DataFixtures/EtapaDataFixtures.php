@@ -435,7 +435,214 @@ class EtapaDataFixtures extends Fixture
         $etapa46->setDescription("Santiago aguarda y eso se nota en los caminantes. Algunos con paso ligero y con la mente puesta en la meta, otros sin embargo, con el paso sosegado de aquel que tiene miedo de llegar al final de su aventura y no saber lo que vendrá después. En cualquier caso, todos con la ilusión de alcanzar por fin la majestuosa plaza del Obradoiro y alzar la vista para vislumbrar la barroca fachada de la Catedral. Por delante, una etapa corta, sencilla, con pendientes moderadas y senderos agradecidos.");  
         $manager->persist($etapa46);
         $manager->flush();
-        $this->setReference(self::ETAPA . 47, $etapa46); 
+        $this->setReference(self::ETAPA . 47, $etapa46);
+        
+        $etapa47 = new Etapa();       
+        $etapa47->setStart("Irún");
+        $etapa47->setFinish("San Sebastián");        
+        $etapa47->setKm(24.8);
+        $etapa47->setDescription("Comenzamos esta Ruta Jacobea, una de las más antiguas, en la frontera francesa y española. Partiremos de la bella Irún rumbo a la gran ciudad de San Sebastián y a su famosa playa de la Concha. El trayecto no será fácil, tendremos que sufrir el peso de nuestras mochilas en las innumerables pendientes tanto positivas como negativas de esta etapa. Sin embargo, la belleza de los parajes por los que transcurriremos será una recompensa más que suficiente.");  
+        $manager->persist($etapa47);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 48, $etapa47);
+        
+        $etapa48 = new Etapa();       
+        $etapa48->setStart("San Sebastián");
+        $etapa48->setFinish("Zarautz");        
+        $etapa48->setKm(22.2);
+        $etapa48->setDescription("El monte Igeldo enseña al inicio sus fauces, pero se amansa fácilmente y recompensa con una panorámica privilegiada de San Sebastián. La senda jacobea continúa atravesando Igeldo, entre zonas residenciales y caseríos y con el Cantábrico como telón de fondo. Atravesamos el cordal de Mendizorrotz, sinuoso y a su vez rico en barro y antiguas calzadas, y descender hasta Orio. Un último repecho al Talaimendi, con fragancia de txakoli, con una gran estampa de Zarautz y su interminable playa.");  
+        $manager->persist($etapa48);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 49, $etapa48);
+        
+        $etapa49 = new Etapa();       
+        $etapa49->setStart("Zarautz");
+        $etapa49->setFinish("Deba");        
+        $etapa49->setKm(21.8);
+        $etapa49->setDescription("Etapa pura del litoral guipuzcoano que obliga a superar incontables desniveles entre las bellas localidades marineras de Getaria -cuna de Juan Sebastián Elcano-, Zumaia y Deba, y los núcleos de Askizu, Elorriaga e Itziar, atalayas privilegiadas sobre las frondosas colinas cantábricas. Esta orografía, prepara al peregrino para la etapa reina que vivirá mañana, cuando la sirga caminera se aleje del mar durante varios días para seguir el itinerario más recto posible.");  
+        $manager->persist($etapa49);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 50, $etapa49);
+        
+        $etapa50 = new Etapa();       
+        $etapa50->setStart("Deba");
+        $etapa50->setFinish("Markina");        
+        $etapa50->setKm(24);
+        $etapa50->setDescription("Ante el peregrino, la etapa más interior, montañosa y con mayor desnivel de todas las del País Vasco. El trazado comienza su ascenso decidido ya en Deba, escalando a la ermita del Calvario de Maia. de Camino a Olatz, a través de túneles de encinar cantábrico, el mar desaparecerá de la retina hasta la etapa 8. El curso del arroyo Anu hace de calentamiento para el tramo más costoso, el que asciende por pista y bosque la ladera del macizo de Arno, que divide Gipuzkoa y Bizkaia.");  
+        $manager->persist($etapa50);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 51, $etapa50);
+        
+        $etapa51 = new Etapa();       
+        $etapa51->setStart("Markina");
+        $etapa51->setFinish("Gernika");        
+        $etapa51->setKm(24.6);
+        $etapa51->setDescription("Por sendas sombrías e intrincadas la ruta de la Costa desciende hasta Gerrikaitz y Munitibar, heredero de las anteiglesias, y prosigue hacia los de Mendata y Arratzu. Aquí, en los verdes rincones de Urdaibai, emergen ermitas, torres, calzadas ocultas del medievo y robledales milenarios que hacen olvidar por momentos las densas repoblaciones de pino insigne. Remontando por Marmiz y la falda del Burgonana descendemos hasta la iglesia neoclásica de Ajangiz y Gernika-Lumo.");  
+        $manager->persist($etapa51);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 52, $etapa51);
+        
+        $etapa52 = new Etapa();       
+        $etapa52->setStart("Gernika");
+        $etapa52->setFinish("Lezama");        
+        $etapa52->setKm(20.8);
+        $etapa52->setDescription("Dejamos Gernika con la mirada puesta ya en Bilbao, aunque aún tendremos que hacer una parada en la cercana Lezama. A través de antiguas sendas arboladas, centenarias anteiglesias y arroyos caudalosos caminaremos sobre tierras de la Reserva de la Biosfera de Urdaibai, área natural de gran riqueza tanto ecológica como paisajística.");  
+        $manager->persist($etapa52);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 53, $etapa52);
+        
+        $etapa53 = new Etapa();       
+        $etapa53->setStart("Lezama");
+        $etapa53->setFinish("Bilbao");        
+        $etapa53->setKm(10.8);
+        $etapa53->setDescription("Antes de entrar en Bilbao aún tendremos que superar un último escollo: ascender al monte Avril, en este caso dejamos la carretera unos metros más adelante para tomar un sendero sobre un antiguo sendero real que partía de Bermeo. Sin embargo esta etapa nos resultará sencilla en comparación con la dureza de las anteriores. Ya desde lo alto podremos apreciar la ciudad más poblada de la comunidad foral, fundada en el siglo XIII y famosa por el museo Guggenheim, a orillas de la ría de Bilbao.");  
+        $manager->persist($etapa53);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 54, $etapa53);
+        
+        $etapa54 = new Etapa();       
+        $etapa54->setStart("Bilbao");
+        $etapa54->setFinish("Portugalete");        
+        $etapa54->setKm(19.4);
+        $etapa54->setDescription("Nos dirigimos a uno de los municipios con mayor densidad de población por kilómetro cuadrado de toda España. Esto marcará la etapa de hoy ya que tendremos que salir de Bilbao desde su centro histórico y pasar por alguno de sus barrios periféricos y áreas industriales o comerciales. Pero rápidamente nos reencontraremos con la naturaleza y con nuestro fiel compañero de viaje: el río Nervión, el cual traspasaremos por el impresionante Puente Colgante o Puente Palacio para acceder a Portugalete.");  
+        $manager->persist($etapa54);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 55, $etapa54);
+        
+        $etapa55 = new Etapa();       
+        $etapa55->setStart("Portugalete");
+        $etapa55->setFinish("Castro Urdiales");        
+        $etapa55->setKm(27.6);
+        $etapa55->setDescription("Esta etapa puede dividirse en dos y hacer noche en Pobeña, paso previo a Castro Urdiales. Pasaremos por pueblos con una clara tradición minera, caminando sobre antiguas vías ferroviarias que servían para transportar el hierro extraído de yacimientos cercanos. A pesar de que nos desmarcaremos de la frescura del mar Cantábrico que no cunda el pánico, nos reencontraremos con él antes de llegar a Castro Urdiales.");  
+        $manager->persist($etapa55);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 56, $etapa55);
+        
+        $etapa56 = new Etapa();       
+        $etapa56->setStart("Castro Urdiales");
+        $etapa56->setFinish("Lareado");        
+        $etapa56->setKm(26.6);
+        $etapa56->setDescription("Nos despedimos de Castro a lo grande, en la iglesia de Santa María de la Asunción y a orillas del Cantábrico. Por las calles Arturo Dúo Vidal y Silvestre Ochoa salimos a la carretera nacional, donde torcemos a la derecha ascendiendo al Campijo. Nos internamos momentáneamente por parajes de interior, permaneciendo aún dentro de los dominios de Castro Urdiales para desembocar en Laredo, antiguo territorio de los coniscos (antigua tribu cántabra).");  
+        $manager->persist($etapa56);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 57, $etapa56);
+        
+        $etapa57 = new Etapa();       
+        $etapa57->setStart("Lareado");
+        $etapa57->setFinish("Guemes");        
+        $etapa57->setKm(29);
+        $etapa57->setDescription("Para todos aquellos que puedan disfrutarlo, el cruzar la ría en barca hacia Santoña será una experiencia única, con unas vistas espectaculares. Los que viajen en invierno tendrán que desviarse por la variante de interior o realizar este tramo en transporte público o privado. Sin embargo, cualquiera de las dos alternativas transcurre por bellos lugares, con mil historias que contar y rodeados de las marismas de Santoña y Noja.");  
+        $manager->persist($etapa57);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 58, $etapa57);
+        
+        $etapa58 = new Etapa();       
+        $etapa58->setStart("Guemes");
+        $etapa58->setFinish("Santander");        
+        $etapa58->setKm(11.8);
+        $etapa58->setDescription("Salimos de Güemes buscando la CA-444 camino de Gargollo, donde enlazamos con la CA-443 durante un trecho hasta Linderrio. Un poco más delante volvemos a la comarcal para alcanzar Galizano, donde podremos visitar la iglesia de Nuestra Señora de la Asunción del siglo XVI pero cuya construcción se demoró hasta dos siglos más tarde. Es el exponente máximo del gótico cántabro de todo el municipio, destacando de su interior el retablo mayor y otros dos de la capilla del Rosario.");  
+        $manager->persist($etapa58);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 59, $etapa58);
+        
+        $etapa59 = new Etapa();       
+        $etapa59->setStart("Santander");
+        $etapa59->setFinish("Santillana del Mar");        
+        $etapa59->setKm(37);
+        $etapa59->setDescription("Dura etapa, no tanto por la orografía sino más bien por el elevado kilometraje. Con la constante compañía del río Pas, el cual tendremos que salvar en varias ocasiones incluso dando considerables rodeos para evitarlo, avanzaremos poco a poco rumbo a Queveda y a la cercana Santillana del Mar. Para los que no deseen caminar tanto existen varias alternativas que analizamos más en profundidad en el apartado del itinerario.");  
+        $manager->persist($etapa59);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 60, $etapa59);
+        
+        $etapa60 = new Etapa();       
+        $etapa60->setStart("Santillana del Mar");
+        $etapa60->setFinish("Comillas");        
+        $etapa60->setKm(22);
+        $etapa60->setDescription("Esta etapa, de nuevo con varios puntos intermedios donde poder dividir la jornada, transcurre por impresionantes parajes como el parque natural de Oyambre y por numerosos puntos declarados como Bienes de Interés Cultural. Finalizemos la etapa en Comillas o si lo deseamos en San Vicente de la Barquera, donde tendremos en ambos casos infinidad de puntos de interés que visitar. ");  
+        $manager->persist($etapa60);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 61, $etapa60);
+        
+        $etapa61 = new Etapa();       
+        $etapa61->setStart("Comillas");
+        $etapa61->setFinish("Colombres");        
+        $etapa61->setKm(28.8);
+        $etapa61->setDescription("Tanto si salimos de Comillas como de San Vicente, en el día de hoy diremos adiós a la comunidad cántabra para adentrarnos en Asturias, capital de la sidra. Bordearemos el Cantábrico y sus numerosas rías, las cuales nos regalan paisajes de ensueño y formaciones geológicas impresionantes. En cualquier punto del trayecto podrás disfrutar de la rica gastronomía asturiana, fundiéndose con la cántabra en muchos aspectos.");  
+        $manager->persist($etapa61);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 62, $etapa61);
+        
+        $etapa62 = new Etapa();       
+        $etapa62->setStart("Colombres");
+        $etapa62->setFinish("Llanes");        
+        $etapa62->setKm(23.2);
+        $etapa62->setDescription("Etapa marcada por la existencia de varias alternativas para arribar en la marinera Llanes. Podremos seguir el trazado de la costa, visitando así los famosos bufones de Arenillas y pasando por Andrín o desviarnos desde Pendueles por la senda tradicional que discurre más hacia el interior. Ambas opciones confluyen unos tres kilómetros antes de alcanzar Llanes, villa con un gran patrimonio artístico y natural, destacando el palacio del Conde de la Vega del Sella.");  
+        $manager->persist($etapa62);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 63, $etapa62);
+        
+        $etapa63 = new Etapa();       
+        $etapa63->setStart("Llanes");
+        $etapa63->setFinish("Ribadesella");        
+        $etapa63->setKm(31.4);
+        $etapa63->setDescription("Hoy iremos en busca de la famosa Ribadesella, reconocida por el descenso del Sella en canoa. Además caminaremos por numerosos pueblos y localidades marineras, donde relajar los pies en una de sus calas y playas bañadas por el Cantábrico y sus rías. Algo más de treinta kilómetros separan Llanes de Ribadesella, pero sin duda el encanto de las villas y sus arenales recompensarán el esfuerzo realizado.");  
+        $manager->persist($etapa63);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 64, $etapa63);
+        
+        $etapa64 = new Etapa();       
+        $etapa64->setStart("Ribadesella");
+        $etapa64->setFinish("Sebrayo");        
+        $etapa64->setKm(31.6);
+        $etapa64->setDescription("Seguiremos bordeando la costa cantábrica, sin salvar demasiados desniveles y adentrándonos ligeramente en el interior a la altura de Colunga, tras cruzar el río Libardón. Si hemos pernoctado en Ribadesella tan sólo deberemos cruzar por el puente de Arriondas y seguir a mano izquierda. Paralelos a la playa continuaremos por una zona residencial en el extrarradio de Ribadesella y por la aldea de Abeu.");  
+        $manager->persist($etapa64);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 65, $etapa64);
+        
+        $etapa65 = new Etapa();       
+        $etapa65->setStart("Sebrayo");
+        $etapa65->setFinish("Gijón");        
+        $etapa65->setKm(35.8);
+        $etapa65->setDescription("Salimos bien temprano por la mañana de Sebrayo siguiendo la carretera local que cruza esta localidad. Rápidamente nos ponemos bajo la autovía, la cual cruzamos bajo un puente y nada más pasarla giramos a la derecha. Un poco más adelante deberemos de volver a cruzarla pero en este caso por arriba. Salimos a la carretera nacional y accedemos al núcleo de Villaviciosa, conocida internacionalmente por la calidad de sus pumares (manzanos) y consecuentemente de su sidra.");  
+        $manager->persist($etapa65);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 66, $etapa65);
+        
+        $etapa66 = new Etapa();       
+        $etapa66->setStart("Gijón");
+        $etapa66->setFinish("Avilés");        
+        $etapa66->setKm(25.4);
+        $etapa66->setDescription("A través del monte Areo y sorteando varios ríos nos iremos aproximando a la ciudad de Avilés, cuyo casco histórico ha sido catalogado como zona de interés artístico y monumental. Además de la multitud de construcciones religiosas y civiles destaca por sus calles asoportaladas, por las que perderse y dejarse llevar por la belleza de sus edificios y vías adoquinadas. Además posee alguna de las playas más grandes de toda Asturias, como la del Sablón o la de Bayas y Salinas.");  
+        $manager->persist($etapa66);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 67, $etapa66);
+        
+        $etapa67 = new Etapa();       
+        $etapa67->setStart("Avilés");
+        $etapa67->setFinish("Muros de Nalón");        
+        $etapa67->setKm(23.2);
+        $etapa67->setDescription("Esta etapa podríamos incluso calificarla de rompepiernas ya que ascenderemos y descenderemos en multitud de ocasiones para salvar ríos, arroyos, autovías, acueductos, playas y multitud de aldeas y barrios. Salimos de Avilés en busca de una de sus playas más extensas, la de Salinas. Continuamos por la avenida de Alemania y ascendemos a San Cristobal. Al llegar a lo alto, tras apreciar las vistas, ponemos rumbo a ella, acercándonos más y más al mar Cantábrico por una senda a mano izquierda.");  
+        $manager->persist($etapa67);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 68, $etapa67);
+        
+        $etapa68 = new Etapa();       
+        $etapa68->setStart("Muros de Nalón");
+        $etapa68->setFinish("Soto de Luiña");        
+        $etapa68->setKm(15.3);
+        $etapa68->setDescription("El escaso kilometraje de esta etapa nos permitirá relajar un poco las piernas. Partimos de Muros desde su plaza principal en dirección a El Pito, por una carretera local y tras cruzar las vías del tren. No podemos omitir la visita a La Quinta de Selgas, conjunto palaciego rodeado de un basto jardín que conserva la esencia del proyecto original. Salimos de la localidad por asfalto, cambiando la carretera más adelante por una pista a mano izquierda que nos conducirá hacia el arroyo de San Roque.");  
+        $manager->persist($etapa68);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 69, $etapa68);
+        
+        $etapa69 = new Etapa();       
+        $etapa69->setStart("Soto de Luiña");
+        $etapa69->setFinish("Cadavedo");        
+        $etapa69->setKm(18.5);
+        $etapa69->setDescription("'Esta etapa nos ofrece dos alternativas: seguir hasta Cadavedo por carretera o adentrarse en la Sierra de Palancas. Cadavedo o Cadavéu esconde bellos parajes, como la playa de la Ribeirona o la ermita de la Regalina, situada sobre un promontorio con unas espectaculares vistas. Desgraciadamente el trazado original por la Sierra de las Palancas no está acondicionado correctamente, existiendo zonas con maleza y caminos prácticamente intransitables.");  
+        $manager->persist($etapa69);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 70, $etapa69);
 
 
         /*otro camino
