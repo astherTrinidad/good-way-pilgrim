@@ -562,6 +562,87 @@ class EtapaDataFixtures extends Fixture
         $manager->persist($etapa60);
         $manager->flush();
         $this->setReference(self::ETAPA . 61, $etapa60);
+        
+        $etapa61 = new Etapa();       
+        $etapa61->setStart("Comillas");
+        $etapa61->setFinish("Colombres");        
+        $etapa61->setKm(28.8);
+        $etapa61->setDescription("Tanto si salimos de Comillas como de San Vicente, en el día de hoy diremos adiós a la comunidad cántabra para adentrarnos en Asturias, capital de la sidra. Bordearemos el Cantábrico y sus numerosas rías, las cuales nos regalan paisajes de ensueño y formaciones geológicas impresionantes. En cualquier punto del trayecto podrás disfrutar de la rica gastronomía asturiana, fundiéndose con la cántabra en muchos aspectos.");  
+        $manager->persist($etapa61);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 62, $etapa61);
+        
+        $etapa62 = new Etapa();       
+        $etapa62->setStart("Colombres");
+        $etapa62->setFinish("Llanes");        
+        $etapa62->setKm(23.2);
+        $etapa62->setDescription("Etapa marcada por la existencia de varias alternativas para arribar en la marinera Llanes. Podremos seguir el trazado de la costa, visitando así los famosos bufones de Arenillas y pasando por Andrín o desviarnos desde Pendueles por la senda tradicional que discurre más hacia el interior. Ambas opciones confluyen unos tres kilómetros antes de alcanzar Llanes, villa con un gran patrimonio artístico y natural, destacando el palacio del Conde de la Vega del Sella.");  
+        $manager->persist($etapa62);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 63, $etapa62);
+        
+        $etapa63 = new Etapa();       
+        $etapa63->setStart("Llanes");
+        $etapa63->setFinish("Ribadesella");        
+        $etapa63->setKm(31.4);
+        $etapa63->setDescription("Hoy iremos en busca de la famosa Ribadesella, reconocida por el descenso del Sella en canoa. Además caminaremos por numerosos pueblos y localidades marineras, donde relajar los pies en una de sus calas y playas bañadas por el Cantábrico y sus rías. Algo más de treinta kilómetros separan Llanes de Ribadesella, pero sin duda el encanto de las villas y sus arenales recompensarán el esfuerzo realizado.");  
+        $manager->persist($etapa63);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 64, $etapa63);
+        
+        $etapa64 = new Etapa();       
+        $etapa64->setStart("Ribadesella");
+        $etapa64->setFinish("Sebrayo");        
+        $etapa64->setKm(31.6);
+        $etapa64->setDescription("Seguiremos bordeando la costa cantábrica, sin salvar demasiados desniveles y adentrándonos ligeramente en el interior a la altura de Colunga, tras cruzar el río Libardón. Si hemos pernoctado en Ribadesella tan sólo deberemos cruzar por el puente de Arriondas y seguir a mano izquierda. Paralelos a la playa continuaremos por una zona residencial en el extrarradio de Ribadesella y por la aldea de Abeu.");  
+        $manager->persist($etapa64);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 65, $etapa64);
+        
+        $etapa65 = new Etapa();       
+        $etapa65->setStart("Sebrayo");
+        $etapa65->setFinish("Gijón");        
+        $etapa65->setKm(35.8);
+        $etapa65->setDescription("Salimos bien temprano por la mañana de Sebrayo siguiendo la carretera local que cruza esta localidad. Rápidamente nos ponemos bajo la autovía, la cual cruzamos bajo un puente y nada más pasarla giramos a la derecha. Un poco más adelante deberemos de volver a cruzarla pero en este caso por arriba. Salimos a la carretera nacional y accedemos al núcleo de Villaviciosa, conocida internacionalmente por la calidad de sus pumares (manzanos) y consecuentemente de su sidra.");  
+        $manager->persist($etapa65);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 66, $etapa65);
+        
+        $etapa66 = new Etapa();       
+        $etapa66->setStart("Gijón");
+        $etapa66->setFinish("Avilés");        
+        $etapa66->setKm(25.4);
+        $etapa66->setDescription("A través del monte Areo y sorteando varios ríos nos iremos aproximando a la ciudad de Avilés, cuyo casco histórico ha sido catalogado como zona de interés artístico y monumental. Además de la multitud de construcciones religiosas y civiles destaca por sus calles asoportaladas, por las que perderse y dejarse llevar por la belleza de sus edificios y vías adoquinadas. Además posee alguna de las playas más grandes de toda Asturias, como la del Sablón o la de Bayas y Salinas.");  
+        $manager->persist($etapa66);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 67, $etapa66);
+        
+        $etapa67 = new Etapa();       
+        $etapa67->setStart("Avilés");
+        $etapa67->setFinish("Muros de Nalón");        
+        $etapa67->setKm(23.2);
+        $etapa67->setDescription("Esta etapa podríamos incluso calificarla de rompepiernas ya que ascenderemos y descenderemos en multitud de ocasiones para salvar ríos, arroyos, autovías, acueductos, playas y multitud de aldeas y barrios. Salimos de Avilés en busca de una de sus playas más extensas, la de Salinas. Continuamos por la avenida de Alemania y ascendemos a San Cristobal. Al llegar a lo alto, tras apreciar las vistas, ponemos rumbo a ella, acercándonos más y más al mar Cantábrico por una senda a mano izquierda.");  
+        $manager->persist($etapa67);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 68, $etapa67);
+        
+        $etapa68 = new Etapa();       
+        $etapa68->setStart("Muros de Nalón");
+        $etapa68->setFinish("Soto de Luiña");        
+        $etapa68->setKm(15.3);
+        $etapa68->setDescription("El escaso kilometraje de esta etapa nos permitirá relajar un poco las piernas. Partimos de Muros desde su plaza principal en dirección a El Pito, por una carretera local y tras cruzar las vías del tren. No podemos omitir la visita a La Quinta de Selgas, conjunto palaciego rodeado de un basto jardín que conserva la esencia del proyecto original. Salimos de la localidad por asfalto, cambiando la carretera más adelante por una pista a mano izquierda que nos conducirá hacia el arroyo de San Roque.");  
+        $manager->persist($etapa68);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 69, $etapa68);
+        
+        $etapa69 = new Etapa();       
+        $etapa69->setStart("Soto de Luiña");
+        $etapa69->setFinish("Cadavedo");        
+        $etapa69->setKm(18.5);
+        $etapa69->setDescription("'Esta etapa nos ofrece dos alternativas: seguir hasta Cadavedo por carretera o adentrarse en la Sierra de Palancas. Cadavedo o Cadavéu esconde bellos parajes, como la playa de la Ribeirona o la ermita de la Regalina, situada sobre un promontorio con unas espectaculares vistas. Desgraciadamente el trazado original por la Sierra de las Palancas no está acondicionado correctamente, existiendo zonas con maleza y caminos prácticamente intransitables.");  
+        $manager->persist($etapa69);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 70, $etapa69);
 
 
         /*otro camino
