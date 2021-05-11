@@ -782,6 +782,69 @@ class EtapaDataFixtures extends Fixture
         $manager->persist($etapa84);
         $manager->flush();
         $this->setReference(self::ETAPA . 85, $etapa84);
+        
+        $etapa85 = new Etapa();       
+        $etapa85->setStart("Monesterio");
+        $etapa85->setFinish("Fuente de Cantos");        
+        $etapa85->setKm(20.7);
+        $etapa85->setDescription("Desde Monesterio iremos descendiendo progresivamente hasta alcanzar el punto más bajo de esta etapa, el arroyo Bodión. Desde allí tendremos que llanear por multitud de pistas agrarias y campos de cultivo hasta Fuente de Cantos, localidad que vio nacer al pintor Francisco de Zurbarán y punto final de esta etapa. Esta etapa se caracteriza por la presencia de extensas llanuras e infinitas pistas agrícolas sin cobijo alguno.");  
+        $manager->persist($etapa85);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 86, $etapa85);
+        
+        $etapa86 = new Etapa();       
+        $etapa86->setStart("Fuente de Cantos");
+        $etapa86->setFinish("Zafra");        
+        $etapa86->setKm(24.2);
+        $etapa86->setDescription("Siguiendo con la tónica de la jornada anterior recorreremos estos casi veinticinco kilómetros entre pistas y arroyos. Atravesaremos pequeños núcleos antes de llegar a Zafra, punto estratégico que une varias ciudades de la comunidad extremeña, como Badajoz, Mérida, Sevilla, Huelva y Córdoba. El paisaje será el habitual, pistas agrarias,viñedos y la presencia de varios arroyos que tendremos que ir superando.");  
+        $manager->persist($etapa86);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 87, $etapa86);
+        
+        $etapa87 = new Etapa();       
+        $etapa87->setStart("Zafra");
+        $etapa87->setFinish("Villafranca de los Barros");        
+        $etapa87->setKm(19.8);
+        $etapa87->setDescription("Comenzamos desde Zafra por la Torre de San Francisco, punto en el que cruzamos la carretera y cogemos un camino ascendente hasta la Sierra de San Cristóbal, al sur de Los Santos de Maimona. En estos montes se cultivan vides, olivares, almendros y multitud de árboles frutales gracias al clima suave predominante. Entramos así en la localidad del mismo nombre, en la cual debemos abastecernos para el resto de la etapa ya que no encontraremos servicio alguno hasta llegar a Villafranca de los Barros.");  
+        $manager->persist($etapa87);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 88, $etapa87);
+        
+        $etapa88 = new Etapa();       
+        $etapa88->setStart("Villafranca de los Barros");
+        $etapa88->setFinish("Torremejía");        
+        $etapa88->setKm(27);
+        $etapa88->setDescription("Desde Villafranca de los Barros iniciaremos esta octava jornada con la mirada puesta en la Vereda de la Mina, tras cruzar el arroyo de Bonhabal y punto de inflexión de esta etapa. Desde allí podremos desviarnos hasta Almendralejo, reuniéndonos así con el resto de peregrinos, que en el día de ayer alargaron la etapa, o seguir de frente hasta Torremejía. Esta localidad fue la elegida por Camilo José Cela para ambientar su novela La familia de Pascual Duarte.");  
+        $manager->persist($etapa88);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 89, $etapa88);
+        
+        $etapa89 = new Etapa();       
+        $etapa89->setStart("Torremejía");
+        $etapa89->setFinish("Mérida");        
+        $etapa89->setKm(15.3);
+        $etapa89->setDescription("Apenas dieciséis kilómetros separan Torremejía de Mérida, sin embargo, los que hayan pernoctado en la etapa anterior en Almendralejo tendrán que recorrer una distancia total de casi treinta kilómetros. El río Guadiana nos da la bienvenida a la ciudad fundada por el emperador Octavio Augusto y que sirvió como ciudad de retiro para los soldados eméritos o veteranos y la cual llegó incluso a ser la capital del Reino Visigodo de Hispania.");  
+        $manager->persist($etapa89);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 90, $etapa89);
+        
+        $etapa90 = new Etapa();       
+        $etapa90->setStart("Mérida");
+        $etapa90->setFinish("Alcuéscar");        
+        $etapa90->setKm(35.9);
+        $etapa90->setDescription("Nos despedimos de la ciudad de Octavio Augusto sobre su arroyo Albarregas, rumbo al embalse de Proserpina. Para ello nos adentramos en la avenida Vía de la Plata para desviarnos por la avenida del Lago tras una glorieta. Cruzando el Parque Natural de Cornalvo diremos adiós a la provincia de Badajoz para adentrarnos en tierras cacereñas. Tendremos que traspasar el embalse romano de Proserpina, el cual también forma parte del declarado Patrimonio de la Humanidad Conjunto Arqueológico de Mérida.");  
+        $manager->persist($etapa90);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 91, $etapa90);
+        
+        $etapa91 = new Etapa();       
+        $etapa91->setStart("Alcuéscar");
+        $etapa91->setFinish("Cáceres");        
+        $etapa91->setKm(37.4);
+        $etapa91->setDescription("Etapa que puede dividirse en dos, pernoctando en la Aldea del Cano o en Valdesalor,para aquellos que deseen llegar temprano a Cáceres y visitar la ciudad. A pesar de ser casi cuarenta kilómetros la distancia entre Alcuéscar y el fin de etapa cabe resaltar que los desniveles no son muy grandes por lo que para los que se vean con fuerzas podrán ahorrar un día de viaje y visitar Cáceres al día siguiente.");  
+        $manager->persist($etapa91);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 92, $etapa91);
 
         /*otro camino
         $etapa = new Etapa();       
