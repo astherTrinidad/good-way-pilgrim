@@ -64,12 +64,12 @@ class UsuarioCaminoRepository extends ServiceEntityRepository {
         $db->executeQuery($query);
     }
 
-//    public function getKm($idUser) {
-//        $db = $this->em->getConnection();
-//        $query = "SELECT IFNULL(sum(e2.km),0) as km FROM etapa e2 , usuario_camino_etapa uce, camino_etapa ce 
-//        WHERE uce.id_usuario =$idUser AND uce.id_caminoEtapa = ce.id AND ce.id_etapa = e2.id ;";
-//        $result = $db->executeQuery($query);
-//        $usersPathsActive = $result->fetchAll();
-//        return implode($usersPathsActive[0]);
-//    }
+    public function getKm($idUser) {
+        $db = $this->em->getConnection();
+        $query = "SELECT IFNULL(sum(e2.km),0) as km FROM etapa e2 , usuario_camino_etapa uce, camino_etapa ce 
+        WHERE uce.id_usuario =$idUser AND uce.id_caminoEtapa = ce.id AND ce.id_etapa = e2.id ;";
+        $result = $db->executeQuery($query);
+        $usersPathsActive = $result->fetchAll();
+        return implode($usersPathsActive[0]);
+    }
 }

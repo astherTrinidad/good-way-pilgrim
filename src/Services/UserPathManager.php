@@ -23,14 +23,17 @@ class UserPathManager {
     public function getEtapasRealizadas($userId, $caminoId) {
         return $this->userPathRepository->getEtapasRealizadas($userId, $caminoId);
     }
-    
-    public function addActivePath($userId, $caminoId, $date)
-    {
+
+    public function addActivePath($userId, $caminoId, $date) {
         return $this->userPathRepository->addActivePath($userId, $caminoId, $date);
     }
-
-//    public function getKm($userId)
-//    {
-//        return $this->userPathRepository->getKm($userId);
+    
+//    public function archivePath($userId, $caminoId, $date) {
+//        return $this->userPathRepository->addActivePath($userId, $caminoId, $date);
 //    }
+
+    public function getKm($userId)
+    {
+        return $this->userPathRepository->getKm($userId);
+    }
 }
