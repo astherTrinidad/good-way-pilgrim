@@ -7,3 +7,7 @@ runtime_config:
 
 env_variables:
     APP_ENV: "prod"
+    DATABASE_URL: "mysql://root:GWpilgrim@35.205.8.90:3306/goodwaypilgrim"
+
+automatic_scaling:
+  min_num_instances: 1
