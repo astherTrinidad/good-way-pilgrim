@@ -12,7 +12,7 @@ class EtapaDataFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {             
-       //camino frances
+       //Camino Frances
         $etapa = new Etapa();       
         $etapa->setStart("Saint Jean Pied de Port");
         $etapa->setFinish("Roncesvalles");        
@@ -310,7 +310,7 @@ class EtapaDataFixtures extends Fixture
         $manager->flush();
         $this->setReference(self::ETAPA . 33, $etapa32); 
 
-        //primitivo
+        //Camino Primitivo
         $etapa33 = new Etapa();       
         $etapa33->setStart("Oviedo");
         $etapa33->setFinish("San Juan de Villapañada");        
@@ -436,6 +436,8 @@ class EtapaDataFixtures extends Fixture
         $manager->persist($etapa46);
         $manager->flush();
         $this->setReference(self::ETAPA . 47, $etapa46);
+        
+        //Camino del Norte
         
         $etapa47 = new Etapa();       
         $etapa47->setStart("Irún");
@@ -639,11 +641,147 @@ class EtapaDataFixtures extends Fixture
         $etapa69->setStart("Soto de Luiña");
         $etapa69->setFinish("Cadavedo");        
         $etapa69->setKm(18.5);
-        $etapa69->setDescription("'Esta etapa nos ofrece dos alternativas: seguir hasta Cadavedo por carretera o adentrarse en la Sierra de Palancas. Cadavedo o Cadavéu esconde bellos parajes, como la playa de la Ribeirona o la ermita de la Regalina, situada sobre un promontorio con unas espectaculares vistas. Desgraciadamente el trazado original por la Sierra de las Palancas no está acondicionado correctamente, existiendo zonas con maleza y caminos prácticamente intransitables.");  
+        $etapa69->setDescription("Esta etapa nos ofrece dos alternativas: seguir hasta Cadavedo por carretera o adentrarse en la Sierra de Palancas. Cadavedo o Cadavéu esconde bellos parajes, como la playa de la Ribeirona o la ermita de la Regalina, situada sobre un promontorio con unas espectaculares vistas. Desgraciadamente el trazado original por la Sierra de las Palancas no está acondicionado correctamente, existiendo zonas con maleza y caminos prácticamente intransitables.");  
         $manager->persist($etapa69);
         $manager->flush();
         $this->setReference(self::ETAPA . 70, $etapa69);
-
+        
+        $etapa70 = new Etapa();       
+        $etapa70->setStart("Cadavedo");
+        $etapa70->setFinish("Luarca");        
+        $etapa70->setKm(15.3);
+        $etapa70->setDescription("Dejamos la parroquia de Cadavedo por la carretera nacional hasta alcanzar la vía del tren, las cruzamos y unas flechas nos mostrarán el camino a seguir hacia Villademoros. Desde aquí salimos por una carretera local y cruzamos más adelante tras otro desvío el arroyo Palminero. Rápidamente nos colocamos en San Cristóbal y en la aledaña Querúas, alternando entre la N-632 y carreteras secundarias. El río Esva se interpondrá en nuestro camino y nos conducirá hasta la playa de Cueva.");  
+        $manager->persist($etapa70);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 71, $etapa70);
+        
+        $etapa71 = new Etapa();       
+        $etapa71->setStart("Luarca");
+        $etapa71->setFinish("La Caridad");        
+        $etapa71->setKm(30.3);
+        $etapa71->setDescription("Etapa monótona, alternando en todo momento tramos por carretera y caminos muy próximos a ella. Cruzaremos el río Navia, uno de los más importantes y caudalosos de la cornisa cantábrica y que nace en Pedrafita do Cebreiro. Dejamos atrás Luarca por la calle La Peña, cruzando el curso del río Negro y ascendiendo hasta la aldea de Villuir, punto donde cruzamos la carretera nacional y nos adentramos por caminos rurales hasta Otur, a unos tres kilómetros.");  
+        $manager->persist($etapa71);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 72, $etapa71);
+        
+        $etapa72 = new Etapa();       
+        $etapa72->setStart("La Caridad");
+        $etapa72->setFinish("Ribadeo");        
+        $etapa72->setKm(21.6);
+        $etapa72->setDescription("Nos despedimos de Asturias para darle una calurosa bienvenida a Ribadeo, primer concello gallego, tal y como nos indica la llave de su escudo, la cual simboliza la entrada a Galicia. Históricamente se accedía a la comunidad gallega por Vegadeo, un poco más al sur, pero la construcción del puente de los Santos entre Ribadeo y Castropol modificó sustancialmente esta ruta. Para los que prefieran seguir por la costa y visitar Tapia de Casariego también tendrán la oportunidad de hacerlo.");  
+        $manager->persist($etapa72);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 73, $etapa72);
+        
+        $etapa73 = new Etapa();       
+        $etapa73->setStart("Ribadeo");
+        $etapa73->setFinish("Lourenzá");        
+        $etapa73->setKm(28.4);
+        $etapa73->setDescription("El Camino del Norte comienza su andadura en Galicia desde la villa medieval de Ribadeo, localidad limítrofe entre la provincia de Lugo y Asturias. Su actividad ha estado muy ligada a su ría ya que esta supone también la entrada a Galicia desde la zona nororiental de la península. Esta primera etapa de casi treinta kilómetros es asequible para la mayoría de peregrinos, resaltando tan sólo los repechos en A Ponte Arante y la que da acceso a Lourenzá.");  
+        $manager->persist($etapa73);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 74, $etapa73);
+        
+        $etapa74 = new Etapa();       
+        $etapa74->setStart("Lourenzá");
+        $etapa74->setFinish("Abadín");        
+        $etapa74->setKm(25.2);
+        $etapa74->setDescription("Al contrario que en el día de ayer, hoy no transcurriremos por tantos pueblos y pequeñas aldeas, pero en cambio llegaremos a una de las siete antiguas capitales del Reino de Galicia: Mondoñedo. Las constantes subidas se verán compensadas por frondosos bosques y paisajes sin igual, hasta llegar al puerto de a Xesta, desde donde podremos apreciar unas espectaculares vistas de todo el valle.");  
+        $manager->persist($etapa74);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 75, $etapa74);
+        
+        $etapa75 = new Etapa();       
+        $etapa75->setStart("Abadín");
+        $etapa75->setFinish("Vilalba");        
+        $etapa75->setKm(20.7);
+        $etapa75->setDescription("Dejamos atrás Abadín partiendo de la oficina de Correos, donde a un kilómetro más adelante nos despediremos también de su iglesia en honor a Santa María. Etapa marcada por su perfil llano, como bien podemos deducir de la zona en la que nos encontramos: a Terra Chá (Tierra llana en castellano). Caminaremos entre infinitos prados verdes repletos de ganado pero siempre próximos a la carretera nacional, cuya presencia facilita la existencia de numerosos establecimientos a lo largo de la etapa.");  
+        $manager->persist($etapa75);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 76, $etapa75);
+        
+        $etapa76 = new Etapa();       
+        $etapa76->setStart("Vilalba");
+        $etapa76->setFinish("Baamonde");        
+        $etapa76->setKm(18.6);
+        $etapa76->setDescription("De nuevo el terreno llano facilita notablemente el desarrollo de esta etapa pero, sin embargo, el kilometraje de la misma (unos treinta y tres kilómetros hasta Miraz) sí puede dejar exhausto a más de un peregrino. Entre densos bosques y extensas praderas cruzaremos los ríos Magdalena y Trimaz, apreciando la belleza de la iglesia de San Alberte y varios puentes medievales.");  
+        $manager->persist($etapa76);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 77, $etapa76);
+        
+        $etapa77 = new Etapa();       
+        $etapa77->setStart("Baamonde");
+        $etapa77->setFinish("Sobrado");        
+        $etapa77->setKm(39.8);
+        $etapa77->setDescription("En esta etapa diremos adiós a las suaves ondulaciones de a Terra Chá para dar paso a la provincia de A Coruña. De nuevo pasaremos por innumerables pueblos, muchos de ellos casi despoblados con el paso de los años y la emigración del campo a la ciudad. Esto marcará la jornada de hoy por lo que no encontraremos muchos servicios, tan sólo la soledad y la tranquilidad del rural gallego hasta llegar a Sobrado dos Monxes y a su impresionante monasterio cisterciense.");  
+        $manager->persist($etapa77);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 78, $etapa77);
+        
+        $etapa78 = new Etapa();       
+        $etapa78->setStart("Sobrado");
+        $etapa78->setFinish("Arzúa");        
+        $etapa78->setKm(22);
+        $etapa78->setDescription("Aunque aún nos quedan tres etapas más para alcanzar la ciudad compostelana, esta es la última del Camino del Norte ya que en Arzúa nos juntaremos con la masa de peregrinos que vienen desde St.Jean Pied de Port o Roncesvalles, recorriendo el Camino Francés. Así que conviene disfrutar al máximo de esta última etapa, de la tranquilidad de los bosques atlánticos, los sosegados caminos rurales y la excelente gastronomía.");  
+        $manager->persist($etapa78);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 79, $etapa78);
+        
+        $etapa79 = new Etapa();       
+        $etapa79->setStart("Arzúa");
+        $etapa79->setFinish("Pedrouzo");        
+        $etapa79->setKm(19.3);
+        $etapa79->setDescription("Llegados a este punto, y a tan solo 40 kilómetros de entrar en la plaza del Obradoiro y contemplar nuestro destino, disponemos de varias opciones, siendo la más recomendable hacer noche en O Pedrouzo, dado que se trata de un lugar que dispone de todos los servicios necesarios y nos permite dejar una pequeña etapa para finalizar nuestro camino para el día siguiente. Es recomendable dividir la etapa en dos, y disfrutar de las dos últimas jornadas que nos restan para llegar a Compostela.");  
+        $manager->persist($etapa79);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 80, $etapa79);
+        
+        $etapa80 = new Etapa();       
+        $etapa80->setStart("Pedrouzo");
+        $etapa80->setFinish("Santiago de Compostela");        
+        $etapa80->setKm(19.4);
+        $etapa80->setDescription("Santiago aguarda y eso se nota en los caminantes. Algunos con paso ligero y con la mente puesta en la meta, otros sin embargo, con el paso sosegado de aquel que tiene miedo de llegar al final de su aventura y no saber lo que vendrá después. En cualquier caso, todos con la ilusión de alcanzar por fin la majestuosa plaza del Obradoiro y alzar la vista para vislumbrar la barroca fachada de la Catedral. Por delante, una etapa corta, sencilla, con pendientes moderadas y senderos agradecidos.");  
+        $manager->persist($etapa80);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 81, $etapa80);
+        
+        //Vía de la Plata
+        
+        $etapa81 = new Etapa();       
+        $etapa81->setStart("Sevilla");
+        $etapa81->setFinish("Guillena");        
+        $etapa81->setKm(21.6);
+        $etapa81->setDescription("La aventura de la Vía de la Plata, además de calzada romana, comienza a las puertas de la Catedral de Sevilla. Concretamente junto a la puerta de la Asunción, sita en la Avenida de la Constitución. La primera vieira nos guía por la calle García de Vinuesa y continuamos por las calles de Jimios, Zaragoza, Reyes Católicos. Cruzamos el Puente de Isabel II para acceder al popular barrio de Triana. Lo recorremos por las calles San Jorge, Callao y Castilla, donde se encuentra la Capilla del Cachorro.");  
+        $manager->persist($etapa81);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 82, $etapa81);
+        
+        $etapa82 = new Etapa();       
+        $etapa82->setStart("Guillena");
+        $etapa82->setFinish("Castiblanco de los Arroyos");        
+        $etapa82->setKm(18.2);
+        $etapa82->setDescription("Salimos de Guillena por la avenida de la Vega, a la derecha del albergue de peregrinos. A escasos quinientos metros torcemos a la derecha para ir en busca del río Rivera de Huelva, el cual cruzamos para desembocar más adelante en la autovía. Seguimos rumbo a un polígono industrial y accedemos a continuación a la Vía Pecuaria Cañada Real de las Islas. Este camino de trashumancia también conocido como la “vereda de la carne” discurre mayormente por el valle del Riopudio.");  
+        $manager->persist($etapa82);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 83, $etapa82);
+        
+        $etapa83 = new Etapa();       
+        $etapa83->setStart("Castiblanco de los Arroyos");
+        $etapa83->setFinish("Almadén de la Plata");        
+        $etapa83->setKm(28.8);
+        $etapa83->setDescription("Por la avenida Antonio Machado salimos de Almadén de La Plata en busca de la iglesia del Divino Salvador. Desde allí descendemos siguiendo las flechas amarillas hasta la carretera, la cual seguiremos durante la mayor parte de esta etapa. Aproximadamente dos kilómetros y medio después pasaremos por dos áreas residenciales periféricas de Castilblanco, dejándolas atrás para ascender entre campos repletos de ganado hasta otra carretera, justo a la altura de una gran antena de telecomunicaciones.");  
+        $manager->persist($etapa83);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 84, $etapa83);
+        
+        $etapa84 = new Etapa();       
+        $etapa84->setStart("Almadén de la Plata");
+        $etapa84->setFinish("Monesterio");        
+        $etapa84->setKm(34.6);
+        $etapa84->setDescription("En el día de hoy nos despediremos de la comunidad andaluza para adentrarnos en tierras extremeñas. Salimos de Almadén de la Plata por la plaza de toros, siguiendo las marcas amarillas jacobeas y descendiendo por el cerro de los Covachos a través de caminos de tierra. En estos casi treinta y cinco kilómetros caminaremos por extensas dehesas, campos de labradío y varios arroyos, teniendo que sufrir un poco al subir finalmente al puerto de la Cruz, paso previo a Monesterio.");  
+        $manager->persist($etapa84);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 85, $etapa84);
 
         /*otro camino
         $etapa = new Etapa();       
