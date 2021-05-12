@@ -845,6 +845,306 @@ class EtapaDataFixtures extends Fixture
         $manager->persist($etapa91);
         $manager->flush();
         $this->setReference(self::ETAPA . 92, $etapa91);
+        
+        $etapa92 = new Etapa();       
+        $etapa92->setStart("Cáceres");
+        $etapa92->setFinish("Embalse de Alcántara");        
+        $etapa92->setKm(33.8);
+        $etapa92->setDescription("Si partimos de Casar de Cáceres tan sólo tendremos que recorrer poco más de veinte kilómetros hasta el Embalse de Alcántara, pudiendo alargar la etapa hasta Cañaveral sumando en total unos treinta y tres kilómetros. Si hemos pernoctado en Cáceres lo mejor será parar en el Embalse de Alcántara y dejar para mañana el tramo hasta Cañaveral.");  
+        $manager->persist($etapa92);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 93, $etapa92);
+        
+        $etapa93 = new Etapa();       
+        $etapa93->setStart("Embalse de Alcántara");
+        $etapa93->setFinish("Grimaldo");        
+        $etapa93->setKm(20);
+        $etapa93->setDescription("Salimos por el arcén de la carretera del día de ayer, desviandonos al rato por un camino ascendente hacia cerro Garrote. Bordeando toda esta zona iremos apreciando desde lo alto toda la zona del embalse y el antiguo Camino de la Plata. Etapa marcada por la presencia del Alto de Los Castaños, a unos quinientos metros de altitud y desde donde descenderemos progresivamente hasta Grimaldo, donde podremos visitar su iglesia de Santa María y degustar su rica gastronomía en alguno de sus restaurantes.");  
+        $manager->persist($etapa93);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 94, $etapa93);
+        
+        $etapa94 = new Etapa();       
+        $etapa94->setStart("Grimaldo");
+        $etapa94->setFinish("Carcaboso");        
+        $etapa94->setKm(30.2);
+        $etapa94->setDescription("A través de campos de labradío y la tranquilidad de sus montes nos aproximaremos a la amurallada Galisteo, localidad que clava sus raíces en la época romana y en el legado árabe posterior. Muestra de ello es su torre de La Picota, fortificación construida por los cristianos en el siglo XIV y que formaba parte de un antiguo palacio sobre el alcázar almohade. Desde aquí seguimos caminando hacia la cercana localidad de Carcaboso, antiguo señorío de Galisteo fundado en el siglo XIII.");  
+        $manager->persist($etapa94);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 95, $etapa94);
+        
+        $etapa95 = new Etapa();       
+        $etapa95->setStart("Carcaboso");
+        $etapa95->setFinish("Aldeanueva del camino");        
+        $etapa95->setKm(38.3);
+        $etapa95>setDescription("Etapa de largo recorrido pudiendo dividirla en dos pernoctando en Oliva Plasencia o en Jarrilla, teniendo que desviarnos ligeramente del trazado jacobeo para ello. Sin duda, lo más característico de esta jornada será el famoso arco romano de Cáparra, monumento único en nuestro país dado su buen estado de conservación.");  
+        $manager->persist($etapa95);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 96, $etapa95);
+        
+        $etapa96 = new Etapa();       
+        $etapa96->setStart("Aldeanueva del camino");
+        $etapa96->setFinish("La Calzada de Béjar");        
+        $etapa96->setKm(21.8);
+        $etapa96->setDescription("En el día de hoy abandonaremos oficialmente la comunidad de Extremadura para entrar en Castilla y León, concretamente por el Puerto de Béjar. De nuevo siguiendo los pasos de la antigua calzada romana pasaremos por localidades donde el Imperio dejó marcada su impronta, tanto en sus barrios, edificaciones como infraestructuras.");  
+        $manager->persist($etapa96);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 97, $etapa96);
+        
+        $etapa97 = new Etapa();       
+        $etapa97->setStart("La Calzada de Béjar");
+        $etapa97->setFinish("Fuenterroble de Salvatierra");        
+        $etapa97->setKm(20.2);
+        $etapa97->setDescription("Etapa de apenas unos veinte kilómetros pero perfecta para descansar las piernas, junto con la jornada anterior, tras varios caminatas de más de treinta kilómetros. Poco a poco iremos adentrándonos en tierras salmantinas, pudiendo ir catando de igual manera sus estupendos embutidos como el famoso jamón de Guijuelo.");  
+        $manager->persist($etapa97);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 98, $etapa97);
+        
+        $etapa98 = new Etapa();       
+        $etapa98->setStart("Fuenterroble de Salvatierra");
+        $etapa98->setFinish("San Pedro de Rozados");        
+        $etapa98->setKm(27.9);
+        $etapa98->setDescription("El protagonista de esta etapa es sin duda el Pico Dueña y su Cruz de Santiago, a algo más de mil cien metros sobre el nivel del mar y la cumbre más alta desde Sevilla. Desde allí sólo tendremos que descender hasta el arroyo Mendigos y continuar rumbo a San Pedro de Rozados, punto y final de esta etapa.");  
+        $manager->persist($etapa98);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 99, $etapa98);
+        
+        $etapa99 = new Etapa();       
+        $etapa99->setStart("San Pedro de Rozados");
+        $etapa99->setFinish("Salamanca");        
+        $etapa99->setKm(23.6);
+        $etapa99->setDescription("Etapa sencilla que da paso a la catedralicia Salamanca, la que además de albergar numerosas iglesias, conventos y edificios religiosos destaca por albergar la universidad más antigua de España, fundada concretamente en el siglo XIII.");  
+        $manager->persist($etapa99);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 100, $etapa99);
+        
+        $etapa100 = new Etapa();       
+        $etapa100->setStart("Salamanca");
+        $etapa100->setFinish("El Cubo de la Tierra del Vino");        
+        $etapa100->setKm(36.4);
+        $etapa100->setDescription("Larga etapa, existiendo la posibilidad de dividirla en dos pernoctando en Calzada de Valdunciel, prácticamente a mitad de etapa. A diferencia que en etapas anteriores, en esta nos tocará transitar próximos a la autovía por un camino de gravilla habilitado para ello y que nos conducirá directamente a El Cubo de la Tierra del Vino, la primera localidad zamorana por la que caminaremos.");  
+        $manager->persist($etapa100);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 101, $etapa100);
+        
+        $etapa101 = new Etapa();       
+        $etapa101->setStart("El Cubo de la Tierra del Vino");
+        $etapa101->setFinish("Zamora");        
+        $etapa101->setKm(31.6);
+        $etapa101->setDescription("Desde la tierra del vino descenderemos hasta Zamora, a través de pistas parcelarias y caminos de tierra sin demasiados desniveles. Alcanzaremos así en algo más de treinta kilómetros el casco antiguo de Zamora, declarado Conjunto Histórico Artístico, donde destacan edificaciones románicas como su impresionante catedral.");  
+        $manager->persist($etapa101);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 102, $etapa101);
+        
+        $etapa102 = new Etapa();       
+        $etapa102->setStart("Zamora");
+        $etapa102->setFinish("Montamarta");        
+        $etapa102->setKm(19.2);
+        $etapa102->setDescription("Tras dos intensas jornadas podremos tomarnos un respiro en esta etapa que no alcanza ni los veinte kilómetros. Las pistas parcelarias e infinitas rectas caracterizan el tramo comprendido entre Zamora y Montamarta, punto elegido como fin de etapa y donde poder descansar tras visitar la iglesia de San Miguel Arcángel y la ermita de Santa María del Castillo.");  
+        $manager->persist($etapa102);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 103, $etapa102);
+        
+        $etapa103 = new Etapa();       
+        $etapa103->setStart("Montamarta");
+        $etapa103->setFinish("Granja de la Moreruela");        
+        $etapa103->setKm(22.6);
+        $etapa103->setDescription("Etapa marcada por los constantes repechos ascendentes y descendentes, zigzagueando entre caminos de tierra y desvíos continuos. Sin embargo, la belleza del entorno y la presencia de joyas como el castillo de Castrotorafe y el Monasterio de Moreruela compensarán gratamente el esfuerzo.");  
+        $manager->persist($etapa103);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 104, $etapa103);
+        
+        $etapa104 = new Etapa();       
+        $etapa104->setStart("Granja de la Moreruela");
+        $etapa104->setFinish("Benavente");        
+        $etapa104->setKm(27.2);
+        $etapa104->setDescription("En el día de hoy nos despediremos del resto de peregrinos que han optado por la opción sanabresa, siguiendo de cerca el devenir de la nacional y cruzando por varios pueblos antes de llegar a Villanueva de Azoague y finalmente a Benavente. Tendremos la oportunidad de transitar por unas vías del tren abandonadas, otorgándole a este tramo un encanto muy especial y aventurero.");  
+        $manager->persist($etapa104);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 105, $etapa104);
+        
+        $etapa105 = new Etapa();       
+        $etapa105->setStart("Benavente");
+        $etapa105->setFinish("Alija del Infantado");        
+        $etapa105->setKm(21.9);
+        $etapa105->setDescription("El río Jamuz nos acompañará durante gran parte de esta etapa, de apenas unos veinte kilómetros. Pasaremos por varios núcleos, sin llegar a tocar la mayor parte de ellos, quedando estos al margen del trazado.");  
+        $manager->persist($etapa105);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 106, $etapa105);
+        
+        $etapa106 = new Etapa();       
+        $etapa106->setStart("Alija del Infantado");
+        $etapa106->setFinish("La Bañeza");        
+        $etapa106->setKm(22.1);
+        $etapa106->setDescription("En esta etapa los campos de cereal se verán lentamente sustituidos por coloridos olivos y viñedos, presagiando la entrada a la comunidad riojana. A través de una antigua calzada romana, ríos y puentes que esconden siniestras leyendas y pueblos medievales, Estella nos recibirá entre campos de amapolas y trigales.");  
+        $manager->persist($etapa106);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 107, $etapa106);
+        
+        $etapa107 = new Etapa();       
+        $etapa107->setStart("La Bañeza");
+        $etapa107->setFinish("Astorga");        
+        $etapa107->setKm(24.5);
+        $etapa107->setDescription("En esta etapa los campos de cereal se verán lentamente sustituidos por coloridos olivos y viñedos, presagiando la entrada a la comunidad riojana. A través de una antigua calzada romana, ríos y puentes que esconden siniestras leyendas y pueblos medievales, Estella nos recibirá entre campos de amapolas y trigales.");  
+        $manager->persist($etapa107);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 108, $etapa107);
+        
+        $etapa108 = new Etapa();       
+        $etapa108->setStart("Astorga");
+        $etapa108->setFinish("Foncebadón");        
+        $etapa108->setKm(25.8);
+        $etapa108->setDescription("Dejamos atrás la capital de la maragatería para afrontar una nueva etapa con dos partes bien diferenciadas. Los primeros kilómetros supondrán una sucesión de pueblos típicos de la llanura castellana, enmarcados todos ellos dentro del antiguamente conocido como País de los Maragatos o la Somoza. Caminaremos entre construcciones de sillarejo y vestigios de los antiguos arrieros, aquellos que se encargaban de transportar mercancías a lo largo y ancho de la península con ayuda de animales de carga.");  
+        $manager->persist($etapa108);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 109, $etapa108);
+        
+        $etapa109 = new Etapa();       
+        $etapa109->setStart("Foncebadón");
+        $etapa109->setFinish("Ponferrada");        
+        $etapa109->setKm(26.8);
+        $etapa109->setDescription("Ascenderemos a una de las cimas más elevadas de este trazado jacobeo, la cruz de Ferro en el monte Irago, desde donde emprenderemos un acusado descenso hasta llegar a Ponferrada. Decimos adiós a las extensas e inhóspitas llanuras castellanas para ser recibidos por los montes del Bierzo y su prolífica vegetación, la cual nos acompañará en una de las etapas más duras para nuestras piernas.");  
+        $manager->persist($etapa109);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 110, $etapa109);
+        
+        $etapa110 = new Etapa();       
+        $etapa110->setStart("Ponferrada");
+        $etapa110->setFinish("Villafranca");        
+        $etapa110->setKm(24.2);
+        $etapa110->setDescription("Quizá aún no nos estamos percatando, dada la presencia de las montañas del Bierzo resguardándonos del clima propiamente atlántico, pero nos estamos aproximando a Galicia. Poco a poco iremos dejando atrás las interminables rectas entre llanuras secas y monótonas, para dar paso a las vides y a la exuberante vegetación. Recorreremos pueblos bañados por la historia jacobea para acercarnos a la histórica Villafranca del Bierzo.");  
+        $manager->persist($etapa110);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 111, $etapa110);
+        
+        $etapa111 = new Etapa();       
+        $etapa111->setStart("Villafranca");
+        $etapa111->setFinish("O Cebreiro");        
+        $etapa111->setKm(27.8);
+        $etapa111->setDescription("Ya nos separan menos de doscientos kilómetros de Santiago de Compostela y en el día de hoy abriremos las puertas de Galicia, concretamente a través del puerto de montaña de O Cebreiro, asentamiento prerrománico donde asomarnos a la comunidad gallega desde sus famosas pallozas. Muchos peregrinos optan por comenzar aquí su andadura, dada la importancia de este lugar y la belleza del mismo, un lugar que desde luego no dejará indiferente a nadie.");  
+        $manager->persist($etapa111);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 112, $etapa111);
+        
+        $etapa112 = new Etapa();       
+        $etapa112->setStart("O Cebreiro");
+        $etapa112->setFinish("Triacastela");        
+        $etapa112->setKm(20.8);
+        $etapa112->setDescription("Tras la dura etapa de ayer hoy se nos presentan poco más de veinte kilómetros entre las sierra de O Courel y Os Ancares. Podremos respirar el aire más puro entre extensos y profundos valles repletos de castaños, robles, acebos, fresnos, etc, así como de la arquitectura y costumbres heredadas de la cultura castreña, una de las más antiguas de toda Europa. Descenderemos entre este bello paisaje hasta el valle que acoge a Triacastela, bajo la atenta mirada del monte Oribio.");  
+        $manager->persist($etapa112);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 113, $etapa112);
+        
+        $etapa113 = new Etapa();       
+        $etapa113->setStart("Triacastela");
+        $etapa113->setFinish("Sarria");        
+        $etapa113->setKm(18.4);
+        $etapa113->setDescription("Para afrontar esta etapa disponemos de dos variantes diferenciadas para alcanzar Sarria, una que transcurre por la localidad de San Xil y que es la que defienden muchos por ser la original y otra que transcurre por Samos, siendo una opción secundaria y que cuenta por tanto con algún inconveniente, como es el caso de grandes tramos por asfalto que son compensados a nuestro paso por Samos donde podemos disfrutar del maravilloso monasterio que se esconde en este lugar.");  
+        $manager->persist($etapa113);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 114, $etapa113);
+        
+        $etapa114 = new Etapa();       
+        $etapa114->setStart("Sarria");
+        $etapa114->setFinish("Portomarín");        
+        $etapa114->setKm(22.2);
+        $etapa114->setDescription("La etapa nos deparará una caminata agradecida, separada de carreteras de asfalto y abrazada a la Galicia más rural, donde disfrutaremos del campo y las pequeñas aldeas de los Concellos de Sarria, Paradela y Portomarín, además de cruzar ríos sobre puentes medievales y descubrir numerosos vestigios eclesiásticos de la época romana. Se trata de una etapa sencilla, con numerosos puntos de avituallamiento y una longitud moderada que no esconde desniveles pronunciados.");  
+        $manager->persist($etapa114);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 115, $etapa114);
+        
+        $etapa115 = new Etapa();       
+        $etapa115->setStart("Portomarín");
+        $etapa115->setFinish("Palas de Rei");        
+        $etapa115->setKm(24.8);
+        $etapa115->setDescription("Una etapa que transcurre por mucho asfalto, fraccionada por la sierra de Ligonde, división natural de las cuencas de los ríos Miño y Ulloa. Numerosas iglesias románicas, el cruceiro de Os Lameiros o los yacimientos de Castromaior. A priori, se trata de una etapa sin mayores complicaciones, pero en algunas ocasiones deberemos afrontar pequeñas subidas que pueden hacerse muy “cuesta arriba” en función de las fuerzas que tengamos acumuladas a la hora de emprender el ascenso.");  
+        $manager->persist($etapa115);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 116, $etapa115);
+        
+        $etapa116 = new Etapa();       
+        $etapa116->setStart("Palas de Rei");
+        $etapa116->setFinish("Arzúa");        
+        $etapa116->setKm(28.5);
+        $etapa116->setDescription("En esta etapa se abandona la provincia de Lugo para adentrarse en la provincia de A Coruña, donde se adentra a través de la aldea de O Coto, límite fronterizo entre ambas provincias. Una etapa exigente donde son frecuentes las subidas cortas pero dificultosas, en la que conviven tramos en un estado de conservación excepcional que atraviesan aldeas maravillosas de la Galicia profunda, con zonas menos gratificantes como polígonos industriales o tramos con un estado de conservación muy mejorable.");  
+        $manager->persist($etapa116);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 117, $etapa116);
+        
+        $etapa117 = new Etapa();       
+        $etapa117->setStart("Arzúa");
+        $etapa117->setFinish("Pedrouzo");        
+        $etapa117->setKm(19.3);
+        $etapa117->setDescription("Llegados a este punto, y a tan solo 40 kilómetros de entrar en la plaza del Obradoiro y contemplar nuestro destino, disponemos de varias opciones, siendo la más recomendable hacer noche en O Pedrouzo, dado que se trata de un lugar que dispone de todos los servicios necesarios y nos permite dejar una pequeña etapa para finalizar nuestro camino para el día siguiente. Es recomendable dividir la etapa en dos, y disfrutar de las dos últimas jornadas que nos restan para llegar a Compostela.");  
+        $manager->persist($etapa117);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 118, $etapa117);
+        
+        $etapa118 = new Etapa();       
+        $etapa118->setStart("Pedrouzo");
+        $etapa118->setFinish("Santiago de Compostela");        
+        $etapa118->setKm(19.4);
+        $etapa118->setDescription("Santiago aguarda y eso se nota en los caminantes. Algunos con paso ligero y con la mente puesta en la meta, otros sin embargo, con el paso sosegado de aquel que tiene miedo de llegar al final de su aventura y no saber lo que vendrá después. En cualquier caso, todos con la ilusión de alcanzar por fin la majestuosa plaza del Obradoiro y alzar la vista para vislumbrar la barroca fachada de la Catedral. Por delante, una etapa corta, sencilla, con pendientes moderadas y senderos agradecidos.");  
+        $manager->persist($etapa118);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 119, $etapa118);
+        
+        
+        //Camino Portugués
+                
+        $etapa119 = new Etapa();       
+        $etapa119->setStart("Tui");
+        $etapa119->setFinish("O Porriño");        
+        $etapa119->setKm(18.7);
+        $etapa119->setDescription("Desde Tui a Santiago caminaremos a través de grandes bosques, tierras de cultivo tradicionales y pequeñas aldeas y pueblos rurales así como ciudades históricas. Comenzaremos esta ruta desde el puerto de Tui en dirección al Camino de Barca. A partir de este punto atravesaremos el Túnel das Monxas y comenzaremos una subida fuerte hasta el Punte de la toma de aliento de San Telmo. Continuaremos nuestra ruta hasta llegar a O Porriño.");  
+        $manager->persist($etapa119);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 120, $etapa119);
+                
+        $etapa120 = new Etapa();       
+        $etapa120->setStart("O Porriño");
+        $etapa120->setFinish("Arcade");        
+        $etapa120->setKm(15.2);
+        $etapa120->setDescription("Una vez abandonemos O Porriño continuaremos nuestra ruta a lo largo del valle de Louro. Tras subir una pequeña colina llegaremos a la Ermita de Santiaguiño de Antas, un lugar ideal y encantador para descansar y relajar un poco las piernas. Despúes continuaremos el camino atravesando bosques de pino, llegaremos a la aldea de Setefontes para, a continuación, llegar a Redondela.");  
+        $manager->persist($etapa120);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 121, $etapa120);
+                
+        $etapa121 = new Etapa();       
+        $etapa121->setStart("Arcade");
+        $etapa121->setFinish("Pontevedra");        
+        $etapa121->setKm(18.2);
+        $etapa121->setDescription("A lo largo de la ruta de hoy cruzaremos el río Verdugo en Ponte Sampaio. En este puente es dónde el ejército de Napoleón sufrío la mayor derrota en Galicia. Desde Ponte Sampaio continuaremos nuestro camino a lo largo de un camino empedrado que nos llevará hasta la Iglesia de Santa María del siglo XIII. Desde aquí podremos observar unas magnificas vistas de la bahía de Vigo mientras continuamos nuestra ruta hasta Pontevedra.");  
+        $manager->persist($etapa121);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 122, $etapa121);
+                
+        $etapa122 = new Etapa();       
+        $etapa122->setStart("Pontevedra");
+        $etapa122->setFinish("Caldas de Reis");        
+        $etapa122->setKm(23);
+        $etapa122->setDescription("Una vez abandonemos Pontevedra, la ruta nos llevará a través de bosques de pino y eucaliptos y arbolares de castaños hasta llegar al pueblo de Ponte Cabras dónde es recomendable visitar la casa parroquial de Santa María de Alba. Podremos visitar también una estatua de Santiago en Lombo da Maceira, esta estatua es famosa ya que Santiago esta apoyado sobre un bastón que le indica el Camino. Antes de llegar a Caldas de Reis atravesaremos Tivo, famosa por su hermosa fuente y lavadero público.");  
+        $manager->persist($etapa122);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 123, $etapa122);
+                
+        $etapa123 = new Etapa();       
+        $etapa123->setStart("Caldas de Reis");
+        $etapa123->setFinish("Padrón");        
+        $etapa123->setKm(18.5);
+        $etapa123->setDescription("Al salir de Caldas de Reis, cruzaremos con el río Umia. Gracias a las aguas termales, el pueblo de Caldas de Reis es famosos desde la época romana. Continuaremos nuestra ruta a lo largo de bosques y subiremos hasta el pueblo de Santa Mariña. Una vez alcanzado el pueblo, comenzaremos el descenso hasta cruzar el río Fontenlo hasta llegar a la localidad de Padrón. Dice la leyenda que cuando se transportaba el cuerpo de Santiago a Compostela por barco, Padrón fue el primero que llego a tierra.");  
+        $manager->persist($etapa123);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 124, $etapa123);
+                
+        $etapa124 = new Etapa();       
+        $etapa124->setStart("Padrón");
+        $etapa124->setFinish("Santiago de Compostela");        
+        $etapa124->setKm(25.2);
+        $etapa124->setDescription("Esta última etapa del Camino Portugués transcurre por asfalto y zonas urbanizadas, siguiendo la nacional N-550, la cual hoy cruzamos hasta cuatro veces. En cuanto a desniveles, cabe mencionar el moderado y progresivo ascenso al Agro dos Monteiros, en O Milladoiro. En el ámbito cultural, aparte de Santiago con su extraordinaria catedral, cabe destacar la bella colegiata de Iria Flavia, que fue la primera catedral de Galicia; en su cementerio, encontramos la humilde tumba de Camilo José Cela.");  
+        $manager->persist($etapa124);
+        $manager->flush();
+        $this->setReference(self::ETAPA . 125, $etapa124);
 
         /*otro camino
         $etapa = new Etapa();       
