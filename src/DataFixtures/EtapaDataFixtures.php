@@ -877,7 +877,7 @@ class EtapaDataFixtures extends Fixture
         $etapa95->setStart("Carcaboso");
         $etapa95->setFinish("Aldeanueva del camino");        
         $etapa95->setKm(38.3);
-        $etapa95>setDescription("Etapa de largo recorrido pudiendo dividirla en dos pernoctando en Oliva Plasencia o en Jarrilla, teniendo que desviarnos ligeramente del trazado jacobeo para ello. Sin duda, lo más característico de esta jornada será el famoso arco romano de Cáparra, monumento único en nuestro país dado su buen estado de conservación.");  
+        $etapa95->setDescription("Etapa de largo recorrido pudiendo dividirla en dos pernoctando en Oliva Plasencia o en Jarrilla, teniendo que desviarnos ligeramente del trazado jacobeo para ello. Sin duda, lo más característico de esta jornada será el famoso arco romano de Cáparra, monumento único en nuestro país dado su buen estado de conservación.");  
         $manager->persist($etapa95);
         $manager->flush();
         $this->setReference(self::ETAPA . 96, $etapa95);

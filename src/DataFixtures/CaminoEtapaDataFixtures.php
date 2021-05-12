@@ -13,8 +13,15 @@ class CaminoEtapaDataFixtures extends Fixture implements DependentFixtureInterfa
 {
     public static $caminoFrances = [];
     public static $caminoPrimitivo = [];
+    public static $caminoNorte = [];
+    public static $viaPlata = [];
+    public static $caminoPortugues = [];
+    
     public const CAMINO_ETAPA_FRANCES = "caminoEtapaFrances-";
     public const CAMINO_ETAPA_PRIMITIVO = "caminoEtapaPrimitivo-";
+    public const CAMINO_ETAPA_NORTE = "caminoEtapaNorte-";
+    public const VIA_PLATA = "caminoEtapaViaPlata-";
+    public const CAMINO_PORTUGUES = "caminoEtapaPortugues-";
 
     public function load(ObjectManager $manager)
     {
@@ -45,6 +52,48 @@ class CaminoEtapaDataFixtures extends Fixture implements DependentFixtureInterfa
             $manager->flush();
             $caminoPrimitivo[$contador - 1] = $caminoEtapa1;
             $this->setReference(self::CAMINO_ETAPA_PRIMITIVO . ($contador - 1), $caminoPrimitivo[$contador - 1]);
+        }
+        
+        //camino de norte
+        $contador = 0;
+        for ($j = 48; $j < 82; $j++) {
+            $contador++;
+            $caminoEtapa1 = new CaminoEtapa();
+            $caminoEtapa1->setNumEtapa($contador);
+            $caminoEtapa1->setCamino($this->getReference(CaminoDataFixtures::CAMINO . 2));
+            $caminoEtapa1->setEtapa($this->getReference(EtapaDataFixtures::ETAPA . $j));
+            $manager->persist($caminoEtapa1);
+            $manager->flush();
+            $caminoPrimitivo[$contador - 1] = $caminoEtapa1;
+            $this->setReference(self::CAMINO_ETAPA_NORTE . ($contador - 1), $caminoPrimitivo[$contador - 1]);
+        }
+        
+        //via de la plata
+        $contador = 0;
+        for ($j = 82; $j < 120; $j++) {
+            $contador++;
+            $caminoEtapa1 = new CaminoEtapa();
+            $caminoEtapa1->setNumEtapa($contador);
+            $caminoEtapa1->setCamino($this->getReference(CaminoDataFixtures::CAMINO . 2));
+            $caminoEtapa1->setEtapa($this->getReference(EtapaDataFixtures::ETAPA . $j));
+            $manager->persist($caminoEtapa1);
+            $manager->flush();
+            $caminoPrimitivo[$contador - 1] = $caminoEtapa1;
+            $this->setReference(self::VIA_PLATA . ($contador - 1), $caminoPrimitivo[$contador - 1]);
+        }
+        
+        //camino portugués
+        $contador = 0;
+        for ($j = 120; $j < 125; $j++) {
+            $contador++;
+            $caminoEtapa1 = new CaminoEtapa();
+            $caminoEtapa1->setNumEtapa($contador);
+            $caminoEtapa1->setCamino($this->getReference(CaminoDataFixtures::CAMINO . 2));
+            $caminoEtapa1->setEtapa($this->getReference(EtapaDataFixtures::ETAPA . $j));
+            $manager->persist($caminoEtapa1);
+            $manager->flush();
+            $caminoPrimitivo[$contador - 1] = $caminoEtapa1;
+            $this->setReference(self::CAMINO_PORTUGUES . ($contador - 1), $caminoPrimitivo[$contador - 1]);
         }
     }
 
