@@ -5,24 +5,29 @@ namespace App\Controller;
 use App\Services\AuthManager;
 use App\Services\CaminosManager;
 use App\Services\UserPathManager;
+use App\Services\UserPathEtapaManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Form\UserPathType;
+use App\Form\PathEtapaType;
 use App\Entity\UsuarioCamino;
+use App\Entity\CaminoEtapa;
 
 class caminosController extends AbstractController {
 
     private $authManager;
     private $pathsManager;
     private $userPathManager;
+    private $userPathEtapaManager;
 
-    function __construct(AuthManager $authManager, CaminosManager $pathsManager, UserPathManager $userPathManager) {
+    function __construct(AuthManager $authManager, CaminosManager $pathsManager, UserPathManager $userPathManager, UserPathEtapaManager $userPathEtapaManager) {
         $this->authManager = $authManager;
         $this->pathsManager = $pathsManager;
         $this->userPathManager = $userPathManager;
+        $this->userPathEtapaManager = $userPathEtapaManager;
     }
 
     /**
@@ -75,7 +80,7 @@ class caminosController extends AbstractController {
         if (!$form->isSubmitted() || !$form->isValid()) {
             return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
         }
-        $etapasRealizadas = $this->userPathManager->getEtapasRealizadas($user->getId(), $parameters['camino']);
+        $etapasRealizadas = $this->userPathEtapaManager->getEtapasRealizadas($user->getId(), $parameters['camino']);
         return new JsonResponse($etapasRealizadas);
     }
 
@@ -168,8 +173,24 @@ class caminosController extends AbstractController {
     /**
      * @Route("/pri/addEtapa", name="addEtapa", methods={"POST"})
      */
-    public function addEtapa(Request $request): Response {
-        
+    public function addEtapa(Request $request): Response {        
+        $parameters = json_decode($request->getContent(), true);
+        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+
+        $userPathEtapa = new CaminoEtapa();
+
+        $form = $this->createForm(PathEtapaType::class, $userPathEtapa, ['csrf_protection' => false]);
+        $form->submit($parameters);
+
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
+        }        
+        $idCaminoEtapa = $this->userPathEtapaManager->checkCaminoEtapa($parameters['camino'], $parameters['etapa']);
+        if(count($idCaminoEtapa)==0){            
+            return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);        
+        }
+        $this->userPathEtapaManager->addEtapa($id, $idCaminoEtapa[0]['id']);              
+        return $this->json(['message' => 'success']);
     }
 
     /**

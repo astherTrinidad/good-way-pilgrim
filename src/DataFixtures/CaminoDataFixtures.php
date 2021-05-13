@@ -40,7 +40,8 @@ class CaminoDataFixtures extends Fixture
         $camino2->setNumEtapas(34); 
         $camino2->setDescription("El Camino del Norte, también conocido como “Camino de la Costa”  recorre toda la costa peninsular bordeando los principales municipios del norte de España.");  
         $manager->persist($camino2);
-        $manager->flush();
+        $manager->flush();        
+        $this->setReference(self::CAMINO . 3,$camino2);
 
         $camino3 = new Camino();       
         $camino3->setName("Vía de la Plata");
@@ -50,6 +51,7 @@ class CaminoDataFixtures extends Fixture
         $camino3->setDescription("La Vía de la Plata es, el Camino de Santiago, más importante desde el sur peninsular. Hoy en día se considera Sevilla como la ciudad de inicio, y el itinerario debe su origen a un conjunto de calzadas romanas que unían el suroeste con el noroeste peninsular. Se caracteriza por las enormes distancias entre poblaciones, la soledad y las temperaturas extremas en verano. Los mejores meses para recorrerlo son marzo, abril, mayo y octubre.");  
         $manager->persist($camino3);
         $manager->flush();
+        $this->setReference(self::CAMINO . 4,$camino3);
 
         $camino4 = new Camino();       
         $camino4->setName("Camino Portugués");
@@ -58,7 +60,8 @@ class CaminoDataFixtures extends Fixture
         $camino4->setNumEtapas(6); 
         $camino4->setDescription("El Camino Portugués es un camino diferente. Comienza en el bonito pueblo de Tui. Tui es un pueblo fronterizo entre España y Portugal, ambos países son divididos por el río Miño y se puede ir de un país al otro atravesando el Puente Internacional. Caminaremos a través de grandes bosques, tierras de cultivo tradicionales y pequeñas aldeas y pueblos rurales así como ciudades históricas.  Es, probablemente, uno de los que menos desniveles tiene.");  
         $manager->persist($camino4);
-        $manager->flush();               
+        $manager->flush();             
+        $this->setReference(self::CAMINO . 5,$camino4);  
     }
 }
 

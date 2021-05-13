@@ -564,7 +564,38 @@ paths:
             application/json:
               schema:
                 type: string
-                example: {"message":"User already has an active path"}                
+                example: {"message":"User already has an active path"}
+  /pri/addEtapa:
+    post:
+      tags:
+      - "camino"
+      summary: "It adds a Etapa on a specific path for a user"     
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: etapa
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Etapa added"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}                
   /pri/csv_download:
     get:
       tags:
