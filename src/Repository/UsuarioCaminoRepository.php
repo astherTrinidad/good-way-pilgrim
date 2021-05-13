@@ -24,10 +24,10 @@ class UsuarioCaminoRepository extends ServiceEntityRepository {
 
     public function getHistory($idUser) {
         $db = $this->em->getConnection();
-        $query = "select c.id, c.name, uc.status, count(uce.id)as etapas
+        $query = "select c.id, c.name, uc.status, uc.start_date, uc.finish_date, count(uce.id)as etapas
         from usuario_camino uc, camino c, camino_etapa ce, usuario_camino_etapa uce 
         where uc.id_camino = c.id and c.id = ce.id_camino and ce.id = uce.id_caminoEtapa and uc.id_usuario = uce.id_usuario
-        and uc.id_usuario =$idUser and uc.status != 'Active' group by uc.id;";
+        and uc.id_usuario =$idUser and uc.status != 'Active' group by uc.id";
         $result = $db->executeQuery($query);
         $usersPaths = $result->fetchAll();
 
