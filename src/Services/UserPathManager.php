@@ -27,21 +27,21 @@ class UserPathManager {
     public function addActivePath($userId, $caminoId, $date) {
         return $this->userPathRepository->addActivePath($userId, $caminoId, $date);
     }
-    
+
     public function archivePath($userId, $caminoId) {
         return $this->userPathRepository->archivePath($userId, $caminoId);
     }
-    
+
     public function finishPath($userId, $caminoId, $date) {
         return $this->userPathRepository->finishPath($userId, $caminoId, $date);
     }
-    
+
     public function reactivatePath($userId, $caminoId) {
         return $this->userPathRepository->reactivatePath($userId, $caminoId);
     }
 
-    public function getKm($userId)
-    {
+    public function getKm($userId) {
         return $this->userPathRepository->getKm($userId);
     }
+
 }

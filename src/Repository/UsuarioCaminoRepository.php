@@ -44,19 +44,6 @@ class UsuarioCaminoRepository extends ServiceEntityRepository {
         }
         return $usersPathsActive[0];
     }
-
-    public function getEtapasRealizadas($idUser, $idCamino) {
-        $db = $this->em->getConnection();
-        $query = "select e.* from usuario_camino uc, usuario_camino_etapa uce, camino_etapa ce, etapa e 
-        where uc.id_usuario = uce.id_usuario
-        and uce.id_caminoEtapa = ce.id
-        and ce.id_etapa = e.id 
-        and uc.id_usuario = $idUser and uc.id_camino = $idCamino
-        and uce.id_caminoEtapa = some(select id from camino_etapa ce where id_camino = $idCamino);";
-        $result = $db->executeQuery($query);
-        $etapasRealizadas = $result->fetchAll();
-        return $etapasRealizadas;
-    }
     
     public function addActivePath($idUser, $idCamino, $date) {
         $db = $this->em->getConnection();
