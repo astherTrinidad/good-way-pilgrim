@@ -103,7 +103,7 @@ class authenticationController extends AbstractController {
             'picture' => $picture,
             'achievements' => $achievements,
             'paths' => count($paths),
-            'km' => $km
+            'km' => round($km,1)
         ];
 
         return new JsonResponse($data);
