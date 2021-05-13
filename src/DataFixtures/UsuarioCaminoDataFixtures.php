@@ -48,7 +48,7 @@ class UsuarioCaminoDataFixtures extends Fixture implements DependentFixtureInter
         $usuarioCamino3 = new UsuarioCamino();
         $usuarioCamino3->setStartDate("2018-02-23");
         $usuarioCamino3->setFinishDate("2018-03-05");
-        $usuarioCamino3->setStatus("Completed");
+        $usuarioCamino3->setStatus("Active");
         $usuarioCamino3->setUser($this->getReference(UserDataFixtures::USUARIO . 4));
         $usuarioCamino3->setCamino($this->getReference(CaminoDataFixtures::CAMINO . 1));
         $manager->persist($usuarioCamino3);
@@ -67,11 +67,12 @@ class UsuarioCaminoDataFixtures extends Fixture implements DependentFixtureInter
         $usuarioCamino5 = new UsuarioCamino();
         $usuarioCamino5->setStartDate("2021-04-01");
         $usuarioCamino5->setFinishDate("");
-        $usuarioCamino5->setStatus("Active");
+        $usuarioCamino5->setStatus("Archived");
         $usuarioCamino5->setUser($this->getReference(UserDataFixtures::USUARIO . 5));
         $usuarioCamino5->setCamino($this->getReference(CaminoDataFixtures::CAMINO . 2));
         $manager->persist($usuarioCamino5);
         $manager->flush();
+        
     }
 
     public function getDependencies()

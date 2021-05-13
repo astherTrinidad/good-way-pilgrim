@@ -89,22 +89,21 @@ class authenticationController extends AbstractController {
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
         $user = $this->userManager->getUser($id);
         $achievements = $this->achievementManager->getThreeByIdUser($id);
-        $paths = $this->userPathManager->getAllByIdUser($id);
-        $activePath = $this->userPathManager->getActivePathUser($id);
+        $paths = $this->userPathManager->getHistory($id);         
+        $km = $this->userPathManager->getKm($id);  
         $picture = $user->getPicture();
         if (strcmp($picture, "") !== 0) {
             $picture = CoverImageController::showImageUser($user->getPicture());
         }
 
         $data = [
-            'id' => $user->getId(),
             'name' => $user->getName(),
             'surname' => $user->getSurname(),
             'email' => $user->getEmail(),
             'picture' => $picture,
             'achievements' => $achievements,
-            'paths' => $paths,
-            'activePath' => $activePath
+            'paths' => count($paths),
+            'km' => round($km, 1)
         ];
 
         return new JsonResponse($data);
@@ -142,8 +141,8 @@ class authenticationController extends AbstractController {
      * @Route("/pri/deleteProfile", name="deleteProfile", methods={"DELETE"})
      */
     public function deleteProfile(Request $request) {
-        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-        $this->userManager->deleteUser($id);
+        $idUser = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $this->userManager->deleteUser($idUser);
         return $this->json(['message' => 'success']);
     }
 
