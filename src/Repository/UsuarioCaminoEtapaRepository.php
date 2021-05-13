@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class UsuarioCaminoEtapaRepository extends ServiceEntityRepository {
 
-     private $em;
+    private $em;
 
     public function __construct(ManagerRegistry $registry, EntityManagerInterface $em) {
         parent::__construct($registry, UsuarioCaminoEtapa::class);
@@ -33,6 +33,24 @@ class UsuarioCaminoEtapaRepository extends ServiceEntityRepository {
         $result = $db->executeQuery($query);
         $etapasRealizadas = $result->fetchAll();
         return $etapasRealizadas;
+    }
+
+    public function checkCaminoEtapa($idCamino, $idEtapa) {
+        $db = $this->em->getConnection();
+        $query = "select id from camino_etapa ce where id_camino = $idCamino and id_etapa =$idEtapa";
+        $result = $db->executeQuery($query);
+        return $result->fetchAll();
+    }
+
+    public function addEtapa($idUser, $idCaminoEtapa) {
+        $db = $this->em->getConnection();
+        $query = "SELECT * FROM usuario_camino_etapa where id_usuario = $idUser and id_caminoEtapa = $idCaminoEtapa";
+        $result = $db->executeQuery($query);
+        $usuarioCaminoEtapa = $result->fetchAll();
+        if (count($usuarioCaminoEtapa) == 0) {
+            $query = "INSERT INTO usuario_camino_etapa (id_usuario, id_caminoEtapa) VALUES($idUser, $idCaminoEtapa)";
+            return $db->executeQuery($query);
+        }
     }
 
     // /**

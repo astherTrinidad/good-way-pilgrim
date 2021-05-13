@@ -16,9 +16,12 @@ class UserPathEtapaManager {
         return $this->userPathEtapaRepository->getEtapasRealizadas($userId, $caminoId);
     }
     
-    public function addEtapa($userId, $caminoId, $etapaId) {
-        echo "todo ok";
-        //return $this->userPathEtapaRepository->getEtapasRealizadas($userId, $caminoId);
+    public function checkCaminoEtapa($caminoId, $etapaId) {
+        return $this->userPathEtapaRepository->checkCaminoEtapa($caminoId, $etapaId);
+    }
+    
+    public function addEtapa($userId, $caminoEtapaId) {
+        return $this->userPathEtapaRepository->addEtapa($userId, $caminoEtapaId);
     }
 
     public function getKm($userId) {
