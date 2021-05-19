@@ -349,7 +349,7 @@ paths:
                 type: array
                 items:
                   type: "object"
-                example: [{"id":"47","name":"Camino Primitivo","status":"Completed","etapas":"14"}] 
+                example: [{"id":"118","name":"Camino Franc\u00e9s","status":"Completed","start_date":"2021-01-01","finish_date":"2021-01-15","etapas":"33"},{"id":"119","name":"Camino Primitivo","status":"Archived","start_date":"2021-04-01","finish_date":null,"etapas":"13"}] 
   /pri/getActivePath:
     get:
       tags:

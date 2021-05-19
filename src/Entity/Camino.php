@@ -33,6 +33,7 @@ class Camino
      * @ORM\Column(type="string", length=30, nullable=false)
      */
     private $finish;
+    
 
     /**
      * @ORM\Column(type="integer")

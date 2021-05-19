@@ -68,19 +68,8 @@ class caminosController extends AbstractController {
      * @Route("/pri/getEtapasRealizadas", name="getEtapasRealizadas", methods={"GET"})
      */
     public function getEtapasRealizadas(Request $request): Response {
-        $parameters = json_decode($request->getContent(), true);
-        $user = $this->authManager->getUserFromToken($request, $this->getParameter('jwt_secret'));
-
-        $userPath = new UsuarioCamino();
-        $userPath->setUser($user);
-
-        $form = $this->createForm(UserPathType::class, $userPath, ['csrf_protection' => false]);
-        $form->submit($parameters);
-
-        if (!$form->isSubmitted() || !$form->isValid()) {
-            return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
-        }
-        $etapasRealizadas = $this->userPathEtapaManager->getEtapasRealizadas($user->getId(), $parameters['camino']);
+        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        $etapasRealizadas = $this->userPathEtapaManager->getEtapasRealizadas($id, $request->get('camino'));
         return new JsonResponse($etapasRealizadas);
     }
 
