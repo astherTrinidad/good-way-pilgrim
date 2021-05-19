@@ -63,7 +63,7 @@ class caminosController extends AbstractController {
         $paths["etapas"] = $etapas;
         return new JsonResponse($paths);
     }
-    
+
     /**
      * @Route("/pri/getEtapasRealizadas", name="getEtapasRealizadas", methods={"GET"})
      */
@@ -89,10 +89,10 @@ class caminosController extends AbstractController {
         if (!$form->isSubmitted() || !$form->isValid()) {
             return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
         }
-        if($this->userPathManager->getActivePath($user->getId())){
+        if ($this->userPathManager->getActivePath($user->getId())) {
             return new JsonResponse(['message' => 'User already has an active path'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $this->userPathManager->addActivePath($user->getId(), $parameters['camino'], $parameters['start_date']);        
+        $this->userPathManager->addActivePath($user->getId(), $parameters['camino'], $parameters['start_date']);
         return $this->json(['message' => 'success']);
     }
 
@@ -112,7 +112,7 @@ class caminosController extends AbstractController {
         if (!$form->isSubmitted() || !$form->isValid()) {
             return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
         }
-        $this->userPathManager->archivePath($user->getId(), $parameters['camino']);        
+        $this->userPathManager->archivePath($user->getId(), $parameters['camino']);
         return $this->json(['message' => 'success']);
     }
 
@@ -132,7 +132,7 @@ class caminosController extends AbstractController {
         if (!$form->isSubmitted() || !$form->isValid()) {
             return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
         }
-        $this->userPathManager->finishPath($user->getId(), $parameters['camino'], $parameters['finish_date']);        
+        $this->userPathManager->finishPath($user->getId(), $parameters['camino'], $parameters['finish_date']);
         return $this->json(['message' => 'success']);
     }
 
@@ -152,17 +152,17 @@ class caminosController extends AbstractController {
         if (!$form->isSubmitted() || !$form->isValid()) {
             return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
         }
-        if($this->userPathManager->getActivePath($user->getId())){
+        if ($this->userPathManager->getActivePath($user->getId())) {
             return new JsonResponse(['message' => 'User already has an active path'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $this->userPathManager->reactivatePath($user->getId(), $parameters['camino']);        
+        $this->userPathManager->reactivatePath($user->getId(), $parameters['camino']);
         return $this->json(['message' => 'success']);
     }
 
     /**
      * @Route("/pri/addEtapa", name="addEtapa", methods={"POST"})
      */
-    public function addEtapa(Request $request): Response {        
+    public function addEtapa(Request $request): Response {
         $parameters = json_decode($request->getContent(), true);
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
 
@@ -173,12 +173,12 @@ class caminosController extends AbstractController {
 
         if (!$form->isSubmitted() || !$form->isValid()) {
             return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
-        }        
-        $idCaminoEtapa = $this->userPathEtapaManager->checkCaminoEtapa($parameters['camino'], $parameters['etapa']);
-        if(count($idCaminoEtapa)==0){            
-            return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);        
         }
-        $this->userPathEtapaManager->addEtapa($id, $idCaminoEtapa[0]['id']);              
+        $idCaminoEtapa = $this->userPathEtapaManager->checkCaminoEtapa($parameters['camino'], $parameters['etapa']);
+        if (count($idCaminoEtapa) == 0) {
+            return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
+        }
+        $this->userPathEtapaManager->addEtapa($id, $idCaminoEtapa[0]['id']);
         return $this->json(['message' => 'success']);
     }
 
@@ -191,7 +191,8 @@ class caminosController extends AbstractController {
 
         $fp = fopen('php://output', 'w');
         foreach ($caminos as $camino) {
-            $data = [utf8_decode($camino['name']), utf8_decode($camino['start']), utf8_decode($camino['finish']), $camino['num_etapas'], $camino['km'], utf8_decode($camino['description'])];
+            $data = [$this->eliminar_acentos($camino['name']), $this->eliminar_acentos($camino['start']),
+                $this->eliminar_acentos($camino['finish']), $camino['num_etapas'], $camino['km'], $this->eliminar_acentos($camino['description'])];
             fputcsv($fp, $data);
         }
 
@@ -200,6 +201,48 @@ class caminosController extends AbstractController {
         $response->headers->set('Content-Disposition', 'attachment; filename="GoodWayPilgrim_caminos.csv"');
 
         return $response;
+    }
+
+    public function eliminar_acentos($cadena) {
+        //Reemplazamos la A y a
+        $cadena = str_replace(
+                array('Á', 'À', 'Â', 'Ä', 'á', 'à', 'ä', 'â', 'ª'),
+                array('A', 'A', 'A', 'A', 'a', 'a', 'a', 'a', 'a'),
+                $cadena
+        );
+
+        //Reemplazamos la E y e
+        $cadena = str_replace(
+                array('É', 'È', 'Ê', 'Ë', 'é', 'è', 'ë', 'ê'),
+                array('E', 'E', 'E', 'E', 'e', 'e', 'e', 'e'),
+                $cadena);
+
+        //Reemplazamos la I y i
+        $cadena = str_replace(
+                array('Í', 'Ì', 'Ï', 'Î', 'í', 'ì', 'ï', 'î'),
+                array('I', 'I', 'I', 'I', 'i', 'i', 'i', 'i'),
+                $cadena);
+
+        //Reemplazamos la O y o
+        $cadena = str_replace(
+                array('Ó', 'Ò', 'Ö', 'Ô', 'ó', 'ò', 'ö', 'ô'),
+                array('O', 'O', 'O', 'O', 'o', 'o', 'o', 'o'),
+                $cadena);
+
+        //Reemplazamos la U y u
+        $cadena = str_replace(
+                array('Ú', 'Ù', 'Û', 'Ü', 'ú', 'ù', 'ü', 'û'),
+                array('U', 'U', 'U', 'U', 'u', 'u', 'u', 'u'),
+                $cadena);
+
+        //Reemplazamos la N, n, C y c
+        $cadena = str_replace(
+                array('Ñ', 'ñ', 'Ç', 'ç'),
+                array('N', 'n', 'C', 'c'),
+                $cadena
+        );
+
+        return $cadena;
     }
 
 }
