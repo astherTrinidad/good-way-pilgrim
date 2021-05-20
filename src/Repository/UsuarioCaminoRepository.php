@@ -51,6 +51,17 @@ class UsuarioCaminoRepository extends ServiceEntityRepository {
         $db->executeQuery($query);
     }
     
+    public function pathExists($idUser, $idCamino) {
+        $db = $this->em->getConnection();
+        $query = "SELECT * FROM usuario_camino uc WHERE id_usuario = $idUser and id_camino=$idCamino";
+        $result = $db->executeQuery($query);
+        $usersPathsActive = $result->fetchAll();
+        if(count($usersPathsActive)==0){
+            return false;
+        }
+        return true;
+    }
+    
     public function archivePath($idUser, $idCamino) {
         $db = $this->em->getConnection();
         $query = "UPDATE usuario_camino set status = 'Archived' where id_usuario = $idUser and id_camino = $idCamino";

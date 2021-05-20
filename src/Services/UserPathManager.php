@@ -19,6 +19,9 @@ class UserPathManager {
     public function getActivePath($userId) {
         return $this->userPathRepository->getActivePath($userId);
     }
+    public function pathExists($userId, $caminoId) {
+        return $this->userPathRepository->pathExists($userId, $caminoId);
+    }
 
     public function getEtapasRealizadas($userId, $caminoId) {
         return $this->userPathRepository->getEtapasRealizadas($userId, $caminoId);
