@@ -62,6 +62,8 @@ class caminosController extends AbstractController {
         if (!$path) {
             return new JsonResponse(['message' => 'User hasnt got an active path']);
         }
+        $km = $this->pathsManager->getKm($path['id']);
+        $path["km"] = round($km['km'], 1);
         $etapas = $this->pathsManager->getEtapas($path['id']);
         $path["etapas"] = $etapas;
         return new JsonResponse($path);
