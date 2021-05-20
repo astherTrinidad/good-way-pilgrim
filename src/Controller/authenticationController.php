@@ -86,11 +86,13 @@ class authenticationController extends AbstractController {
      * @Route("/pri/showProfile", name="showProfile", methods={"GET"})
      */
     public function showProfile(Request $request) {
-        $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-        $user = $this->userManager->getUser($id);
-        $achievements = $this->achievementManager->getThreeByIdUser($id);
-        $paths = $this->userPathManager->getHistory($id);         
-        $km = $this->userPathManager->getKm($id);  
+        $user = $this->authManager->getUserFromToken($request, $this->getParameter('jwt_secret'));
+        $achievements = $this->achievementManager->getThreeByIdUser($user->getId());
+        $paths = count($this->userPathManager->getHistory($user->getId()));
+        if ($this->userPathManager->getActivePath($user->getId())!==null) {
+            $paths++;
+        } 
+        $km = $this->userPathManager->getKm($user->getId());  
         $picture = $user->getPicture();
         if (strcmp($picture, "") !== 0) {
             $picture = CoverImageController::showImageUser($user->getPicture());
@@ -102,7 +104,7 @@ class authenticationController extends AbstractController {
             'email' => $user->getEmail(),
             'picture' => $picture,
             'achievements' => $achievements,
-            'paths' => count($paths),
+            'paths' => $paths,
             'km' => round($km,1)
         ];
 
