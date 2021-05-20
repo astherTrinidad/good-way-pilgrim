@@ -36,7 +36,8 @@ class UsuarioCaminoRepository extends ServiceEntityRepository {
 
     public function getActivePath($idUser) {
         $db = $this->em->getConnection();
-        $query = "SELECT c.* FROM camino c, usuario_camino uc WHERE uc.id_camino = c.id and id_usuario = $idUser AND status = 'Active'";        $result = $db->executeQuery($query);
+        $query = "SELECT c.* FROM camino c, usuario_camino uc WHERE uc.id_camino = c.id and id_usuario = $idUser AND status = 'Active'";
+        $result = $db->executeQuery($query);
         $usersPathsActive = $result->fetchAll();
         if(count($usersPathsActive)==0){
             return null;
@@ -48,6 +49,17 @@ class UsuarioCaminoRepository extends ServiceEntityRepository {
         $db = $this->em->getConnection();
         $query = "INSERT INTO usuario_camino(id_usuario, id_camino, start_date, finish_date, status) values($idUser, $idCamino, \"$date\",null, \"Active\")";
         $db->executeQuery($query);
+    }
+    
+    public function pathExists($idUser, $idCamino) {
+        $db = $this->em->getConnection();
+        $query = "SELECT * FROM usuario_camino uc WHERE id_usuario = $idUser and id_camino=$idCamino";
+        $result = $db->executeQuery($query);
+        $usersPathsActive = $result->fetchAll();
+        if(count($usersPathsActive)==0){
+            return false;
+        }
+        return true;
     }
     
     public function archivePath($idUser, $idCamino) {

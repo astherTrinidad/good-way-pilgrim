@@ -58,10 +58,13 @@ class caminosController extends AbstractController {
      */
     public function getActivePath(Request $request): Response {
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
-        $paths = $this->userPathManager->getActivePath($id);
-        $etapas = $this->pathsManager->getEtapas($paths['id']);
-        $paths["etapas"] = $etapas;
-        return new JsonResponse($paths);
+        $path = $this->userPathManager->getActivePath($id);
+        if (!$path) {
+            return new JsonResponse(['message' => 'User hasnt got an active path']);
+        }
+        $etapas = $this->pathsManager->getEtapas($path['id']);
+        $path["etapas"] = $etapas;
+        return new JsonResponse($path);
     }
 
     /**
@@ -91,6 +94,9 @@ class caminosController extends AbstractController {
         }
         if ($this->userPathManager->getActivePath($user->getId())) {
             return new JsonResponse(['message' => 'User already has an active path'], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        if ($this->userPathManager->pathExists($user->getId(), $parameters['camino'])) {
+            return new JsonResponse(['message' => 'User already has this path'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         $this->userPathManager->addActivePath($user->getId(), $parameters['camino'], $parameters['start_date']);
         return $this->json(['message' => 'success']);
