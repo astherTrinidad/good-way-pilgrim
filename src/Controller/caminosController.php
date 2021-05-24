@@ -191,7 +191,7 @@ class caminosController extends AbstractController {
     }
 
     /**
-     * @Route("/pub/csv_download", name="csv_download", methods={"GET"})
+     * @Route("/pri/csv_download", name="csv_download", methods={"GET"})
      */
     public function descargarCSV(): Response {
 

@@ -604,5 +604,49 @@ paths:
       responses:
         "200":
           description: "File downloaded"
+  /pri/MyBackpacks:
+    get:
+      tags:
+      - "mochila"
+      summary: "Returns user backpacks data, including the name of the path and amount of items stored"
+      responses:
+        "200":
+          description: "Returns an array with an object for each backpack"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":"123","name":"Camino Francés","numObjects":"16"}, {"id":"124","name":"Camino Primitivo","numObjects":"9"}] 
+  /pri/InfoBackpack:
+    get:
+      tags:
+      - "mochila"
+      summary: "Returns backpacks data, which is a list of objects and its quantity"  
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Returns an array with an object for each object and its quantity"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"object":"chanclas","quantity":"1"},{"object":"patal\u00f3n","quantity":"2"},{"object":"chubasquero","quantity":"1"},{"object":"calcetines","quantity":"5"}]
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}  
+  
   
 

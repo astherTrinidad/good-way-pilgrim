@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+
 use App\Entity\Mochila;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @method Mochila|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,37 +16,43 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MochilaRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Mochila::class);
+    private $em;
+    
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em) {
+        parent::__construct($registry, Mochila::class);        
+        $this->em = $em;
     }
 
-    // /**
-    //  * @return Mochila[] Returns an array of Mochila objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    public function getMyBackpacks($idUser){
+        $db = $this->em->getConnection();
+        $query = "SELECT c.id, c.name, sum(quantity) as numObjects FROM mochila m, camino c where m.id_camino = c.id and id_usuario = $idUser group by c.id, c.name";
+        $result = $db->executeQuery($query);
+        $logrosResult = $result->fetchAll();
+        return $logrosResult;        
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Mochila
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+    
+    public function getInfoBackpack($idUser, $idCamino){
+        $db = $this->em->getConnection();
+        $query = "select `object` , quantity from mochila m where id_usuario = $idUser and id_camino = $idCamino";
+        $result = $db->executeQuery($query);
+        $logrosResult = $result->fetchAll();
+        return $logrosResult;        
     }
-    */
+    
+    public function mochilaExists($idUser, $idCamino) {
+        $db = $this->em->getConnection();
+        $query = "SELECT * FROM mochila uc WHERE id_usuario = $idUser and id_camino=$idCamino";
+        $result = $db->executeQuery($query);
+        $usersPathsActive = $result->fetchAll();
+        if(count($usersPathsActive)==0){
+            return false;
+        }
+        return true;
+    }
+    
+    public function deleteBackpack($idUser, $idCamino){        
+        $db = $this->em->getConnection();
+        $query = "DELETE FROM mochila WHERE id_usuario = $idUser AND id_camino= $idCamino";
+        return $db->executeQuery($query);
+    }
 }
