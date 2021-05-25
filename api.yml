@@ -69,7 +69,7 @@ paths:
                 type: string
                 example: {"message":"Incorrect data recived"}
         "422":
-          description: "Invalid input"
+          description: "Unable to process the contained instructions"
           content:
             application/json:
               schema:
@@ -266,7 +266,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: integer
         - name: date
           in: query
           required: true
@@ -297,7 +297,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         "200":
           description: "Achivement removed"
@@ -390,7 +390,7 @@ paths:
           in: query
           required: true
           schema:
-            type: number
+            type: integer
       responses:
         "200":
           description: "Returns an array of etapas"
@@ -447,7 +447,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: integer
         - name: start_date
           in: query
           required: true
@@ -469,7 +469,7 @@ paths:
                 type: string
                 example: {"message":"Incorrect data recived"}
         "422":
-          description: "Invalid input"
+          description: "Unable to process the contained instructions"
           content:
             application/json:
               schema:
@@ -485,7 +485,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         "200":
           description: "Path archived"
@@ -511,7 +511,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: integer
         - name: finish_date
           in: query
           required: true
@@ -542,7 +542,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         "200":
           description: "Path reactivated"
@@ -559,7 +559,7 @@ paths:
                 type: string
                 example: {"message":"Incorrect data recived"}
         "422":
-          description: "Invalid input"
+          description: "Unable to process the contained instructions"
           content:
             application/json:
               schema:
@@ -575,12 +575,12 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: integer
         - name: etapa
           in: query
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         "200":
           description: "Etapa added"
@@ -629,7 +629,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         "200":
           description: "Returns an array with an object for each object and its quantity"
@@ -657,7 +657,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         "200":
           description: "Returns success if everything is correct"
@@ -674,7 +674,7 @@ paths:
                 type: string
                 example: {"message":"Incorrect data recived"}
         "422":
-          description: "Invalid input"
+          description: "Unable to process the contained instructions"
           content:
             application/json:
               schema:
@@ -690,7 +690,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         "200":
           description: "Backpack deleted"
@@ -699,6 +699,126 @@ paths:
               schema:
                 type: string
                 example: {"message":"success"} 
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+        "422":
+          description: "Unable to process the contained instructions"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"User hasnt a backpack for this path"}
+  /pri/addItem:
+    put:
+      tags:
+      - "mochila"
+      summary: "Adds an item to the backpack list" 
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: object
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quantity
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Item added"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"} 
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+        "422":
+          description: "Unable to process the contained instructions"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Full backpack"}
+  /pri/editItem:
+    put:
+      tags:
+      - "mochila"
+      summary: "Edits name or quantity of an item" 
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: object
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quantity
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Item edited"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"} 
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+  /pri/deleteItem:
+    delete:
+      tags:
+      - "mochila"
+      summary: "Edits name or quantity of an item" 
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Item deleted"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"} 
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+  
   
   
 

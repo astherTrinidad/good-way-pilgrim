@@ -121,7 +121,6 @@ class mochilaController extends AbstractController {
         if (!isset($parameters['id']) || !isset($parameters['object']) || !isset($parameters['quantity'])) {
             return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
         }
-        die();
         $this->mochilaManager->editItem($parameters['id'], ucwords(strtolower($parameters['object'])), $parameters['quantity']);
         return $this->json(['message' => 'success']);
     }
