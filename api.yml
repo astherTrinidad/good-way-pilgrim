@@ -639,7 +639,7 @@ paths:
                 type: array
                 items:
                   type: "object"
-                example: [{"object":"chanclas","quantity":"1"},{"object":"patal\u00f3n","quantity":"2"},{"object":"chubasquero","quantity":"1"},{"object":"calcetines","quantity":"5"}]
+                example: [{"id":"601","object":"chanclas","quantity":"1"},{"id":"602","object":"patal\u00f3n","quantity":"2"},{"id":"603","object":"chubasquero","quantity":"1"}]
         "400":
           description: "Invalid input"
           content:

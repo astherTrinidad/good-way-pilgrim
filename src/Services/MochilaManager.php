@@ -19,10 +19,6 @@ class MochilaManager {
     public function getInfoBackpack($idUser, $idCamino) {
         return $this->mochilaRepository->getInfoBackpack($idUser, $idCamino);        
     }
-
-    public function createBackpack() {
-
-    }
     
     public function mochilaExists($idUser, $idCamino) {
         return $this->mochilaRepository->mochilaExists($idUser, $idCamino);
@@ -30,10 +26,14 @@ class MochilaManager {
 
     public function deleteBackpack($idUser, $idCamino) {
         return $this->mochilaRepository->deleteBackpack($idUser, $idCamino);        
-    }   
+    }       
     
-    public function addItem() {
-        
+    public function checkMaxItems($idUser, $idCamino) {
+        return $this->mochilaRepository->checkMaxItems($idUser, $idCamino); 
+    }
+    
+    public function addItem($idUser, $idCamino, $object, $quantity) {
+        return $this->mochilaRepository->addItem($idUser, $idCamino, $object, $quantity);
     }
     
     public function editItem() {
