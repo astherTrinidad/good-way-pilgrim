@@ -1,14 +1,14 @@
 <?php
 namespace App\Form;
 
+use App\Entity\Logro;
+use App\Entity\LogroUsuario;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use App\Entity\LogroUsuario;
-use App\Entity\Logro;
     
 
 class LogroUsuarioType extends AbstractType

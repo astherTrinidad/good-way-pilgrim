@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Services\AuthManager;
-use App\Services\MochilaManager;
-use App\Services\UserPathManager;
 use App\Entity\Mochila;
 use App\Entity\UsuarioCamino;
 use App\Form\UserPathType;
 use App\Form\MochilaType;
+use App\Services\AuthManager;
+use App\Services\MochilaManager;
+use App\Services\UserPathManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -83,7 +83,7 @@ class mochilaController extends AbstractController {
             return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
         }
         if (!$this->mochilaManager->mochilaExists($id, $parameters['camino'])) {
-            return new JsonResponse(['message' => 'User already hasnt got a backpack for this path'], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return new JsonResponse(['message' => 'User hasnt got a backpack for this path'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         $this->mochilaManager->deleteBackpack($id, $parameters['camino']);
         return $this->json(['message' => 'success']);

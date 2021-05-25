@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Usuario;
+use App\Form\NewUsuarioType;
+use App\Form\UsuarioType;
 use App\Services\AuthManager;
 use App\Services\UserManager;
 use App\Services\UserPathManager;
@@ -11,9 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Form\NewUsuarioType;
-use App\Form\UsuarioType;
-use App\Entity\Usuario;
 
 class authenticationController extends AbstractController {
 

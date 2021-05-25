@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\UsuarioCamino;
+use App\Entity\CaminoEtapa;
+use App\Form\UserPathType;
+use App\Form\PathEtapaType;
 use App\Services\AuthManager;
 use App\Services\CaminosManager;
 use App\Services\UserPathManager;
@@ -11,10 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Form\UserPathType;
-use App\Form\PathEtapaType;
-use App\Entity\UsuarioCamino;
-use App\Entity\CaminoEtapa;
 
 class caminosController extends AbstractController {
 
