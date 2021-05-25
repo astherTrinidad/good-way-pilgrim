@@ -79,6 +79,12 @@ class mochilaController extends AbstractController {
     public function deleteBackpack(Request $request): Response {
         $parameters = json_decode($request->getContent(), true);
         $id = $this->authManager->getIdFromToken($request, $this->getParameter('jwt_secret'));
+        if (!isset($parameters['camino'])) {
+            return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
+        }
+        if (!$this->mochilaManager->mochilaExists($id, $parameters['camino'])) {
+            return new JsonResponse(['message' => 'User already hasnt got a backpack for this path'], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
         $this->mochilaManager->deleteBackpack($id, $parameters['camino']);
         return $this->json(['message' => 'success']);
     }
@@ -112,7 +118,11 @@ class mochilaController extends AbstractController {
      */
     public function editItem(Request $request): Response {
         $parameters = json_decode($request->getContent(), true);
-        $this->mochilaManager->editItem($parameters['id'], $parameters['object'], $parameters['quantity']);
+        if (!isset($parameters['id']) || !isset($parameters['object']) || !isset($parameters['quantity'])) {
+            return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
+        }
+        die();
+        $this->mochilaManager->editItem($parameters['id'], ucwords(strtolower($parameters['object'])), $parameters['quantity']);
         return $this->json(['message' => 'success']);
     }
 
@@ -121,6 +131,9 @@ class mochilaController extends AbstractController {
      */
     public function deleteItem(Request $request): Response {
         $parameters = json_decode($request->getContent(), true);
+        if (!isset($parameters['id'])) {
+            return new JsonResponse(['message' => 'incorrect data recived'], Response::HTTP_BAD_REQUEST);
+        }
         $this->mochilaManager->deleteItem($parameters['id']);
         return $this->json(['message' => 'success']);
     }

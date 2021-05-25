@@ -79,4 +79,16 @@ class MochilaRepository extends ServiceEntityRepository {
         return $db->executeQuery($query2);
     }
 
+    public function editItem($id, $object, $quantity) {
+        $db = $this->em->getConnection();
+        $query = "UPDATE mochila set object = '$object', quantity = $quantity WHERE id = $id";
+        return $db->executeQuery($query);
+    }
+
+    public function deleteItem($id) {
+        $db = $this->em->getConnection();
+        $query = "DELETE FROM mochila WHERE id = $id";
+        return $db->executeQuery($query);
+    }
+
 }

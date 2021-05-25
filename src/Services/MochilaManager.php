@@ -36,12 +36,12 @@ class MochilaManager {
         return $this->mochilaRepository->addItem($idUser, $idCamino, $object, $quantity);
     }
     
-    public function editItem() {
-        
+    public function editItem($id, $object, $quantity) {
+        return $this->mochilaRepository->editItem($id, $object, $quantity);        
     }
     
-    public function deleteItem() {
-        
+    public function deleteItem($id) {
+        return $this->mochilaRepository->deleteItem($id);        
     }
    
 
