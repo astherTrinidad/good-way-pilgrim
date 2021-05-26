@@ -796,7 +796,7 @@ paths:
     delete:
       tags:
       - "mochila"
-      summary: "Edits name or quantity of an item" 
+      summary: "Deletes item by its ID" 
       parameters:
         - name: id
           in: query
