@@ -26,7 +26,7 @@ class LogroUsuarioRepository extends ServiceEntityRepository {
 
     public function getThreeById($id) {
         $db = $this->em->getConnection();
-        $query = "SELECT * FROM logro_usuario WHERE id_usuario = $id ORDER BY date DESC LIMIT 3";
+        $query = "SELECT l.name, l.description, l.slug FROM logro l, logro_usuario lu WHERE l.id=lu.id_logro and lu.id_usuario = $id ORDER BY lu.id DESC LIMIT 3";
         $result = $db->executeQuery($query);
         $achievement = $result->fetchAll();
         return $achievement;

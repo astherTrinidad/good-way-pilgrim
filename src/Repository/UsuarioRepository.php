@@ -13,19 +13,16 @@ use Doctrine\ORM\EntityManagerInterface;
  * @method Usuario[]    findAll()
  * @method Usuario[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UsuarioRepository extends ServiceEntityRepository
-{
+class UsuarioRepository extends ServiceEntityRepository {
 
     private $em;
 
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
-    {
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em) {
         parent::__construct($registry, Usuario::class);
         $this->em = $em;
     }
 
-    public function getOneByEmail($email)
-    {
+    public function getOneByEmail($email) {
 
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('u')->from(Usuario::class, 'u')->where('u.email = :email')->setParameter('email', $email);
@@ -36,8 +33,7 @@ class UsuarioRepository extends ServiceEntityRepository
         return $user[0];
     }
 
-    public function getOneById($id)
-    {
+    public function getOneById($id) {
 
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('u')->from(Usuario::class, 'u')->where('u.id = :id')->setParameter('id', $id);
@@ -48,16 +44,14 @@ class UsuarioRepository extends ServiceEntityRepository
         return $user[0];
     }
 
-    public function deleteOneById($id)
-    {
+    public function deleteOneById($id) {
 
         $db = $this->em->getConnection();
         $query = "DELETE FROM usuario where id = $id ";
         $db->executeQuery($query);
     }
 
-    public function updateOneById($id, $user)
-    {
+    public function updateOneById($id, $user) {
 
         $db = $this->em->getConnection();
 
@@ -80,4 +74,5 @@ class UsuarioRepository extends ServiceEntityRepository
 
         return $this->getOneById($id);
     }
+
 }

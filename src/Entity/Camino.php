@@ -33,16 +33,12 @@ class Camino
      * @ORM\Column(type="string", length=30, nullable=false)
      */
     private $finish;
+    
 
     /**
      * @ORM\Column(type="integer")
      */
     private $numEtapas;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $km;
 
     /**
      * @ORM\Column(type="string", length=500)
@@ -125,16 +121,6 @@ class Camino
         return $this;
     }
 
-    public function getKm(): ?float
-    {
-        return $this->km;
-    }
-
-    public function setKm(float $km): self
-    {
-        $this->km = $km;
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
