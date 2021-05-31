@@ -522,7 +522,7 @@ class EtapaDataFixtures extends Fixture
         
         $etapa56 = new Etapa();       
         $etapa56->setStart("Castro Urdiales");
-        $etapa56->setFinish("Lareado");        
+        $etapa56->setFinish("Laredo");        
         $etapa56->setKm(26.6);
         $etapa56->setDescription("Nos despedimos de Castro a lo grande, en la iglesia de Santa María de la Asunción y a orillas del Cantábrico. Por las calles Arturo Dúo Vidal y Silvestre Ochoa salimos a la carretera nacional, donde torcemos a la derecha ascendiendo al Campijo. Nos internamos momentáneamente por parajes de interior, permaneciendo aún dentro de los dominios de Castro Urdiales para desembocar en Laredo, antiguo territorio de los coniscos (antigua tribu cántabra).");  
         $manager->persist($etapa56);
@@ -530,7 +530,7 @@ class EtapaDataFixtures extends Fixture
         $this->setReference(self::ETAPA . 57, $etapa56);
         
         $etapa57 = new Etapa();       
-        $etapa57->setStart("Lareado");
+        $etapa57->setStart("Laredo");
         $etapa57->setFinish("Guemes");        
         $etapa57->setKm(29);
         $etapa57->setDescription("Para todos aquellos que puedan disfrutarlo, el cruzar la ría en barca hacia Santoña será una experiencia única, con unas vistas espectaculares. Los que viajen en invierno tendrán que desviarse por la variante de interior o realizar este tramo en transporte público o privado. Sin embargo, cualquiera de las dos alternativas transcurre por bellos lugares, con mil historias que contar y rodeados de las marismas de Santoña y Noja.");  
