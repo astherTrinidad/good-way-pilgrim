@@ -24,7 +24,7 @@ class MochilaRepository extends ServiceEntityRepository {
 
     public function getMyBackpacks($idUser) {
         $db = $this->em->getConnection();
-        $query = "SELECT c.id, c.name, sum(quantity) as numObjects FROM mochila m, camino c where m.id_camino = c.id and id_usuario = $idUser group by c.id, c.name";
+        $query = "SELECT c.id, c.name, c.slug, sum(quantity) as numObjects FROM mochila m, camino c where m.id_camino = c.id and id_usuario = $idUser group by c.id, c.name";
         $result = $db->executeQuery($query);
         $mochilas = $result->fetchAll();
         return $mochilas;
