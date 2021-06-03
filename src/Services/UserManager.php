@@ -8,23 +8,19 @@ use App\Controller\CoverImageController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
-
-class UserManager
-{
+class UserManager {
 
     private $encoder;
     private $userRepository;
     private $em;
 
-    function __construct(UserPasswordEncoderInterface $encoder, UsuarioRepository $userRepository, EntityManagerInterface $em)
-    {
+    function __construct(UserPasswordEncoderInterface $encoder, UsuarioRepository $userRepository, EntityManagerInterface $em) {
         $this->encoder = $encoder;
         $this->userRepository = $userRepository;
         $this->em = $em;
     }
 
-    public function createUser($parameters)
-    {
+    public function createUser($parameters) {
         $user = new Usuario();
         $user->setName(htmlspecialchars(ucwords(strtolower($parameters['name']))));
         $user->setSurname(htmlspecialchars(ucwords(strtolower($parameters['surname']))));
@@ -38,7 +34,8 @@ class UserManager
         }
 
         if (isset($parameters['picture'])) {
-            $user->setPicture(CoverImageController::saveImageUser($parameters['picture']));
+//          $user->setPicture(CoverImageController::saveImageUser($parameters['picture']));
+            $user->setPicture($parameters['picture']);
         } else {
             $user->setPicture("");
         }
@@ -48,39 +45,34 @@ class UserManager
         return $user;
     }
 
-    public function saveUser($user)
-    {
+    public function saveUser($user) {
         $this->em->persist($user);
         $this->em->flush();
     }
 
-    public function getUser($id)
-    {
+    public function getUser($id) {
         return $this->userRepository->findOneBy([
-            'id' => $id,
+                    'id' => $id,
         ]);
     }
 
-    public function emailExists($email)
-    {
+    public function emailExists($email) {
         return $this->userRepository->findOneBy([
-            'email' => $email,
+                    'email' => $email,
         ]);
     }
 
-    public function deleteUser($id)
-    {
+    public function deleteUser($id) {
 
         return $this->userRepository->deleteOneById($id);
     }
 
-    public function updateUser($id, $user)
-    {
+    public function updateUser($id, $user) {
         return $this->userRepository->updateOneById($id, $user);
     }
 
-    public function getOneByIdUser($userId)
-    {
+    public function getOneByIdUser($userId) {
         return $this->userRepository->getOneById($userId);
     }
+
 }
