@@ -44,6 +44,11 @@ class Camino
      * @ORM\Column(type="string", length=500)
      */
     private $description;
+    
+    /**
+     * @ORM\Column(type="string", length=30, nullable=false)
+     */
+    private $slug;
 
     /**
      * Un camino tiene muchos usuarioCaminos
@@ -132,8 +137,16 @@ class Camino
         $this->description = $description;
         return $this;
     }
+    
+    function getSlug() {
+        return $this->slug;
+    }
 
-    /**
+    function setSlug($slug): void {
+        $this->slug = $slug;
+    }
+
+        /**
      * @return UsuarioCamino[]
      */
     public function getUserCaminos()

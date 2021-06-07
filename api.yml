@@ -333,7 +333,7 @@ paths:
                 type: array
                 items:
                   type: "object"
-                example: [{"id":"41","name":"Camino Franc\u00e9s","num_etapas":"33","description":"El Camino Franc\u00e9s es el Camino de Santiago de mayor relevancia hist\u00f3rica...","start":"Saint Jean de Pied de Port","finish":"Santiago de Compostela","km":"766.2", "etapas":[]},{"id":"42","name":"Camino Primitivo","num_etapas":"14","description":"El Camino Primitivo es el Camino de Santiago que desde Oviedo...","start":"Oviedo","finish":"Santiago de Compostela","km":"307.8", "etapas":[]}] 
+                example: [{"id":"41","name":"Camino Franc\u00e9s","num_etapas":"33","description":"El Camino Franc\u00e9s es el Camino de Santiago de mayor relevancia hist\u00f3rica...","start":"Saint Jean de Pied de Port","finish":"Santiago de Compostela", "slug":"camino-frances", "km":"766.2", "etapas":[]},{"id":"42","name":"Camino Primitivo","num_etapas":"14","description":"El Camino Primitivo es el Camino de Santiago que desde Oviedo...","start":"Oviedo","finish":"Santiago de Compostela", "slug":"camino-primitivo","km":"307.8", "etapas":[]}] 
  
   /pri/myPaths:
     get:
@@ -618,7 +618,7 @@ paths:
                 type: array
                 items:
                   type: "object"
-                example: [{"id":"123","name":"Camino Francés","numObjects":"16"}, {"id":"124","name":"Camino Primitivo","numObjects":"9"}] 
+                example: [{"id":"123","name":"Camino Francés", "slug":"camino-frances", "numObjects":"16"}, {"id":"124","name":"Camino Primitivo", "slug":"camino-primitivo","numObjects":"9"}] 
   /pri/InfoBackpack:
     get:
       tags:
@@ -796,7 +796,7 @@ paths:
     delete:
       tags:
       - "mochila"
-      summary: "Edits name or quantity of an item" 
+      summary: "Deletes item by its ID" 
       parameters:
         - name: id
           in: query

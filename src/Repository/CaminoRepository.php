@@ -24,7 +24,7 @@ class CaminoRepository extends ServiceEntityRepository {
 
     public function getAll() {
         $db = $this->em->getConnection();
-        $query = "select c.id, c.name, c.num_etapas, c.description , c.start, c.finish, round(sum(km), 1) as km from camino c, camino_etapa ce, etapa e
+        $query = "select c.id, c.name, c.num_etapas, c.description , c.start, c.finish, c.slug, round(sum(km), 1) as km from camino c, camino_etapa ce, etapa e
         where c.id = ce.id_camino and ce.id_etapa = e.id group by c.id ;";
         $result = $db->executeQuery($query);
         $caminos = $result->fetchAll();
