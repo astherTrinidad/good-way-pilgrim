@@ -20,19 +20,20 @@ class Camino
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=false)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=false)
      */
     private $start;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=false)
      */
     private $finish;
+    
 
     /**
      * @ORM\Column(type="integer")
@@ -40,14 +41,14 @@ class Camino
     private $numEtapas;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $km;
-
-    /**
      * @ORM\Column(type="string", length=500)
      */
     private $description;
+    
+    /**
+     * @ORM\Column(type="string", length=30, nullable=false)
+     */
+    private $slug;
 
     /**
      * Un camino tiene muchos usuarioCaminos
@@ -125,16 +126,6 @@ class Camino
         return $this;
     }
 
-    public function getKm(): ?float
-    {
-        return $this->km;
-    }
-
-    public function setKm(float $km): self
-    {
-        $this->km = $km;
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
@@ -146,8 +137,16 @@ class Camino
         $this->description = $description;
         return $this;
     }
+    
+    function getSlug() {
+        return $this->slug;
+    }
 
-    /**
+    function setSlug($slug): void {
+        $this->slug = $slug;
+    }
+
+        /**
      * @return UsuarioCamino[]
      */
     public function getUserCaminos()

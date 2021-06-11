@@ -61,15 +61,15 @@ paths:
                     description: User password
                     example: "Password1"
                 example: {'id': '1','name': 'Irene','surname': 'Sánchez', 'email': 'irene@gmail.com', 'password': 'Password1'}
-        "401":
+        "400":
           description: "Invalid input"
           content:
             application/json:
               schema:
                 type: string
-                example: {"message":"password not valid"}
+                example: {"message":"Incorrect data recived"}
         "422":
-          description: "Invalid input"
+          description: "Unable to process the contained instructions"
           content:
             application/json:
               schema:
@@ -112,6 +112,13 @@ paths:
                     description: personal token
                     example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
                 example: {'message': 'success','token': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'}
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
         "401":
           description: "Unauthorized"
           content:
@@ -130,10 +137,10 @@ paths:
           content:
             application/json:
               schema:
-                type: array
+                type: object
                 items:
                   type: "object"
-                example: [{"id":450,"name":"Javi","surname":"Carrillo","email":"javichu@gmail.com","picture":"","achievements":[{"id":"186","id_logro":"620","id_usuario":"450","date":"2020-02-05"},{"id":"188","id_logro":"622","id_usuario":"450","date":"2020-02-05"},{"id":"187","id_logro":"617","id_usuario":"450","date":"2019-06-23"}],"paths":[{"id":"114","id_usuario":"450","id_camino":"191","start_date":"2021-01-01","finish_date":"2021-01-15","status":"Completed"},{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}],"activePath":{"id":"115","id_usuario":"450","id_camino":"192","start_date":"2021-04-01","finish_date":null,"status":"Active"}}]
+                example: {"name":"Irene","surname":"S\u00e1nchez","email":"irene.sanchez@hotmail.com","picture":"","achievements":[{"name":"El glot\u00f3n","description":"Te das un homenaje de comida t\u00edpica","slug":"el-gloton"},{"name":"El sociable","description":"Haces nuevos amigos","slug":"el-sociable"},{"name":"El peregrino","description":"50km. recorridos","slug":"el-peregrino"}],"paths":2,"km":"419.3"}
   /pri/editProfile:
     put:
       tags:
@@ -219,65 +226,6 @@ paths:
               schema:
                 type: string
                 example: {"message":"success"}
-  /pri/showUsers:
-    get:
-      tags:
-      - "user"
-      summary: "Show users whose name matches with the string given"
-      parameters:
-        - name: string
-          in: query
-          required: true
-          schema:
-            type: string
-            example: 'javi'
-      responses:
-        "200":
-          description: "Users found"
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: "object"
-                example: [{"id":"60","name":"Javier","surname":"Carrillo", "picture":null},{"id":"61","name":"Javi","surname":"Camacho", "picture":null}]
-        "422":
-          description: "Invalid input"
-          content:
-            application/json:
-              schema:
-                type: string
-                example: {"message":"no results found"}
-  /pri/showOtherProfile:
-    get:
-      tags:
-      - "user"
-      summary: "Shows information of the selected user"
-      parameters:
-        - name: id
-          in: query
-          required: true
-          schema:
-            type: integer
-            example: 450
-      responses:
-        "200":
-          description: "Shows name, surname and picture, number of achievements and 3 of them in detail, number of paths, active path and total km"
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: "object"
-                example: [{"id":109,"name":"Asther","surname":"Trinidad Mora","picture":"asther.jpg","totalAchievements":2,"achievements":[{"id":"33","id_logro":"55","id_usuario":"109","date":"2020-02-05"},{"id":"32","id_logro":"50","id_usuario":"109","date":"2018-12-30"}],"paths":2,"activePath":null,"km":"307.8"}]
-  /pri/csv_download:
-    get:
-      tags:
-      - "camino"
-      summary: "Downloads csv file with caminos' data"
-      responses:
-        "200":
-          description: "File downloaded"
   /pri/AllAchievements:
     get:
       tags:
@@ -309,16 +257,16 @@ paths:
                   type: "object"
                 example: [{"id":"19","id_logro":"36","id_usuario":"76","date":"2018-12-30"},{"id":"20","id_logro":"41","id_usuario":"76","date":"2020-02-05"}]
   /pri/addAchievement:
-    get:
+    put:
       tags:
       - "logros"
       summary: "Adds user achivement by id"      
       parameters:
-        - name: id_logro
+        - name: achievement
           in: query
           required: true
           schema:
-            type: string
+            type: integer
         - name: date
           in: query
           required: true
@@ -332,8 +280,34 @@ paths:
               schema:
                 type: string
                 example: {"message":"success"}
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+  /pri/deleteAchievement:
+    delete:
+      tags:
+      - "logros"
+      summary: "Deletes user achivement by id"      
+      parameters:
+        - name: achievement
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Achivement removed"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
   /pri/deleteAchievements:
-    get:
+    delete:
       tags:
       - "logros"
       summary: "Resets user achievements"
@@ -345,5 +319,506 @@ paths:
               schema:
                 type: string
                 example: {"message":"success"}
+  /pri/allPaths:
+    get:
+      tags:
+      - "camino"
+      summary: "Returns all paths data"
+      responses:
+        "200":
+          description: "Returns an array with an object for each path"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":"41","name":"Camino Franc\u00e9s","num_etapas":"33","description":"El Camino Franc\u00e9s es el Camino de Santiago de mayor relevancia hist\u00f3rica...","start":"Saint Jean de Pied de Port","finish":"Santiago de Compostela", "slug":"camino-frances", "km":"766.2", "etapas":[]},{"id":"42","name":"Camino Primitivo","num_etapas":"14","description":"El Camino Primitivo es el Camino de Santiago que desde Oviedo...","start":"Oviedo","finish":"Santiago de Compostela", "slug":"camino-primitivo","km":"307.8", "etapas":[]}] 
+ 
+  /pri/myPaths:
+    get:
+      tags:
+      - "camino"
+      summary: "Returns user paths data"
+      responses:
+        "200":
+          description: "Returns an array with an object for each path"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":"118","name":"Camino Franc\u00e9s","status":"Completed","start_date":"2021-01-01","finish_date":"2021-01-15","etapas":"33"},{"id":"119","name":"Camino Primitivo","status":"Archived","start_date":"2021-04-01","finish_date":null,"etapas":"13"}] 
+  /pri/getActivePath:
+    get:
+      tags:
+      - "camino"
+      summary: "Returns user active path if it exists"
+      responses:
+        "200":
+          description: "Returns an an object with all the info about user active path including etapas"
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  type: "object"
+                example: {"id": "46", "name": "Camino Francés", "num_etapas": "33", "description": "...", "start": "Saint Jean de Pied de Port",  "finish": "Santiago de Compostela", "etapas": [
+        {
+            "id": "988",
+            "km": "24.2",
+            "description": "...",
+            "start": "Saint Jean Pied de Port",
+            "finish": "Roncesvalles"
+        },
+        {
+            "id": "989",
+            "km": "21.4",
+            "description": "...",
+            "start": "Roncesvalles",
+            "finish": "Zubiri"
+        }]}
+
+  /pri/getEtapasRealizadas:
+    get:
+      tags:
+      - "camino"
+      summary: "Devuelve las etapas realizadas por un un usuario en un camino concreto"     
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Returns an array of etapas"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [
+    {
+        "id": "988",
+        "km": "24.2",
+        "description": "...",
+        "start": "Saint Jean Pied de Port",
+        "finish": "Roncesvalles"
+    },
+    {
+        "id": "989",
+        "km": "21.4",
+        "description": "...",
+        "start": "Roncesvalles",
+        "finish": "Zubiri"
+    },
+    {
+        "id": "990",
+        "km": "20.4",
+        "description": "...",
+        "start": "Zubiri",
+        "finish": "Pamplona"
+    },
+    {
+        "id": "991",
+        "km": "23.9",
+        "description": "...",
+        "start": "Pamplona",
+        "finish": "Puente de la Reina"
+    }
+]
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+  /pri/addActivePath:
+    post:
+      tags:
+      - "camino"
+      summary: "If there isn't an active path it adds the one given to the DB"     
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: start_date
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Active path added"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+        "422":
+          description: "Unable to process the contained instructions"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"User already has an active path || User already has this path"}
+  /pri/archivePath:
+    put:
+      tags:
+      - "camino"
+      summary: "Archives a path. User can reactivate it later"     
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Path archived"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+  /pri/finishPath:
+    put:
+      tags:
+      - "camino"
+      summary: "Marks a path as finished"     
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: finish_date
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Path finished"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+  /pri/reactivatePath:
+    put:
+      tags:
+      - "camino"
+      summary: "If there isn't an active path it reactivates the one given"     
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Path reactivated"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+        "422":
+          description: "Unable to process the contained instructions"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"User already has an active path"}
+  /pri/addEtapa:
+    post:
+      tags:
+      - "camino"
+      summary: "It adds a Etapa on a specific path for a user"     
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: etapa
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Etapa added"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"}
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}                
+  /pri/csv_download:
+    get:
+      tags:
+      - "camino"
+      summary: "Downloads csv file with caminos' data"
+      responses:
+        "200":
+          description: "File downloaded"
+  /pri/MyBackpacks:
+    get:
+      tags:
+      - "mochila"
+      summary: "Returns user backpacks data, including the name of the path and amount of items stored"
+      responses:
+        "200":
+          description: "Returns an array with an object for each backpack"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":"123","name":"Camino Francés", "slug":"camino-frances", "numObjects":"16"}, {"id":"124","name":"Camino Primitivo", "slug":"camino-primitivo","numObjects":"9"}] 
+  /pri/InfoBackpack:
+    get:
+      tags:
+      - "mochila"
+      summary: "Returns backpacks data, which is a list of objects and its quantity"  
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Returns an array with an object for each object and its quantity"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: "object"
+                example: [{"id":"601","object":"chanclas","quantity":"1"},{"id":"602","object":"patal\u00f3n","quantity":"2"},{"id":"603","object":"chubasquero","quantity":"1"}]
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}  
+  /pri/createBackpack:
+    post:
+      tags:
+      - "mochila"
+      summary: "Checks if it's possible to create a backpack for this user in this path"  
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Returns success if everything is correct"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"} 
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+        "422":
+          description: "Unable to process the contained instructions"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"User hasnt got this path || User already has a backpack for this path"}
+  /pri/deleteBackpack:
+    delete:
+      tags:
+      - "mochila"
+      summary: "Deletes backpack by path id" 
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Backpack deleted"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"} 
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+        "422":
+          description: "Unable to process the contained instructions"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"User hasnt a backpack for this path"}
+  /pri/addItem:
+    put:
+      tags:
+      - "mochila"
+      summary: "Adds an item to the backpack list" 
+      parameters:
+        - name: camino
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: object
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quantity
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Item added"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"} 
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+        "422":
+          description: "Unable to process the contained instructions"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Full backpack"}
+  /pri/editItem:
+    put:
+      tags:
+      - "mochila"
+      summary: "Edits name or quantity of an item" 
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: object
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: quantity
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Item edited"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"} 
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+  /pri/deleteItem:
+    delete:
+      tags:
+      - "mochila"
+      summary: "Deletes item by its ID" 
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "Item deleted"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"success"} 
+        "400":
+          description: "Invalid input"
+          content:
+            application/json:
+              schema:
+                type: string
+                example: {"message":"Incorrect data recived"}
+  
+  
   
 

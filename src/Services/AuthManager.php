@@ -17,12 +17,12 @@ class AuthManager {
         $this->userRepository = $userRepository;
     }
 
-    public function validatePassword($password) {
-        if (!$this->isPartLowercase($password) || !$this->isPartUppercase($password) || strlen($password) < 8) {
-            return false;
-        }
-        return true;
-    }
+//    public function validatePassword($password) {
+//        if (!$this->isPartLowercase($password) || !$this->isPartUppercase($password) || strlen($password) < 8) {
+//            return false;
+//        }
+//        return true;
+//    }
 
     public function checkUserPassword($user, $password) {
         if (!$this->encoder->isPasswordValid($user, $password)) {
@@ -69,12 +69,12 @@ class AuthManager {
         return $user;
     }
     
-    function isPartUppercase($string) {
-        return (bool) preg_match('/[A-Z]/', $string);
-    }
-
-    function isPartLowercase($string) {
-        return (bool) preg_match('/[a-z]/', $string);
-    }
+//    function isPartUppercase($string) {
+//        return (bool) preg_match('/[A-Z]/', $string);
+//    }
+//
+//    function isPartLowercase($string) {
+//        return (bool) preg_match('/[a-z]/', $string);
+//    }
 
 }

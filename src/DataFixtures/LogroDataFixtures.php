@@ -24,7 +24,7 @@ class LogroDataFixtures extends Fixture
         $logro1 = new Logro();
         $logro1->setName("Un paseo");
         $logro1->setDescription("20km. recorridos");
-        $logro1->setSlug("un-pase");
+        $logro1->setSlug("un-paseo");
         $manager->persist($logro1);
         $manager->flush();
         $this->setReference(self::LOGRO . 2, $logro1);
