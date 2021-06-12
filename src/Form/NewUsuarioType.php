@@ -22,7 +22,7 @@ class NewUsuarioType extends AbstractType {
                     'constraints' => [
                         new NotBlank(),
                         new Length(['min' => 8]),
-                        new Regex('/[a-z][A-Z]/')]])
+                        new Regex('/(?=\w*[A-Z])(?=\w*[a-z])/')]])
         ;
     }
 
