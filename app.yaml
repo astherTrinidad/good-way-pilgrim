@@ -1,0 +1,17 @@
+runtime: php
+env: flex
+
+runtime_config:
+  document_root: public
+  front_controller_file: index.php
+  composer_flags: --dev
+
+env_variables:
+    # APP_ENV: "prod"
+  DATABASE_URL: "mysql://root:GWpilgrim@10.84.208.3:3306/goodwaypilgrim"  
+
+automatic_scaling:
+  min_num_instances: 1
+
+beta_settings:
+  cloud_sql_instances: "good-way-pilgrim-back:europe-west1:good-way-pilgrim-v1=tcp:3306"
